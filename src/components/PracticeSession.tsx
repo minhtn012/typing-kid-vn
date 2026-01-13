@@ -2,11 +2,13 @@ import { useState, useEffect } from 'react';
 import TypingArea from './TypingArea';
 import Keyboard from './Keyboard';
 import Hands from './Hands';
+import LessonSidebar from './LessonSidebar';
 import { useTyping } from '../hooks/useTyping';
 import { motion, AnimatePresence } from 'framer-motion';
 import confetti from 'canvas-confetti';
-import { RefreshCw, Trophy, ArrowLeft } from 'lucide-react';
+import { RefreshCw, Trophy, ArrowLeft, List } from 'lucide-react';
 import { LESSON_MODES } from '../constants';
+import { saveResult } from '../utils/storage';
 
 interface PracticeSessionProps {
     initialModeId: string;
@@ -14,11 +16,9 @@ interface PracticeSessionProps {
 }
 
 const PracticeSession: React.FC<PracticeSessionProps> = ({ initialModeId, onBack }) => {
-    // We can allow switching modes inside practice, or just stick to the one selected.
-    // User said "select mode then enter", implying distinct steps.
-    // But keeping the dropdown might be nice. For now, let's respect the initialMode.
-    const [currentModeId, setCurrentModeId] = useState(initialModeId);
+    const [currentModeId] = useState(initialModeId);
     const [lessonIndex, setLessonIndex] = useState(0);
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
     const currentMode = LESSON_MODES.find(m => m.id === currentModeId) || LESSON_MODES[0];
     const text = currentMode.text[lessonIndex];
@@ -52,6 +52,9 @@ const PracticeSession: React.FC<PracticeSessionProps> = ({ initialModeId, onBack
 
     useEffect(() => {
         if (isFinished) {
+            // Save result
+            saveResult(currentModeId, lessonIndex, stats.wpm, stats.accuracy);
+
             confetti({
                 particleCount: 150,
                 spread: 70,
@@ -59,7 +62,7 @@ const PracticeSession: React.FC<PracticeSessionProps> = ({ initialModeId, onBack
                 colors: ['#58a6ff', '#238636', '#f85149']
             });
         }
-    }, [isFinished]);
+    }, [isFinished, currentModeId, lessonIndex, stats.wpm, stats.accuracy]);
 
     const nextLesson = () => {
         if (lessonIndex < currentMode.text.length - 1) {
@@ -73,14 +76,34 @@ const PracticeSession: React.FC<PracticeSessionProps> = ({ initialModeId, onBack
     return (
         <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '20px', minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
 
+            <LessonSidebar
+                isOpen={isSidebarOpen}
+                onClose={() => setIsSidebarOpen(false)}
+                currentMode={currentMode}
+                currentLessonIndex={lessonIndex}
+                onSelectLesson={(index) => {
+                    setLessonIndex(index);
+                    setIsSidebarOpen(false);
+                    // Reset handled by useEffect dependency change
+                }}
+            />
+
             {/* Minimal Header Control */}
-            <div style={{ position: 'absolute', top: '20px', left: '20px', zIndex: 10 }}>
+            <div style={{ position: 'absolute', top: '20px', left: '20px', zIndex: 10, display: 'flex', gap: '10px' }}>
                 <button
                     onClick={onBack}
                     className="glass"
                     style={{ padding: '10px 15px', display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--text-muted)', fontSize: '14px', fontWeight: 'bold' }}
                 >
                     <ArrowLeft size={16} /> Trang chủ
+                </button>
+
+                <button
+                    onClick={() => setIsSidebarOpen(true)}
+                    className="glass"
+                    style={{ padding: '10px 15px', display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--text-main)', fontSize: '14px', fontWeight: 'bold' }}
+                >
+                    <List size={16} /> Danh sách bài
                 </button>
             </div>
 
