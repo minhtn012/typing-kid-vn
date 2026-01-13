@@ -23,7 +23,7 @@ const PracticeSession: React.FC<PracticeSessionProps> = ({ initialModeId, onBack
     const currentMode = LESSON_MODES.find(m => m.id === currentModeId) || LESSON_MODES[0];
     const text = currentMode.text[lessonIndex];
 
-    const { userInput, stats, isFinished, handleKeyDown, reset, currentIndex, currentKeyToPress, currentFinger } = useTyping(text);
+    const { userInput, stats, isFinished, handleKeyDown, reset, currentIndex, currentKeyToPress, currentFinger, telexBuffer } = useTyping(text);
     const [pressedKey, setPressedKey] = useState<string | null>(null);
 
     // Reset when mode or lesson changes
@@ -133,7 +133,7 @@ const PracticeSession: React.FC<PracticeSessionProps> = ({ initialModeId, onBack
                     <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginBottom: '5px', textAlign: 'center' }}>
                         Bài {lessonIndex + 1} / {currentMode.text.length}
                     </div>
-                    <TypingArea text={text} userInput={userInput} currentIndex={currentIndex} />
+                    <TypingArea text={text} userInput={userInput} currentIndex={currentIndex} telexBuffer={telexBuffer} />
                 </div>
 
                 {/* Keyboard and Hands Layout - Centered Stack */}

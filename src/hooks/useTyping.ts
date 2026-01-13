@@ -121,5 +121,6 @@ export const useTyping = (text: string) => {
         currentIndex: userInput.length,
         currentKeyToPress,
         currentFinger,
+        telexBuffer,
     };
 };
