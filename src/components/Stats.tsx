@@ -1,14 +1,13 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Zap, Target, BarChart2 } from 'lucide-react';
+import { Zap, Target } from 'lucide-react';
 
 interface StatsProps {
     wpm: number;
     accuracy: number;
-    isFinished: boolean;
 }
 
-const Stats: React.FC<StatsProps> = ({ wpm, accuracy, isFinished }) => {
+const Stats: React.FC<StatsProps> = ({ wpm, accuracy }) => {
     return (
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '30px' }}>
             <StatCard
