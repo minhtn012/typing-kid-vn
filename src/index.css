@@ -1,0 +1,86 @@
+:root {
+  --bg-color: #0d1117;
+  --surface-color: #161b22;
+  --surface-accent: #21262d;
+  --primary-color: #58a6ff;
+  --secondary-color: #238636;
+  --error-color: #f85149;
+  --text-main: #c9d1d9;
+  --text-muted: #8b949e;
+  --font-family: 'Inter', system-ui, -apple-system, sans-serif;
+
+  /* Finger Colors */
+  --finger-1: #f85149;
+  /* Pinky L */
+  --finger-2: #db6d28;
+  /* Ring L */
+  --finger-3: #d29922;
+  /* Middle L */
+  --finger-4: #238636;
+  /* Index L */
+  --finger-5: #8b949e;
+  /* Thumb L */
+  --finger-6: #8b949e;
+  /* Thumb R */
+  --finger-7: #238636;
+  /* Index R */
+  --finger-8: #d29922;
+  /* Middle R */
+  --finger-9: #db6d28;
+  /* Ring R */
+  --finger-10: #f85149;
+  /* Pinky R */
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  font-family: var(--font-family);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
+.glass {
+  background: rgba(22, 27, 34, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--surface-accent);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-color);
+}
