@@ -6,7 +6,7 @@ import LessonSidebar from './LessonSidebar';
 import { useTyping } from '../hooks/useTyping';
 import { motion, AnimatePresence } from 'framer-motion';
 import confetti from 'canvas-confetti';
-import { RefreshCw, Trophy, ArrowLeft, List } from 'lucide-react';
+import { RefreshCw, Trophy, ArrowLeft, List, ArrowRight } from 'lucide-react';
 import { LESSON_MODES, TELEX_RULES, VNI_RULES } from '../constants';
 import { saveResult } from '../utils/storage';
 
@@ -20,8 +20,18 @@ const PracticeSession: React.FC<PracticeSessionProps> = ({ initialModeId, onBack
     const [lessonIndex, setLessonIndex] = useState(0);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
+    // Custom Mode State
+    const [customText, setCustomText] = useState("");
+    const [isCustomSetupDone, setIsCustomSetupDone] = useState(false);
+    const [tempInput, setTempInput] = useState("");
+
     const currentMode = LESSON_MODES.find(m => m.id === currentModeId) || LESSON_MODES[0];
-    const text = currentMode.text[lessonIndex];
+    const isCustomMode = currentMode.id === 'custom';
+
+    let text = currentMode.text[lessonIndex];
+    if (isCustomMode) {
+        text = isCustomSetupDone ? customText : " ";
+    }
 
     const getRules = () => {
         if (currentMode.inputMethod === 'vni') return VNI_RULES;
@@ -37,9 +47,11 @@ const PracticeSession: React.FC<PracticeSessionProps> = ({ initialModeId, onBack
     // Reset when mode or lesson changes
     useEffect(() => {
         reset();
-    }, [currentModeId, lessonIndex, reset]);
+    }, [currentModeId, lessonIndex, reset, isCustomSetupDone]);
 
     useEffect(() => {
+        if (isCustomMode && !isCustomSetupDone) return;
+
         const onKeydown = (e: KeyboardEvent) => {
             setPressedKey(e.key);
             handleKeyDown(e);
@@ -56,7 +68,7 @@ const PracticeSession: React.FC<PracticeSessionProps> = ({ initialModeId, onBack
             window.removeEventListener('keydown', onKeydown);
             window.removeEventListener('keyup', onKeyup);
         };
-    }, [handleKeyDown]);
+    }, [handleKeyDown, isCustomMode, isCustomSetupDone]);
 
     useEffect(() => {
         if (isFinished) {
@@ -73,11 +85,22 @@ const PracticeSession: React.FC<PracticeSessionProps> = ({ initialModeId, onBack
     }, [isFinished, currentModeId, lessonIndex, stats.wpm, stats.accuracy]);
 
     const nextLesson = () => {
-        if (lessonIndex < currentMode.text.length - 1) {
+        if (isCustomMode) {
+            setIsCustomSetupDone(false);
+            setCustomText("");
+            setTempInput("");
+        } else if (lessonIndex < currentMode.text.length - 1) {
             setLessonIndex((prev) => prev + 1);
         } else {
             setLessonIndex(0);
         }
+        reset();
+    };
+
+    const handleCustomSubmit = () => {
+        if (!tempInput.trim()) return;
+        setCustomText(tempInput);
+        setIsCustomSetupDone(true);
         reset();
     };
 
@@ -106,53 +129,112 @@ const PracticeSession: React.FC<PracticeSessionProps> = ({ initialModeId, onBack
                     <ArrowLeft size={16} /> Trang chủ
                 </button>
 
-                <button
-                    onClick={() => setIsSidebarOpen(true)}
-                    className="glass"
-                    style={{ padding: '10px 15px', display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--text-main)', fontSize: '14px', fontWeight: 'bold' }}
-                >
-                    <List size={16} /> Danh sách bài
-                </button>
+                {!isCustomMode && (
+                    <button
+                        onClick={() => setIsSidebarOpen(true)}
+                        className="glass"
+                        style={{ padding: '10px 15px', display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--text-main)', fontSize: '14px', fontWeight: 'bold' }}
+                    >
+                        <List size={16} /> Danh sách bài
+                    </button>
+                )}
             </div>
 
             <div style={{ position: 'absolute', top: '20px', right: '20px', display: 'flex', gap: '10px', alignItems: 'center', zIndex: 10 }}>
-                <div className="glass" style={{ padding: '0 10px', display: 'flex', alignItems: 'center', gap: '5px' }}>
-                    <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>WPM: <strong style={{ color: 'var(--text-main)' }}>{stats.wpm}</strong></span>
-                </div>
+                {(isCustomMode && !isCustomSetupDone) ? null : (
+                    <>
+                        <div className="glass" style={{ padding: '0 10px', display: 'flex', alignItems: 'center', gap: '5px' }}>
+                            <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>WPM: <strong style={{ color: 'var(--text-main)' }}>{stats.wpm}</strong></span>
+                        </div>
 
-                <div className="glass" style={{ padding: '0 10px', display: 'flex', alignItems: 'center', gap: '5px' }}>
-                    <span style={{ fontSize: '12px', fontWeight: 'bold', color: 'var(--primary-color)' }}>{currentMode.name}</span>
-                </div>
+                        <div className="glass" style={{ padding: '0 10px', display: 'flex', alignItems: 'center', gap: '5px' }}>
+                            <span style={{ fontSize: '12px', fontWeight: 'bold', color: 'var(--primary-color)' }}>{currentMode.name}</span>
+                        </div>
 
-                <button
-                    onClick={reset}
-                    className="glass"
-                    style={{ padding: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-main)' }}
-                    title="Restart"
-                >
-                    <RefreshCw size={14} />
-                </button>
+                        <button
+                            onClick={reset}
+                            className="glass"
+                            style={{ padding: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-main)' }}
+                            title="Restart"
+                        >
+                            <RefreshCw size={14} />
+                        </button>
+                    </>
+                )}
             </div>
 
             <main style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '30px', width: '100%' }}>
 
-                {/* Typing Area */}
-                <div style={{ width: '100%', maxWidth: '900px' }}>
-                    <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginBottom: '5px', textAlign: 'center' }}>
-                        Bài {lessonIndex + 1} / {currentMode.text.length}
-                    </div>
-                    <TypingArea text={text} userInput={userInput} currentIndex={currentIndex} telexBuffer={telexBuffer} rules={rules} />
-                </div>
+                {isCustomMode && !isCustomSetupDone ? (
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="glass"
+                        style={{ width: '100%', maxWidth: '600px', padding: '30px', display: 'flex', flexDirection: 'column', gap: '20px' }}
+                    >
+                        <h2 style={{ fontSize: '24px', textAlign: 'center' }}>Nhập văn bản của bạn</h2>
+                        <p style={{ textAlign: 'center', color: 'var(--text-muted)' }}>
+                            Dán hoặc nhập văn bản bạn muốn luyện tập vào bên dưới.
+                        </p>
+                        <textarea
+                            value={tempInput}
+                            onChange={(e) => setTempInput(e.target.value)}
+                            placeholder="Nhập văn bản ở đây..."
+                            style={{
+                                width: '100%',
+                                minHeight: '200px',
+                                padding: '15px',
+                                borderRadius: '10px',
+                                border: '1px solid var(--border-color)',
+                                background: 'rgba(255, 255, 255, 0.05)',
+                                color: 'var(--text-main)',
+                                fontSize: '16px',
+                                lineHeight: '1.5',
+                                resize: 'vertical'
+                            }}
+                        />
+                        <button
+                            onClick={handleCustomSubmit}
+                            disabled={!tempInput.trim()}
+                            style={{
+                                padding: '15px',
+                                borderRadius: '10px',
+                                background: 'var(--primary-color)',
+                                color: '#fff',
+                                fontWeight: 'bold',
+                                fontSize: '16px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                gap: '10px',
+                                opacity: !tempInput.trim() ? 0.5 : 1,
+                                cursor: !tempInput.trim() ? 'not-allowed' : 'pointer'
+                            }}
+                        >
+                            Bắt đầu luyện tập <ArrowRight size={18} />
+                        </button>
+                    </motion.div>
+                ) : (
+                    <>
+                        {/* Typing Area */}
+                        <div style={{ width: '100%', maxWidth: '900px' }}>
+                            <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginBottom: '5px', textAlign: 'center' }}>
+                                {isCustomMode ? 'Bài tập tùy chỉnh' : `Bài ${lessonIndex + 1} / ${currentMode.text.length}`}
+                            </div>
+                            <TypingArea text={text} userInput={userInput} currentIndex={currentIndex} telexBuffer={telexBuffer} rules={rules} />
+                        </div>
 
-                {/* Keyboard and Hands Layout - Centered Stack */}
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px', width: '100%' }}>
-                    <div style={{ position: 'relative' }}>
-                        <Keyboard targetKey={currentKeyToPress} pressedKey={pressedKey} />
-                    </div>
-                    <div style={{ width: '100%', maxWidth: '800px' }}>
-                        <Hands activeFinger={currentFinger} />
-                    </div>
-                </div>
+                        {/* Keyboard and Hands Layout - Centered Stack */}
+                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px', width: '100%' }}>
+                            <div style={{ position: 'relative' }}>
+                                <Keyboard targetKey={currentKeyToPress} pressedKey={pressedKey} />
+                            </div>
+                            <div style={{ width: '100%', maxWidth: '800px' }}>
+                                <Hands activeFinger={currentFinger} />
+                            </div>
+                        </div>
+                    </>
+                )}
 
                 <AnimatePresence>
                     {isFinished && (
@@ -201,7 +283,7 @@ const PracticeSession: React.FC<PracticeSessionProps> = ({ initialModeId, onBack
                                         onClick={nextLesson}
                                         style={{ flex: 1, padding: '15px', borderRadius: '10px', background: 'var(--primary-color)', color: '#fff', fontWeight: 'bold', fontSize: '16px' }}
                                     >
-                                        Bài tiếp theo
+                                        {isCustomMode ? 'Nhập bài mới' : 'Bài tiếp theo'}
                                     </button>
                                 </div>
                             </div>
@@ -209,7 +291,7 @@ const PracticeSession: React.FC<PracticeSessionProps> = ({ initialModeId, onBack
                     )}
                 </AnimatePresence>
             </main>
-        </div>
+        </div >
     );
 };
 

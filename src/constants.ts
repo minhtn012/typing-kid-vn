@@ -293,6 +293,12 @@ export const LESSON_MODES = [
       "Công nghệ giúp cuộc sống trở nên dễ dàng và thuận tiện hơn.",
       "Hãy kiên trì, thành công sẽ đến với những người nỗ lực không ngừng.",
       "Tôi yêu Việt Nam",
-    ]
+    ],
+  },
+  {
+    id: 'custom',
+    name: 'Tự do: Nhập văn bản riêng',
+    inputMethod: 'basic',
+    text: [] // Dynamic text
   }
 ];
