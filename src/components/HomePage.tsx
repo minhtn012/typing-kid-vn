@@ -141,7 +141,7 @@ const HomePage: React.FC<HomePageProps> = ({ onSelectMode }) => {
             </main>
 
             <footer style={{ marginTop: 'auto', paddingTop: '60px', color: 'var(--text-muted)', fontSize: '14px' }}>
-                Made with ❤️ by Antigravity
+                Sản phẩm của Kamy Tech
             </footer>
         </div>
     );
