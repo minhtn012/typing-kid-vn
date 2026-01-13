@@ -10,7 +10,7 @@ interface TypingStats {
     endTime: number | null;
 }
 
-export const useTyping = (text: string) => {
+export const useTyping = (text: string, rules: Record<string, string[]> = TELEX_RULES) => {
     const [userInput, setUserInput] = useState('');
     const [telexBuffer, setTelexBuffer] = useState<string[]>([]);
     const [stats, setStats] = useState<TypingStats>({
@@ -55,7 +55,7 @@ export const useTyping = (text: string) => {
 
         const key = e.key;
         const targetChar = text[userInput.length];
-        const rules = TELEX_RULES[targetChar.toLowerCase()];
+        const rulesForChar = rules[targetChar.toLowerCase()];
 
         // Handle backspace
         if (key === 'Backspace') {
@@ -70,11 +70,11 @@ export const useTyping = (text: string) => {
         // Ignore special keys
         if (key.length > 1) return;
 
-        if (rules) {
-            const nextInSequence = rules[telexBuffer.length];
+        if (rulesForChar) {
+            const nextInSequence = rulesForChar[telexBuffer.length];
             if (key.toLowerCase() === nextInSequence) {
                 const newBuffer = [...telexBuffer, key.toLowerCase()];
-                if (newBuffer.length === rules.length) {
+                if (newBuffer.length === rulesForChar.length) {
                     setUserInput((prev) => prev + targetChar);
                     setTelexBuffer([]);
                     setStats((prev) => ({ ...prev, correctChars: prev.correctChars + 1 }));
@@ -92,7 +92,7 @@ export const useTyping = (text: string) => {
                 setStats((prev) => ({ ...prev, errorChars: prev.errorChars + 1 }));
             }
         }
-    }, [text, userInput.length, isFinished, telexBuffer]);
+    }, [text, userInput.length, isFinished, telexBuffer, rules]);
 
     const reset = useCallback(() => {
         setUserInput('');
@@ -108,7 +108,7 @@ export const useTyping = (text: string) => {
     }, []);
 
     const currentTargetChar = text[userInput.length] || '';
-    const currentRules = TELEX_RULES[currentTargetChar.toLowerCase()];
+    const currentRules = rules[currentTargetChar.toLowerCase()];
     const currentKeyToPress = currentRules ? currentRules[telexBuffer.length] : currentTargetChar.toLowerCase();
     const currentFinger = FINGER_MAP[currentKeyToPress] || null;
 

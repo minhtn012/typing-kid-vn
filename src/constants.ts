@@ -68,6 +68,76 @@ export const TELEX_RULES: Record<string, string[]> = {
   'đ': ['d', 'd'],
 };
 
+export const VNI_RULES: Record<string, string[]> = {
+  'á': ['a', '1'],
+  'à': ['a', '2'],
+  'ả': ['a', '3'],
+  'ã': ['a', '4'],
+  'ạ': ['a', '5'],
+  'â': ['a', '6'],
+  'ấ': ['a', '6', '1'],
+  'ầ': ['a', '6', '2'],
+  'ẩ': ['a', '6', '3'],
+  'ẫ': ['a', '6', '4'],
+  'ậ': ['a', '6', '5'],
+  'ă': ['a', '8'],
+  'ắ': ['a', '8', '1'],
+  'ằ': ['a', '8', '2'],
+  'ẳ': ['a', '8', '3'],
+  'ẵ': ['a', '8', '4'],
+  'ặ': ['a', '8', '5'],
+  'é': ['e', '1'],
+  'è': ['e', '2'],
+  'ẻ': ['e', '3'],
+  'ẽ': ['e', '4'],
+  'ẹ': ['e', '5'],
+  'ê': ['e', '6'],
+  'ế': ['e', '6', '1'],
+  'ề': ['e', '6', '2'],
+  'ể': ['e', '6', '3'],
+  'ễ': ['e', '6', '4'],
+  'ệ': ['e', '6', '5'],
+  'í': ['i', '1'],
+  'ì': ['i', '2'],
+  'ỉ': ['i', '3'],
+  'ĩ': ['i', '4'],
+  'ị': ['i', '5'],
+  'ó': ['o', '1'],
+  'ò': ['o', '2'],
+  'ỏ': ['o', '3'],
+  'õ': ['o', '4'],
+  'ọ': ['o', '5'],
+  'ô': ['o', '6'],
+  'ố': ['o', '6', '1'],
+  'ồ': ['o', '6', '2'],
+  'ổ': ['o', '6', '3'],
+  'ỗ': ['o', '6', '4'],
+  'ộ': ['o', '6', '5'],
+  'ơ': ['o', '7'],
+  'ớ': ['o', '7', '1'],
+  'ờ': ['o', '7', '2'],
+  'ở': ['o', '7', '3'],
+  'ỡ': ['o', '7', '4'],
+  'ợ': ['o', '7', '5'],
+  'ú': ['u', '1'],
+  'ù': ['u', '2'],
+  'ủ': ['u', '3'],
+  'ũ': ['u', '4'],
+  'ụ': ['u', '5'],
+  'ư': ['u', '7'],
+  'ứ': ['u', '7', '1'],
+  'ừ': ['u', '7', '2'],
+  'ử': ['u', '7', '3'],
+  'ữ': ['u', '7', '4'],
+  'ự': ['u', '7', '5'],
+  'ý': ['y', '1'],
+  'ỳ': ['y', '2'],
+  'ỷ': ['y', '3'],
+  'ỹ': ['y', '4'],
+  'ỵ': ['y', '5'],
+  'đ': ['d', '9'],
+};
+
 export const FINGER_MAP: Record<string, number> = {
   'q': 1, 'a': 1, 'z': 1, '1': 1, '`': 1, 'tab': 1, 'capslock': 1, 'shift': 1,
   'w': 2, 's': 2, 'x': 2, '2': 2,
@@ -114,6 +184,7 @@ export const LESSON_MODES = [
   {
     id: 'basic_home',
     name: 'Cơ bản: Hàng phím cơ sở',
+    inputMethod: 'basic',
     text: [
       "a s d f j k l ;",
       "a s d f g h j k l ;",
@@ -125,6 +196,7 @@ export const LESSON_MODES = [
   {
     id: 'basic_top',
     name: 'Cơ bản: Hàng phím trên',
+    inputMethod: 'basic',
     text: [
       "q w e r u i o p",
       "q w e r t y u i o p",
@@ -136,6 +208,7 @@ export const LESSON_MODES = [
   {
     id: 'basic_bottom',
     name: 'Cơ bản: Hàng phím dưới',
+    inputMethod: 'basic',
     text: [
       "z x c v m , . /",
       "z x c v b n m , . /",
@@ -146,6 +219,27 @@ export const LESSON_MODES = [
   {
     id: 'vietnamese_telex',
     name: 'Luyện dấu Telex',
+    inputMethod: 'telex',
+    text: [
+      "á à ả ã ạ",
+      "ă ắ ằ ẳ ẵ ặ",
+      "â ấ ầ ẩ ẫ ậ",
+      "é è ẻ ẽ ẹ",
+      "ê ế ề ể ễ ệ",
+      "í ì ỉ ĩ ị",
+      "ó ò ỏ õ ọ",
+      "ô ố ồ ổ ỗ ộ",
+      "ơ ớ ờ ở ỡ ợ",
+      "ú ù ủ ũ ụ",
+      "ư ứ ừ ử ữ ự",
+      "ý ỳ ỷ ỹ ỵ",
+      "đ",
+    ]
+  },
+  {
+    id: 'vietnamese_vni',
+    name: 'Luyện dấu VNI',
+    inputMethod: 'vni',
     text: [
       "á à ả ã ạ",
       "ă ắ ằ ẳ ẵ ặ",
@@ -164,7 +258,21 @@ export const LESSON_MODES = [
   },
   {
     id: 'vietnamese_words',
-    name: 'Từ vựng Tiếng Việt',
+    name: 'Từ vựng Tiếng Việt (Telex)',
+    inputMethod: 'telex',
+    text: [
+      "con cò bé bé nó đậu cành tre",
+      "đi một ngày đàng học một sàng khôn",
+      "bầu ơi thương lấy bí cùng tuy rằng khác giống nhưng chung một giàn",
+      "gần mực thì đen gần đèn thì rạng",
+      "lá lành đùm lá rách",
+      "tiên học lễ hậu học văn",
+    ]
+  },
+  {
+    id: 'vietnamese_words_vni',
+    name: 'Từ vựng Tiếng Việt (VNI)',
+    inputMethod: 'vni',
     text: [
       "con cò bé bé nó đậu cành tre",
       "đi một ngày đàng học một sàng khôn",
@@ -177,12 +285,14 @@ export const LESSON_MODES = [
   {
     id: 'sentences',
     name: 'Câu danh ngôn',
+    inputMethod: 'telex',
     text: [
       "Chúc các bạn luyện gõ mười ngón thật tốt và hiệu quả.",
       "Học đi đôi với hành, luyện tập hàng ngày sẽ giúp bạn tiến bộ.",
       "Tiếng Việt là ngôn ngữ giàu và đẹp, hãy gõ thật chính xác.",
       "Công nghệ giúp cuộc sống trở nên dễ dàng và thuận tiện hơn.",
       "Hãy kiên trì, thành công sẽ đến với những người nỗ lực không ngừng.",
+      "Tôi yêu Việt Nam",
     ]
   }
 ];

@@ -2,18 +2,20 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { TELEX_RULES } from '../constants';
 
+
 interface TypingAreaProps {
     text: string;
     userInput: string;
     currentIndex: number;
     telexBuffer?: string[];
+    rules?: Record<string, string[]>;
 }
 
-const getPartialChar = (keys: string[]): string => {
+const getPartialChar = (keys: string[], rules: Record<string, string[]>): string => {
     if (keys.length === 0) return '';
 
-    // Check if keys match a known Telex rule
-    const ruleMatch = Object.entries(TELEX_RULES).find(([_, ruleKeys]) => {
+    // Check if keys match a known rule
+    const ruleMatch = Object.entries(rules).find(([_, ruleKeys]) => {
         if (ruleKeys.length !== keys.length) return false;
         return ruleKeys.every((k, i) => k === keys[i]);
     });
@@ -27,7 +29,7 @@ const getPartialChar = (keys: string[]): string => {
     return keys.join('');
 };
 
-const TypingArea: React.FC<TypingAreaProps> = ({ text, userInput, currentIndex, telexBuffer = [] }) => {
+const TypingArea: React.FC<TypingAreaProps> = ({ text, userInput, currentIndex, telexBuffer = [], rules = TELEX_RULES }) => {
     return (
         <div className="typing-area glass" style={{ padding: '30px', fontSize: '32px', letterSpacing: '0.02em', lineHeight: '1.6', minHeight: '120px', position: 'relative', maxWidth: '1000px', margin: '0 auto', userSelect: 'none' }}>
             <div style={{ position: 'absolute', top: '10px', right: '15px', fontSize: '12px', color: 'var(--text-muted)', fontWeight: 'bold', textTransform: 'uppercase' }}>
@@ -59,7 +61,7 @@ const TypingArea: React.FC<TypingAreaProps> = ({ text, userInput, currentIndex, 
 
                     // Logic for current character
                     if (index === currentIndex) {
-                        const partialChar = getPartialChar(telexBuffer);
+                        const partialChar = getPartialChar(telexBuffer, rules);
 
                         return (
                             <motion.span
