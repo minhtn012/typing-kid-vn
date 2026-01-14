@@ -27,6 +27,11 @@ const CATEGORIES = [
         id: 'custom',
         title: 'Tự do',
         modeIds: ['custom']
+    },
+    {
+        id: 'game',
+        title: 'Giải trí',
+        modeIds: ['totoro_chase']
     }
 ];
 
@@ -39,7 +44,10 @@ const HomePage: React.FC<HomePageProps> = ({ onSelectMode }) => {
         <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '60px 20px', minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
 
             <header style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '40px', textAlign: 'center' }}>
-                <div style={{ background: 'var(--primary-color)', padding: '20px', borderRadius: '20px', boxShadow: '0 0 30px rgba(88, 166, 255, 0.4)', marginBottom: '30px' }}>
+                <div
+                    aria-hidden="true"
+                    style={{ background: 'var(--primary-color)', padding: '20px', borderRadius: '20px', boxShadow: '0 0 30px rgba(88, 166, 255, 0.4)', marginBottom: '30px' }}
+                >
                     <KeyboardIcon color="white" size={48} />
                 </div>
                 <h1 style={{ fontSize: '48px', fontWeight: '800', letterSpacing: '-0.03em', background: 'linear-gradient(to right, #fff, #8b949e)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', marginBottom: '10px' }}>
@@ -52,13 +60,17 @@ const HomePage: React.FC<HomePageProps> = ({ onSelectMode }) => {
 
             <main style={{ width: '100%' }}>
                 {/* Tabs */}
-                <div style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    gap: '10px',
-                    marginBottom: '40px',
-                    flexWrap: 'wrap'
-                }}>
+                <div
+                    role="tablist"
+                    aria-label="Chế độ luyện tập"
+                    style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        gap: '10px',
+                        marginBottom: '40px',
+                        flexWrap: 'wrap'
+                    }}
+                >
                     {CATEGORIES.map((category) => {
                         const isActive = activeTab === category.id;
                         return (
@@ -78,6 +90,10 @@ const HomePage: React.FC<HomePageProps> = ({ onSelectMode }) => {
                                     boxShadow: isActive ? '0 4px 20px rgba(88, 166, 255, 0.3)' : 'none',
                                     outline: 'none'
                                 }}
+                                role="tab"
+                                aria-selected={isActive}
+                                aria-controls={`panel-${category.id}`}
+                                id={`tab-${category.id}`}
                             >
                                 {category.title}
                             </button>
@@ -89,6 +105,9 @@ const HomePage: React.FC<HomePageProps> = ({ onSelectMode }) => {
                     {activeCategory && (
                         <motion.div
                             key={activeCategory.id}
+                            id={`panel-${activeCategory.id}`}
+                            role="tabpanel"
+                            aria-labelledby={`tab-${activeCategory.id}`}
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.3 }}
@@ -139,6 +158,54 @@ const HomePage: React.FC<HomePageProps> = ({ onSelectMode }) => {
                     )}
                 </div>
             </main>
+
+            {/* AI Search & E-E-A-T Sections */}
+            <div style={{ width: '100%', marginTop: '80px', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '60px' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '60px' }}>
+
+                    {/* FAQ Section */}
+                    <section>
+                        <h2 style={{ fontSize: '24px', fontWeight: 'bold', color: 'var(--text-main)', marginBottom: '30px' }}>Câu hỏi thường gặp</h2>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '25px' }}>
+                            <div>
+                                <h3 style={{ fontSize: '16px', fontWeight: '600', color: 'var(--primary-color)', marginBottom: '10px' }}>Làm thế nào để gõ 10 ngón tiếng việt nhanh nhất?</h3>
+                                <p style={{ fontSize: '14px', color: 'var(--text-muted)', lineHeight: '1.6' }}>
+                                    Bạn cần luyện tập đặt tay đúng vị trí trên hàng phím cơ sở (ASDF - JKL;), gõ không nhìn bàn phím và sử dụng Typing Kid VN đều đặn mỗi ngày.
+                                </p>
+                            </div>
+                            <div>
+                                <h3 style={{ fontSize: '16px', fontWeight: '600', color: 'var(--primary-color)', marginBottom: '10px' }}>Nên dùng kiểu gõ Telex hay VNI?</h3>
+                                <p style={{ fontSize: '14px', color: 'var(--text-muted)', lineHeight: '1.6' }}>
+                                    Telex phổ biến hơn và giúp gõ nhanh hơn trên các thiết bị hiện đại. VNI phù hợp nếu bạn đã quen với việc sử dụng hàng phím số để gõ dấu.
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* About Section (E-E-A-T) */}
+                    <section>
+                        <h2 style={{ fontSize: '24px', fontWeight: 'bold', color: 'var(--text-main)', marginBottom: '30px' }}>Về Typing Kid VN</h2>
+                        <p style={{ fontSize: '14px', color: 'var(--text-muted)', lineHeight: '1.8', marginBottom: '20px' }}>
+                            Typing Kid VN là dự án giáo dục phi lợi nhuận được phát triển bởi <strong>Kamy Tech</strong>,
+                            nhằm mang đến môi trường luyện tập <strong>gõ 10 ngón tiếng việt</strong> miễn phí, an toàn và thú vị cho trẻ em Việt Nam.
+                        </p>
+                        <p style={{ fontSize: '14px', color: 'var(--text-muted)', lineHeight: '1.8' }}>
+                            Chúng tôi tin rằng kỹ năng gõ phím mười ngón là nền tảng quan trọng giúp trẻ làm chủ công nghệ và học tập hiệu quả hơn trong tương lai.
+                        </p>
+                    </section>
+                </div>
+            </div>
+
+            {/* SEO Content (Hidden) */}
+            <section style={{ position: 'absolute', width: '1px', height: '1px', padding: '0', margin: '-1px', overflow: 'hidden', clip: 'rect(0,0,0,0)', border: '0' }}>
+                <h2>Gõ 10 ngón tiếng việt cùng Typing Kid VN</h2>
+                <p>
+                    Chào mừng bạn đến với Typing Kid VN, nền tảng hàng đầu giúp bạn <strong>gõ 10 ngón tiếng việt</strong> nhanh và chính xác nhất.
+                    Chúng tôi cung cấp các bài tập <strong>luyện gõ 10 ngón</strong> từ cơ bản đến nâng cao, hỗ trợ cả kiểu gõ Telex và VNI.
+                    Phần mềm <strong>gõ mười ngón</strong> của chúng tôi được thiết kế đặc biệt cho trẻ em với giao diện sinh động,
+                    giúp việc học <strong>gõ 10 ngón tiếng việt</strong> trở nên thú vị và hiệu quả.
+                </p>
+            </section>
 
             <footer style={{ marginTop: 'auto', paddingTop: '60px', color: 'var(--text-muted)', fontSize: '14px' }}>
                 Sản phẩm của Kamy Tech

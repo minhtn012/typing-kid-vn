@@ -300,5 +300,16 @@ export const LESSON_MODES = [
     name: 'Tự do: Nhập văn bản riêng',
     inputMethod: 'basic',
     text: [] // Dynamic text
+  },
+  {
+    id: 'totoro_chase',
+    name: 'Game: Mie đuổi bắt',
+    inputMethod: 'telex',
+    text: [
+      "một ngày đẹp trời, totoro nhỏ đang dạo chơi trong rừng thì gặp mie.",
+      "mie muốn bắt totoro nhỏ để chơi cùng, nhưng totoro sợ quá chạy mất.",
+      "chạy nhanh đi totoro ơi, mie sắp đuổi kịp rồi đó!",
+      "cố lên nào các bạn nhỏ, gõ thật nhanh để cứu totoro nhé."
+    ]
   }
 ];

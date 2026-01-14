@@ -10,7 +10,7 @@ interface TypingStats {
     endTime: number | null;
 }
 
-export const useTyping = (text: string, rules: Record<string, string[]> = TELEX_RULES) => {
+export const useTyping = (text: string, rules: Record<string, string[]> = TELEX_RULES, options?: { onCorrect?: () => void; onMistake?: () => void }) => {
     const [userInput, setUserInput] = useState('');
     const [telexBuffer, setTelexBuffer] = useState<string[]>([]);
     const [stats, setStats] = useState<TypingStats>({
@@ -78,21 +78,26 @@ export const useTyping = (text: string, rules: Record<string, string[]> = TELEX_
                     setUserInput((prev) => prev + targetChar);
                     setTelexBuffer([]);
                     setStats((prev) => ({ ...prev, correctChars: prev.correctChars + 1 }));
+                    options?.onCorrect?.();
                 } else {
                     setTelexBuffer(newBuffer);
+                    options?.onCorrect?.(); // Correct part of sequence
                 }
             } else {
                 setStats((prev) => ({ ...prev, errorChars: prev.errorChars + 1 }));
+                options?.onMistake?.();
             }
         } else {
             if (key === targetChar) {
                 setUserInput((prev) => prev + key);
                 setStats((prev) => ({ ...prev, correctChars: prev.correctChars + 1 }));
+                options?.onCorrect?.();
             } else {
                 setStats((prev) => ({ ...prev, errorChars: prev.errorChars + 1 }));
+                options?.onMistake?.();
             }
         }
-    }, [text, userInput.length, isFinished, telexBuffer, rules]);
+    }, [text, userInput.length, isFinished, telexBuffer, rules, options]);
 
     const reset = useCallback(() => {
         setUserInput('');

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import HomePage from './components/HomePage';
 import PracticeSession from './components/PracticeSession';
+import GameSession from './components/GameSession';
 import { LESSON_MODES } from './constants';
 
 type ViewMode = 'home' | 'practice';
@@ -22,10 +23,14 @@ function App() {
     <>
       {view === 'home' && <HomePage onSelectMode={handleSelectMode} />}
       {view === 'practice' && (
-        <PracticeSession
-          initialModeId={selectedModeId}
-          onBack={handleBackToHome}
-        />
+        selectedModeId === 'totoro_chase' ? (
+          <GameSession onBack={handleBackToHome} />
+        ) : (
+          <PracticeSession
+            initialModeId={selectedModeId}
+            onBack={handleBackToHome}
+          />
+        )
       )}
     </>
   );
