@@ -5,6 +5,7 @@ import { LESSON_MODES } from '../constants';
 
 interface HomePageProps {
     onSelectMode: (modeId: string) => void;
+    initialTabId?: string;
 }
 
 const CATEGORIES = [
@@ -35,8 +36,21 @@ const CATEGORIES = [
     }
 ];
 
-const HomePage: React.FC<HomePageProps> = ({ onSelectMode }) => {
-    const [activeTab, setActiveTab] = React.useState<string>(CATEGORIES[0].id);
+const HomePage: React.FC<HomePageProps> = ({ onSelectMode, initialTabId }) => {
+    const [activeTab, setActiveTab] = React.useState<string>(() => {
+        if (initialTabId && CATEGORIES.find(c => c.id === initialTabId)) {
+            return initialTabId;
+        }
+        return CATEGORIES[0].id;
+    });
+
+    // Sync tab to URL
+    React.useEffect(() => {
+        const params = new URLSearchParams(window.location.search);
+        params.set('tab', activeTab);
+        const newUrl = `${window.location.pathname}?${params.toString()}`;
+        window.history.replaceState({}, '', newUrl);
+    }, [activeTab]);
 
     const activeCategory = CATEGORIES.find(c => c.id === activeTab);
 
