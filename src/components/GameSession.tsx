@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { useTyping } from '../hooks/useTyping';
 import { TELEX_RULES } from '../constants';
 import TypingArea from './TypingArea';
-import { ArrowLeft, Trophy, Skull } from 'lucide-react';
+import { ArrowLeft, Trophy } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import meiFrame0 from '../assets/mie/mie_frame_0.png';
 import meiFrame1 from '../assets/mie/mie_frame_1.png';
@@ -286,10 +286,31 @@ const GameSession: React.FC<GameSessionProps> = ({ onBack }) => {
                             </>
                         ) : (
                             <>
-                                <Skull size={60} color="#FF595E" style={{ marginBottom: '20px' }} />
-                                <h1 style={{ fontSize: '32px', marginBottom: '10px' }}>Ôi không!</h1>
+                                <div style={{ position: 'relative', height: '120px', width: '120px', margin: '0 auto 20px auto' }}>
+                                    {/* Mie happily catching Totoro */}
+                                    <motion.img
+                                        src={MEI_FRAMES[1]}
+                                        style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                                        animate={{ y: [0, -5, 0] }}
+                                        transition={{ repeat: Infinity, duration: 1 }}
+                                    />
+                                    <motion.img
+                                        src={TOTORO_FRAMES[2]}
+                                        style={{
+                                            position: 'absolute',
+                                            width: '70px',
+                                            height: '70px',
+                                            top: '10px',
+                                            right: '-5px',
+                                            objectFit: 'contain'
+                                        }}
+                                        animate={{ scale: [1, 1.1, 1], rotate: [0, 5, 0] }}
+                                        transition={{ repeat: Infinity, duration: 1.2 }}
+                                    />
+                                </div>
+                                <h1 style={{ fontSize: '32px', marginBottom: '10px', color: '#FFB7C5' }}>Bắt được rồi!</h1>
                                 <p style={{ color: 'var(--text-muted)', marginBottom: '30px' }}>
-                                    Mie đã bắt được Totoro rồi.
+                                    Mie đã bắt được Totoro và bế bé lên thật vui sướng!
                                 </p>
                             </>
                         )}
