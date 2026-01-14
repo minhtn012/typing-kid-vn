@@ -6,4 +6,22 @@
       <changefreq>monthly</changefreq>
       <priority>1.0</priority>
    </url>
+   <url>
+      <loc>https://type.scala.vn/tu-the-go-phim</loc>
+      <lastmod>2026-01-14</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+   </url>
+   <url>
+      <loc>https://type.scala.vn/huong-dan-telex</loc>
+      <lastmod>2026-01-14</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+   </url>
+   <url>
+      <loc>https://type.scala.vn/huong-dan-vni</loc>
+      <lastmod>2026-01-14</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+   </url>
 </urlset>

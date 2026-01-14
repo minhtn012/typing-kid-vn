@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Keyboard as KeyboardIcon, BookOpen, ChevronRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { LESSON_MODES } from '../constants';
 
 interface HomePageProps {
@@ -64,11 +65,18 @@ const HomePage: React.FC<HomePageProps> = ({ onSelectMode, initialTabId }) => {
                 >
                     <KeyboardIcon color="white" size={48} />
                 </div>
-                <h1 style={{ fontSize: '48px', fontWeight: '800', letterSpacing: '-0.03em', background: 'linear-gradient(to right, #fff, #8b949e)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', marginBottom: '10px' }}>
+                <nav style={{ display: 'flex', gap: '20px', marginBottom: '30px', flexWrap: 'wrap', justifyContent: 'center' }}>
+                    <Link to="/tu-the-go-phim" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '14px', fontWeight: '500', transition: 'color 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.color = 'var(--primary-color)'} onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-muted)'}>Tư thế ngồi</Link>
+                    <Link to="/huong-dan-telex" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '14px', fontWeight: '500', transition: 'color 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.color = 'var(--primary-color)'} onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-muted)'}>Cách gõ Telex</Link>
+                    <Link to="/huong-dan-vni" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '14px', fontWeight: '500', transition: 'color 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.color = 'var(--primary-color)'} onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-muted)'}>Cách gõ VNI</Link>
+                </nav>
+                <h1 style={{ fontSize: '1px', opacity: 0, position: 'absolute' }}>Luyện gõ 10 ngón tiếng Việt - Phần mềm gõ mười ngón miễn phí</h1>
+                <div style={{ fontSize: '48px', fontWeight: '800', letterSpacing: '-0.03em', background: 'linear-gradient(to right, #fff, #8b949e)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', marginBottom: '10px' }}>
                     Typing Kid <span style={{ fontSize: '24px', color: 'var(--primary-color)', WebkitTextFillColor: 'initial', fontWeight: '600' }}>VN</span>
-                </h1>
-                <p style={{ color: 'var(--text-muted)', fontSize: '18px', maxWidth: '500px' }}>
-                    Luyện gõ mười ngón Tiếng Việt với phương pháp trực quan và thú vị nhất.
+                </div>
+                <p style={{ color: 'var(--text-muted)', fontSize: '18px', maxWidth: '600px', lineHeight: '1.6' }}>
+                    Nền tảng <strong>luyện gõ 10 ngón tiếng Việt</strong> chuyên sâu.
+                    Học gõ mười ngón nhanh và chuẩn xác với phương pháp trực quan nhất.
                 </p>
             </header>
 
@@ -173,6 +181,57 @@ const HomePage: React.FC<HomePageProps> = ({ onSelectMode, initialTabId }) => {
                 </div>
             </main>
 
+            {/* Instructional Guides Section (AIO/SEO focused) */}
+            <div style={{ width: '100%', marginTop: '40px', background: 'rgba(255, 255, 255, 0.02)', borderRadius: '24px', padding: '40px', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
+                <h2 style={{ fontSize: '32px', fontWeight: 'bold', color: 'var(--text-main)', marginBottom: '40px', textAlign: 'center' }}>
+                    Cẩm nang luyện gõ 10 ngón Tiếng Việt
+                </h2>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                    {/* Part 1: Posture & Placement */}
+                    <Link to="/tu-the-go-phim" className="glass" style={{ padding: '20px 30px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', textDecoration: 'none', transition: 'transform 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.transform = 'translateX(10px)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'translateX(0)'}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+                            <div style={{ background: 'rgba(88, 166, 255, 0.1)', padding: '10px', borderRadius: '12px' }}>
+                                <BookOpen size={20} color="var(--primary-color)" />
+                            </div>
+                            <div>
+                                <h3 style={{ fontSize: '16px', fontWeight: 'bold', color: 'var(--text-main)', marginBottom: '4px' }}>1. Tư thế ngồi & Cách đặt tay</h3>
+                                <p style={{ fontSize: '13px', color: 'var(--text-muted)' }}>Học cách ngồi chuẩn và giải mã bí ẩn gờ nổi trên phím F, J.</p>
+                            </div>
+                        </div>
+                        <ChevronRight size={20} color="var(--text-muted)" />
+                    </Link>
+
+                    {/* Part 2: Telex Rules */}
+                    <Link to="/huong-dan-telex" className="glass" style={{ padding: '20px 30px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', textDecoration: 'none', transition: 'transform 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.transform = 'translateX(10px)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'translateX(0)'}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+                            <div style={{ background: 'rgba(88, 166, 255, 0.1)', padding: '10px', borderRadius: '12px' }}>
+                                <BookOpen size={20} color="var(--primary-color)" />
+                            </div>
+                            <div>
+                                <h3 style={{ fontSize: '16px', fontWeight: 'bold', color: 'var(--text-main)', marginBottom: '4px' }}>2. Hướng dẫn gõ kiểu Telex</h3>
+                                <p style={{ fontSize: '13px', color: 'var(--text-muted)' }}>Làm chủ kiểu gõ phổ biến nhất: s=sắc, f=huyền, r=hỏi...</p>
+                            </div>
+                        </div>
+                        <ChevronRight size={20} color="var(--text-muted)" />
+                    </Link>
+
+                    {/* Part 3: VNI Rules */}
+                    <Link to="/huong-dan-vni" className="glass" style={{ padding: '20px 30px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', textDecoration: 'none', transition: 'transform 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.transform = 'translateX(10px)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'translateX(0)'}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+                            <div style={{ background: 'rgba(88, 166, 255, 0.1)', padding: '10px', borderRadius: '12px' }}>
+                                <BookOpen size={20} color="var(--primary-color)" />
+                            </div>
+                            <div>
+                                <h3 style={{ fontSize: '16px', fontWeight: 'bold', color: 'var(--text-main)', marginBottom: '4px' }}>3. Hướng dẫn gõ kiểu VNI</h3>
+                                <p style={{ fontSize: '13px', color: 'var(--text-muted)' }}>Quy tắc bỏ dấu bằng phím số dành cho người chuyên nghiệp.</p>
+                            </div>
+                        </div>
+                        <ChevronRight size={20} color="var(--text-muted)" />
+                    </Link>
+                </div>
+            </div>
+
             {/* AI Search & E-E-A-T Sections */}
             <div style={{ width: '100%', marginTop: '80px', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '60px' }}>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '60px' }}>
@@ -196,16 +255,23 @@ const HomePage: React.FC<HomePageProps> = ({ onSelectMode, initialTabId }) => {
                         </div>
                     </section>
 
-                    {/* About Section (E-E-A-T) */}
+                    {/* Why Us Section */}
                     <section>
-                        <h2 style={{ fontSize: '24px', fontWeight: 'bold', color: 'var(--text-main)', marginBottom: '30px' }}>Về Typing Kid VN</h2>
-                        <p style={{ fontSize: '14px', color: 'var(--text-muted)', lineHeight: '1.8', marginBottom: '20px' }}>
-                            Typing Kid VN là dự án giáo dục phi lợi nhuận được phát triển bởi <strong>Kamy Tech</strong>,
-                            nhằm mang đến môi trường luyện tập <strong>gõ 10 ngón tiếng việt</strong> miễn phí, an toàn và thú vị cho trẻ em Việt Nam.
-                        </p>
-                        <p style={{ fontSize: '14px', color: 'var(--text-muted)', lineHeight: '1.8' }}>
-                            Chúng tôi tin rằng kỹ năng gõ phím mười ngón là nền tảng quan trọng giúp trẻ làm chủ công nghệ và học tập hiệu quả hơn trong tương lai.
-                        </p>
+                        <h2 style={{ fontSize: '24px', fontWeight: 'bold', color: 'var(--text-main)', marginBottom: '30px' }}>Tại sao chọn chúng tôi?</h2>
+                        <ul style={{ padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '15px' }}>
+                            <li style={{ fontSize: '14px', color: 'var(--text-muted)', display: 'flex', gap: '10px' }}>
+                                <span style={{ color: 'var(--primary-color)' }}>✓</span>
+                                <strong>Hỗ trợ Tiếng Việt tuyệt đối:</strong> Tối ưu riêng cho bảng mã Telex và VNI, điều mà các trang quốc tế thường bỏ qua.
+                            </li>
+                            <li style={{ fontSize: '14px', color: 'var(--text-muted)', display: 'flex', gap: '10px' }}>
+                                <span style={{ color: 'var(--primary-color)' }}>✓</span>
+                                <strong>Nội dung thuần Việt:</strong> Kho bài tập phong phú từ ca dao, tục ngữ đến các thành ngữ Tiếng Việt ý nghĩa.
+                            </li>
+                            <li style={{ fontSize: '14px', color: 'var(--text-muted)', display: 'flex', gap: '10px' }}>
+                                <span style={{ color: 'var(--primary-color)' }}>✓</span>
+                                <strong>Giao diện thân thiện:</strong> Thiết kế hiện đại, giúp việc <strong>luyện gõ 10 ngón</strong> không còn nhàm chán.
+                            </li>
+                        </ul>
                     </section>
                 </div>
             </div>
