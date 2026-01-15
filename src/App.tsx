@@ -6,6 +6,7 @@ import GameSession from './components/GameSession';
 import PostureGuide from './pages/PostureGuide';
 import TelexGuide from './pages/TelexGuide';
 import VniGuide from './pages/VniGuide';
+import FjRidgeGuide from './pages/FjRidgeGuide';
 import { LESSON_MODES } from './constants';
 
 type ViewMode = 'home' | 'practice';
@@ -79,6 +80,7 @@ function App() {
       <Route path="/tu-the-go-phim" element={<PostureGuide />} />
       <Route path="/huong-dan-telex" element={<TelexGuide />} />
       <Route path="/huong-dan-vni" element={<VniGuide />} />
+      <Route path="/bi-mat-phim-f-j" element={<FjRidgeGuide />} />
     </Routes>
   );
 }

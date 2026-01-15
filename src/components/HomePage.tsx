@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Keyboard as KeyboardIcon, BookOpen, ChevronRight } from 'lucide-react';
+import { Keyboard as KeyboardIcon, BookOpen, ChevronRight, Focus } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { LESSON_MODES } from '../constants';
 
@@ -225,6 +225,20 @@ const HomePage: React.FC<HomePageProps> = ({ onSelectMode, initialTabId }) => {
                             <div>
                                 <h3 style={{ fontSize: '16px', fontWeight: 'bold', color: 'var(--text-main)', marginBottom: '4px' }}>3. Hướng dẫn gõ kiểu VNI</h3>
                                 <p style={{ fontSize: '13px', color: 'var(--text-muted)' }}>Quy tắc bỏ dấu bằng phím số dành cho người chuyên nghiệp.</p>
+                            </div>
+                        </div>
+                        <ChevronRight size={20} color="var(--text-muted)" />
+                    </Link>
+
+                    {/* Part 4: F/J Secret */}
+                    <Link to="/bi-mat-phim-f-j" className="glass" style={{ padding: '20px 30px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', textDecoration: 'none', transition: 'transform 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.transform = 'translateX(10px)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'translateX(0)'}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+                            <div style={{ background: 'rgba(52, 211, 153, 0.1)', padding: '10px', borderRadius: '12px' }}>
+                                <Focus size={20} color="#34d399" />
+                            </div>
+                            <div>
+                                <h3 style={{ fontSize: '16px', fontWeight: 'bold', color: 'var(--text-main)', marginBottom: '4px' }}>4. Bí mật của hai phím F và J</h3>
+                                <p style={{ fontSize: '13px', color: 'var(--text-muted)' }}>Tuyệt chiêu để gõ phím nhanh mà không bao giờ cần nhìn xuống.</p>
                             </div>
                         </div>
                         <ChevronRight size={20} color="var(--text-muted)" />
