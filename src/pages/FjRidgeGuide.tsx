@@ -1,7 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ChevronLeft, Focus, Target, Zap } from 'lucide-react';
+import { ChevronLeft, Target, Zap } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import Seo from '../components/Seo';
 
 const FjRidgeGuide: React.FC = () => {
     return (
@@ -10,6 +11,11 @@ const FjRidgeGuide: React.FC = () => {
             animate={{ opacity: 1 }}
             style={{ maxWidth: '800px', margin: '0 auto', padding: '60px 20px', color: 'var(--text-main)' }}
         >
+            <Seo
+                title="Bí mật phím F và J: gõ không nhìn bàn phím | Typing Kid VN"
+                description="Vì sao phím F và J có gờ nổi? Tìm hiểu cách dùng hai phím định vị này để đặt tay đúng và gõ 10 ngón không cần nhìn bàn phím."
+                path="/bi-mat-phim-f-j"
+            />
             <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '5px', color: 'var(--primary-color)', textDecoration: 'none', marginBottom: '30px', fontWeight: 'bold' }}>
                 <ChevronLeft size={20} /> Quay lại trang chủ
             </Link>
@@ -31,50 +37,44 @@ const FjRidgeGuide: React.FC = () => {
             <article style={{ lineHeight: '1.8' }}>
                 <section style={{ marginBottom: '50px' }}>
                     <h2 style={{ fontSize: '24px', color: 'var(--primary-color)', marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                        <Target size={24} /> "Job" của bạn: Gõ mà không cần nhìn
+                        <Target size={24} /> 1. F và J là "Tâm điểm" của mọi chuyển động
                     </h2>
                     <p>
-                        Phần lớn mọi người gặp khó khăn khi học <strong>luyện gõ 10 ngón</strong> vì họ luôn cảm thấy "mất phương hướng" trên bàn phím. Bạn phải cúi xuống nhìn để biết tay mình đang ở đâu, rồi lại ngước lên nhìn màn hình. Việc này làm mất tập trung và gây mỏi cổ.
+                        Hãy tưởng tượng hai phím <strong>F</strong> và <strong>J</strong> là "trạm căn cứ" (Home Base). Mọi phím bấm khác của hai bàn tay đều xoay quanh hai phím này. Đây là bí mật lớn nhất của những người gõ phím chuyên nghiệp:
                     </p>
                     <div style={{ background: 'rgba(255,255,255,0.03)', padding: '25px', borderRadius: '16px', marginTop: '20px', borderLeft: '4px solid var(--primary-color)' }}>
-                        <p style={{ fontStyle: 'italic', color: 'var(--text-muted)' }}>
-                            "Khi tôi bắt đầu viết một ý tưởng quan trọng, tôi muốn ngón tay tự tìm đúng vị trí để dòng suy nghĩ không bị ngắt quãng."
+                        <p style={{ fontWeight: '600', marginBottom: '10px' }}>Quy tắc "Hồi mã thương":</p>
+                        <p style={{ color: 'var(--text-muted)' }}>
+                            Ngay sau khi một ngón tay vươn ra gõ một phím bất kỳ, hãy lập tức đưa ngón trỏ về lại phím <strong>F</strong> (tay trái) hoặc <strong>J</strong> (tay phải). Khi hai ngón trỏ đã nằm đúng vị trí, <strong>tất cả các ngón khác sẽ tự động rơi vào đúng vị trí</strong> của chúng để sẵn sàng gõ từ mới mà không cần suy nghĩ.
                         </p>
                     </div>
                 </section>
 
                 <section style={{ marginBottom: '50px' }}>
                     <h2 style={{ fontSize: '24px', color: 'var(--primary-color)', marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                        <Focus size={24} /> Giải pháp: Hai điểm tựa Tactile
+                        <Zap size={24} /> 2. Ba bước luyện tập "Khai sáng" đôi tay
                     </h2>
                     <p>
-                        Hai cái gờ nổi trên phím <strong>F</strong> và <strong>J</strong> được thiết kế để làm "ngọn hải đăng" cho ngón tay của bạn.
+                        Bí kíp này phát huy sức mạnh tối đa khi bạn đã nhớ sơ bộ vị trí phím. Hãy thực hiện theo lộ trình sau:
                     </p>
-                    <ul style={{ marginTop: '15px', paddingLeft: '20px' }}>
-                        <li style={{ marginBottom: '10px' }}><strong>Ngón trỏ trái:</strong> Luôn đặt vào phím <strong>F</strong>.</li>
-                        <li style={{ marginBottom: '10px' }}><strong>Ngón trỏ phải:</strong> Luôn đặt vào phím <strong>J</strong>.</li>
-                    </ul>
-                    <p>
-                        Khi bạn cảm nhận được hai cái gờ này dưới đầu ngón tay trỏ, bộ não sẽ tự động biết được vị trí của tất cả các phím còn lại mà không cần dùng đến mắt.
-                    </p>
-                </section>
-
-                <section style={{ marginBottom: '50px' }}>
-                    <h2 style={{ fontSize: '24px', color: 'var(--primary-color)', marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                        <Zap size={24} /> Kết quả: Tăng tốc độ gõ vượt trội
-                    </h2>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px' }}>
-                        <div className="glass" style={{ padding: '20px', borderRadius: '12px' }}>
-                            <h3 style={{ fontSize: '16px', color: '#fff', marginBottom: '10px' }}>Tiết kiệm thời gian</h3>
-                            <p style={{ fontSize: '14px', color: 'var(--text-muted)' }}>Giảm 90% thời gian liếc nhìn bàn phím.</p>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', marginTop: '20px' }}>
+                        <div className="glass" style={{ padding: '20px', borderRadius: '12px', display: 'flex', gap: '20px', alignItems: 'flex-start' }}>
+                            <div style={{ background: 'var(--primary-color)', color: '#fff', width: '30px', height: '30px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontWeight: 'bold' }}>1</div>
+                            <div>
+                                <strong>Đặt ngón trỏ làm mốc:</strong> Đặt hai ngón trỏ vào F và J cho đến khi bạn cảm nhận rõ cái gờ nổi. Đây là trạng thái "sẵn sàng" (Home Row).
+                            </div>
                         </div>
-                        <div className="glass" style={{ padding: '20px', borderRadius: '12px' }}>
-                            <h3 style={{ fontSize: '16px', color: '#fff', marginBottom: '10px' }}>Giảm sai sót</h3>
-                            <p style={{ fontSize: '14px', color: 'var(--text-muted)' }}>Tay luôn ở đúng vị trí gốc (Home Row).</p>
+                        <div className="glass" style={{ padding: '20px', borderRadius: '12px', display: 'flex', gap: '20px', alignItems: 'flex-start' }}>
+                            <div style={{ background: 'var(--primary-color)', color: '#fff', width: '30px', height: '30px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontWeight: 'bold' }}>2</div>
+                            <div>
+                                <strong>Gõ theo trí nhớ:</strong> Sử dụng phần <Link to="/?tab=custom" style={{ color: 'var(--primary-color)', fontWeight: 'bold' }}>Gõ tự do</Link>. Cố gắng nhìn thẳng vào màn hình, gõ một từ bất kỳ và ngay lập tức đưa ngón trỏ về cảm nhận 2 cái gờ.
+                            </div>
                         </div>
-                        <div className="glass" style={{ padding: '20px', borderRadius: '12px' }}>
-                            <h3 style={{ fontSize: '16px', color: '#fff', marginBottom: '10px' }}>Bảo vệ sức khỏe</h3>
-                            <p style={{ fontSize: '14px', color: 'var(--text-muted)' }}>Giảm áp lực lên cổ và vai gáy.</p>
+                        <div className="glass" style={{ padding: '20px', borderRadius: '12px', display: 'flex', gap: '20px', alignItems: 'flex-start' }}>
+                            <div style={{ background: 'var(--primary-color)', color: '#fff', width: '30px', height: '30px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontWeight: 'bold' }}>3</div>
+                            <div>
+                                <strong>Tăng tốc với bí kíp:</strong> Khi não bộ đã quen với cảm giác "hồi mã thương", bạn sẽ thấy tốc độ gõ tăng lên vượt trội vì đôi tay không bao giờ bị "mất phương hướng" trên bàn phím.
+                            </div>
                         </div>
                     </div>
                 </section>

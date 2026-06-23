@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ChevronLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import Seo from '../components/Seo';
 
 const PostureGuide: React.FC = () => {
     return (
@@ -10,6 +11,11 @@ const PostureGuide: React.FC = () => {
             animate={{ opacity: 1 }}
             style={{ maxWidth: '800px', margin: '0 auto', padding: '60px 20px', color: 'var(--text-main)' }}
         >
+            <Seo
+                title="Tư thế ngồi & cách đặt tay gõ 10 ngón đúng | Typing Kid VN"
+                description="Hướng dẫn tư thế ngồi và cách đặt tay chuẩn trên hàng phím cơ sở (ASDF - JKL;) để gõ 10 ngón nhanh, đúng và không mỏi tay."
+                path="/tu-the-go-phim"
+            />
             <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '5px', color: 'var(--primary-color)', textDecoration: 'none', marginBottom: '30px', fontWeight: 'bold' }}>
                 <ChevronLeft size={20} /> Quay lại trang chủ
             </Link>

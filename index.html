@@ -5,30 +5,21 @@
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="canonical" href="https://type.scala.vn/" />
 
-  <!-- Primary Meta Tags -->
-  <title>Gõ 10 ngón tiếng việt | Typing Kid VN - Luyện gõ mười ngón miễn phí</title>
-  <meta name="title" content="Gõ 10 ngón tiếng việt | Typing Kid VN - Luyện gõ mười ngón miễn phí" />
-  <meta name="description"
-    content="Website học gõ 10 ngón tiếng việt trực tuyến miễn phí cho trẻ em và người mới bắt đầu. Luyện gõ mười ngón nhanh, chính xác chuẩn Telex và VNI ngay hôm nay!" />
+  <!--
+    Title, description, canonical và og/twitter title|description|url được render
+    động theo TỪNG trang trong React 19 (xem src/components/Seo.tsx) để mỗi trang
+    có metadata riêng. Cố tình KHÔNG đặt <title>/description tĩnh ở đây để tránh
+    trùng lặp thẻ trong <head> (Google render JS nên vẫn nhận đủ metadata).
+  -->
   <meta name="keywords"
     content="gõ 10 ngón tiếng việt, luyện gõ 10 ngón, gõ 10 ngón, typing kid, gõ mười ngón, học gõ phím, telex, vni, luyện gõ nhanh" />
   <meta name="author" content="Kamy Tech" />
 
-  <!-- Open Graph / Facebook / Zalo -->
+  <!-- Open Graph / Twitter: chỉ giữ thuộc tính dùng chung cho mọi trang -->
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://type.scala.vn/" />
-  <meta property="og:title" content="Gõ 10 ngón tiếng việt | Typing Kid VN - Luyện gõ mười ngón" />
-  <meta property="og:description"
-    content="Phần mềm học gõ 10 ngón tiếng việt miễn phí. Bài tập gõ mười ngón trực quan, sinh động." />
   <meta property="og:image" content="https://type.scala.vn/og-image.png" />
-
-  <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image" />
-  <meta property="twitter:url" content="https://type.scala.vn/" />
-  <meta property="twitter:title" content="Gõ 10 ngón tiếng việt | Typing Kid VN" />
-  <meta property="twitter:description" content="Phần mềm học gõ 10 ngón tiếng việt miễn phí cho trẻ em." />
   <meta property="twitter:image" content="https://type.scala.vn/og-image.png" />
 
   <meta name="theme-color" content="#58a6ff" />
@@ -46,12 +37,7 @@
       "price": "0",
       "priceCurrency": "VND"
     },
-    "description": "Phần mềm luyện gõ 10 ngón tiếng việt miễn phí, học gõ mười ngón theo kiểu Telex và VNI.",
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.9",
-      "reviewCount": "120"
-    }
+    "description": "Phần mềm luyện gõ 10 ngón tiếng việt miễn phí, học gõ mười ngón theo kiểu Telex và VNI."
   }
   </script>
   <!-- FAQ Structured Data for AI Overviews -->

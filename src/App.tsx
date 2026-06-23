@@ -7,6 +7,7 @@ import PostureGuide from './pages/PostureGuide';
 import TelexGuide from './pages/TelexGuide';
 import VniGuide from './pages/VniGuide';
 import FjRidgeGuide from './pages/FjRidgeGuide';
+import Seo from './components/Seo';
 import { LESSON_MODES } from './constants';
 
 type ViewMode = 'home' | 'practice';
@@ -59,6 +60,11 @@ function App() {
     <Routes>
       <Route path="/" element={
         <>
+          <Seo
+            title="Gõ 10 ngón tiếng Việt miễn phí | Typing Kid VN"
+            description="Website học gõ 10 ngón tiếng Việt trực tuyến miễn phí cho trẻ em và người mới bắt đầu. Luyện gõ mười ngón nhanh, chính xác chuẩn Telex và VNI."
+            path="/"
+          />
           {view === 'home' && (
             <HomePage
               onSelectMode={handleSelectMode}

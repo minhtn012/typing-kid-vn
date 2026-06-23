@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ChevronLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import Seo from '../components/Seo';
 
 const VniGuide: React.FC = () => {
     return (
@@ -10,6 +11,11 @@ const VniGuide: React.FC = () => {
             animate={{ opacity: 1 }}
             style={{ maxWidth: '800px', margin: '0 auto', padding: '60px 20px', color: 'var(--text-main)' }}
         >
+            <Seo
+                title="Cách gõ VNI tiếng Việt: bảng số dấu chi tiết | Typing Kid VN"
+                description="Hướng dẫn gõ tiếng Việt kiểu VNI: bảng quy tắc dùng phím số để bỏ dấu thanh và dấu mũ, phù hợp người quen gõ phím số."
+                path="/huong-dan-vni"
+            />
             <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '5px', color: 'var(--primary-color)', textDecoration: 'none', marginBottom: '30px', fontWeight: 'bold' }}>
                 <ChevronLeft size={20} /> Quay lại trang chủ
             </Link>

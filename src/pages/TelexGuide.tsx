@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ChevronLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import Seo from '../components/Seo';
 
 const TelexGuide: React.FC = () => {
     return (
@@ -10,6 +11,11 @@ const TelexGuide: React.FC = () => {
             animate={{ opacity: 1 }}
             style={{ maxWidth: '800px', margin: '0 auto', padding: '60px 20px', color: 'var(--text-main)' }}
         >
+            <Seo
+                title="Cách gõ Telex tiếng Việt: bảng dấu & mẹo gõ nhanh | Typing Kid VN"
+                description="Hướng dẫn gõ tiếng Việt kiểu Telex từ A-Z: bảng quy tắc dấu thanh, dấu mũ, cách gõ nhanh và chính xác cho người mới bắt đầu."
+                path="/huong-dan-telex"
+            />
             <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '5px', color: 'var(--primary-color)', textDecoration: 'none', marginBottom: '30px', fontWeight: 'bold' }}>
                 <ChevronLeft size={20} /> Quay lại trang chủ
             </Link>

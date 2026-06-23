@@ -70,7 +70,7 @@ const HomePage: React.FC<HomePageProps> = ({ onSelectMode, initialTabId }) => {
                     <Link to="/huong-dan-telex" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '14px', fontWeight: '500', transition: 'color 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.color = 'var(--primary-color)'} onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-muted)'}>Cách gõ Telex</Link>
                     <Link to="/huong-dan-vni" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '14px', fontWeight: '500', transition: 'color 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.color = 'var(--primary-color)'} onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-muted)'}>Cách gõ VNI</Link>
                 </nav>
-                <h1 style={{ fontSize: '1px', opacity: 0, position: 'absolute' }}>Luyện gõ 10 ngón tiếng Việt - Phần mềm gõ mười ngón miễn phí</h1>
+                <h1 style={{ fontSize: '16px', fontWeight: '700', color: 'var(--primary-color)', margin: '0 0 12px', letterSpacing: '0.01em' }}>Luyện gõ 10 ngón tiếng Việt - Phần mềm gõ mười ngón miễn phí</h1>
                 <div style={{ fontSize: '48px', fontWeight: '800', letterSpacing: '-0.03em', background: 'linear-gradient(to right, #fff, #8b949e)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', marginBottom: '10px' }}>
                     Typing Kid <span style={{ fontSize: '24px', color: 'var(--primary-color)', WebkitTextFillColor: 'initial', fontWeight: '600' }}>VN</span>
                 </div>
