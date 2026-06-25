@@ -3,8 +3,101 @@ import { motion } from 'framer-motion';
 import { ChevronLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Seo from '../components/Seo';
+import JsonLd from '../components/JsonLd';
+import RelatedGuides from '../components/RelatedGuides';
+import { buildGuideSchemas } from '../components/guide-schema';
+import { TELEX_RULES } from '../constants';
+
+/**
+ * Nhóm nguyên âm theo gốc × 5 thanh (sắc, huyền, hỏi, ngã, nặng).
+ * Đây chỉ là cấu trúc TRÌNH BÀY cho bảng tra cứu — phím gõ thực tế vẫn
+ * lấy từ TELEX_RULES (1 nguồn dữ liệu duy nhất ở constants.ts) để tránh lệch.
+ */
+const VOWEL_GROUPS: { base: string; chars: string[] }[] = [
+    { base: 'a', chars: ['á', 'à', 'ả', 'ã', 'ạ'] },
+    { base: 'ă', chars: ['ắ', 'ằ', 'ẳ', 'ẵ', 'ặ'] },
+    { base: 'â', chars: ['ấ', 'ầ', 'ẩ', 'ẫ', 'ậ'] },
+    { base: 'e', chars: ['é', 'è', 'ẻ', 'ẽ', 'ẹ'] },
+    { base: 'ê', chars: ['ế', 'ề', 'ể', 'ễ', 'ệ'] },
+    { base: 'i', chars: ['í', 'ì', 'ỉ', 'ĩ', 'ị'] },
+    { base: 'o', chars: ['ó', 'ò', 'ỏ', 'õ', 'ọ'] },
+    { base: 'ô', chars: ['ố', 'ồ', 'ổ', 'ỗ', 'ộ'] },
+    { base: 'ơ', chars: ['ớ', 'ờ', 'ở', 'ỡ', 'ợ'] },
+    { base: 'u', chars: ['ú', 'ù', 'ủ', 'ũ', 'ụ'] },
+    { base: 'ư', chars: ['ứ', 'ừ', 'ử', 'ữ', 'ự'] },
+    { base: 'y', chars: ['ý', 'ỳ', 'ỷ', 'ỹ', 'ỵ'] },
+];
+
+const TONE_LABELS = ['Sắc', 'Huyền', 'Hỏi', 'Ngã', 'Nặng'];
+
+/**
+ * Sinh dữ liệu bảng: mỗi nguyên âm gốc → phím gõ ra gốc + phím gõ 5 thanh.
+ * Phím gốc của nguyên âm có dấu mũ/móc (â, ă, ê, ô, ơ, ư) lấy từ TELEX_RULES;
+ * nguyên âm thường (a, e, i, o, u, y) thì gõ chính nó.
+ */
+function buildTelexTable() {
+    return VOWEL_GROUPS.map(({ base, chars }) => ({
+        base,
+        baseKeys: (TELEX_RULES[base] ?? [base]).join(''),
+        // Guard ?? để không crash nếu constants.ts đổi và thiếu key ký tự nào đó
+        cells: chars.map((c) => ({ char: c, keys: (TELEX_RULES[c] ?? ['?']).join('') })),
+    }));
+}
+
+/**
+ * FAQ: 1 mảng dùng cho CẢ phần hiển thị lẫn JSON-LD.
+ * Bắt buộc dùng chung nguồn để text trong schema trùng khớp text người dùng thấy
+ * (yêu cầu của Google cho rich result FAQ).
+ */
+const faqs: { q: string; a: string }[] = [
+    {
+        q: 'Bảng gõ dấu Telex đầy đủ gồm những phím nào?',
+        a: 'Telex dùng 5 phím chữ để bỏ dấu thanh: s = sắc, f = huyền, r = hỏi, x = ngã, j = nặng. Các nguyên âm đặc biệt gõ bằng cách lặp hoặc thêm w: aa = â, ee = ê, oo = ô, aw = ă, ow = ơ, uw = ư, dd = đ.',
+    },
+    {
+        q: 'Cách gõ chữ â, ê, ô, ơ, ư trong Telex như thế nào?',
+        a: 'Gõ aa để được â, ee để được ê, oo để được ô. Với dấu móc: ow để được ơ, uw để được ư. Riêng ă gõ là aw. Ví dụ chữ "tươi" gõ là t-u-w-o-w-i.',
+    },
+    {
+        q: 'Kiểu gõ Telex khác VNI ở điểm nào?',
+        a: 'Telex bỏ dấu bằng các phím chữ (s, f, r, x, j) nên không cần rời hàng phím chính, gõ nhanh hơn. VNI bỏ dấu bằng hàng phím số (1, 2, 3, 4, 5). Telex phổ biến hơn, còn VNI hợp với người quen dùng phím số.',
+    },
+    {
+        q: 'Vì sao gõ "oo" lại ra chữ "ô" ngoài ý muốn?',
+        a: 'Vì oo là tổ hợp Telex tạo ra ô. Khi cần hai chữ o liền nhau (ví dụ "xoong"), bạn gõ chữ o thứ hai rồi nhấn lại một phím o nữa để khử dấu mũ, hoặc dùng phím khử dấu của bộ gõ.',
+    },
+    {
+        q: 'Làm sao để gõ Telex trên điện thoại?',
+        a: 'Cài bộ gõ hỗ trợ tiếng Việt như Gboard hoặc Laban Key, vào phần cài đặt bàn phím và chọn kiểu gõ Telex. Sau đó bạn gõ y hệt như trên máy tính: s = sắc, f = huyền, aa = â...',
+    },
+];
+
+const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+};
+
+// Breadcrumb + Article schema cho on-page SEO (sinh từ helper dùng chung)
+const guideSchemas = buildGuideSchemas({
+    path: '/huong-dan-telex',
+    breadcrumbName: 'Cách gõ Telex',
+    headline: 'Hướng dẫn gõ Tiếng Việt kiểu Telex - Cách gõ nhanh nhất',
+    description: 'Hướng dẫn gõ tiếng Việt kiểu Telex từ A-Z: bảng quy tắc dấu thanh, dấu mũ, cách gõ nhanh và chính xác cho người mới bắt đầu.',
+    datePublished: '2026-01-14',
+    dateModified: '2026-06-25',
+});
+
+const cellStyle: React.CSSProperties = { padding: '12px 15px', textAlign: 'center', borderBottom: '1px solid rgba(255,255,255,0.06)' };
+const headStyle: React.CSSProperties = { padding: '14px 15px', textAlign: 'center', background: 'rgba(255,255,255,0.05)', fontWeight: 700 };
 
 const TelexGuide: React.FC = () => {
+    const tableRows = buildTelexTable();
+
     return (
         <motion.div
             initial={{ opacity: 0 }}
@@ -16,6 +109,13 @@ const TelexGuide: React.FC = () => {
                 description="Hướng dẫn gõ tiếng Việt kiểu Telex từ A-Z: bảng quy tắc dấu thanh, dấu mũ, cách gõ nhanh và chính xác cho người mới bắt đầu."
                 path="/huong-dan-telex"
             />
+            {/* FAQPage JSON-LD: sinh từ cùng mảng faqs với phần hiển thị bên dưới */}
+            <JsonLd data={faqSchema} />
+            {/* Breadcrumb + Article JSON-LD */}
+            {guideSchemas.map((s) => (
+                <JsonLd key={s['@type'] as string} data={s} />
+            ))}
+
             <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '5px', color: 'var(--primary-color)', textDecoration: 'none', marginBottom: '30px', fontWeight: 'bold' }}>
                 <ChevronLeft size={20} /> Quay lại trang chủ
             </Link>
@@ -72,11 +172,86 @@ const TelexGuide: React.FC = () => {
                 </section>
 
                 <section style={{ marginBottom: '40px' }}>
-                    <h2 style={{ fontSize: '24px', color: 'var(--primary-color)', marginBottom: '15px' }}>3. Mẹo gõ Telex nhanh</h2>
+                    <h2 style={{ fontSize: '24px', color: 'var(--primary-color)', marginBottom: '15px' }}>3. Bảng gõ Telex đầy đủ (nguyên âm và thanh điệu)</h2>
+                    <p>Bảng tra cứu nhanh cách gõ mọi nguyên âm tiếng Việt với 5 thanh trong kiểu Telex. Cột "Gõ gốc" là cách tạo ra nguyên âm chưa dấu.</p>
+                    <div style={{ overflowX: 'auto', marginTop: '20px', borderRadius: '12px' }}>
+                        <table style={{ width: '100%', minWidth: '560px', borderCollapse: 'collapse', background: 'rgba(255,255,255,0.03)' }}>
+                            <thead>
+                                <tr>
+                                    <th style={headStyle}>Nguyên âm</th>
+                                    <th style={headStyle}>Gõ gốc</th>
+                                    {TONE_LABELS.map((t) => (
+                                        <th key={t} style={headStyle}>{t}</th>
+                                    ))}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {tableRows.map((row) => (
+                                    <tr key={row.base}>
+                                        <td style={{ ...cellStyle, fontSize: '20px', fontWeight: 700, color: 'var(--primary-color)' }}>{row.base}</td>
+                                        <td style={cellStyle}><code>{row.baseKeys}</code></td>
+                                        {row.cells.map((cell) => (
+                                            <td key={cell.char} style={cellStyle}>
+                                                <div style={{ fontSize: '18px', fontWeight: 600 }}>{cell.char}</div>
+                                                <code style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{cell.keys}</code>
+                                            </td>
+                                        ))}
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section style={{ marginBottom: '40px' }}>
+                    <h2 style={{ fontSize: '24px', color: 'var(--primary-color)', marginBottom: '15px' }}>4. Mẹo gõ Telex nhanh</h2>
                     <p>Luôn tuân thủ quy tắc: <strong>Gõ hết các chữ cái trong từ rồi mới gõ phím dấu.</strong></p>
                     <p style={{ marginTop: '10px' }}>Ví dụ: Để gõ chữ "Trường", hãy gõ liên tục <code>t-r-u-o-n-g-w-f</code>.</p>
                 </section>
+
+                <section style={{ marginBottom: '40px' }}>
+                    <h2 style={{ fontSize: '24px', color: 'var(--primary-color)', marginBottom: '15px' }}>5. Cách gõ Telex trên điện thoại</h2>
+                    <p>Trên điện thoại, bạn cần một bàn phím ảo hỗ trợ tiếng Việt thì mới gõ được Telex:</p>
+                    <div style={{ background: 'rgba(255,255,255,0.03)', padding: '25px', borderRadius: '16px', marginTop: '20px' }}>
+                        <ul style={{ margin: 0, paddingLeft: '20px' }}>
+                            <li style={{ marginBottom: '10px' }}><strong>Android:</strong> dùng <strong>Gboard</strong> hoặc <strong>Laban Key</strong>. Vào Cài đặt bàn phím → Ngôn ngữ → thêm "Tiếng Việt (Telex)".</li>
+                            <li style={{ marginBottom: '10px' }}><strong>iPhone:</strong> mở Cài đặt → Cài đặt chung → Bàn phím → thêm bàn phím "Tiếng Việt - Telex".</li>
+                            <li>Sau khi bật, cách gõ dấu hoàn toàn giống trên máy tính: <code>s</code> = sắc, <code>f</code> = huyền, <code>aa</code> = â.</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section style={{ marginBottom: '40px' }}>
+                    <h2 style={{ fontSize: '24px', color: 'var(--primary-color)', marginBottom: '15px' }}>6. Lỗi thường gặp khi gõ Telex & cách sửa</h2>
+                    <div style={{ background: 'rgba(255,255,255,0.03)', padding: '25px', borderRadius: '16px' }}>
+                        <p style={{ marginBottom: '12px' }}><strong>1. Gõ "oo" ra "ô" ngoài ý muốn:</strong> với các từ cần 2 chữ o (như "xoong", "boong"), gõ chữ o thứ hai rồi nhấn thêm một phím <code>o</code> để khử dấu mũ.</p>
+                        <p style={{ marginBottom: '12px' }}><strong>2. Gõ dấu quá sớm:</strong> nếu bỏ dấu khi chưa gõ xong phụ âm cuối, dấu có thể đặt sai chỗ. Hãy gõ hết chữ rồi mới gõ phím dấu.</p>
+                        <p style={{ marginBottom: '0' }}><strong>3. Muốn giữ nguyên chữ "w", "s", "f"...:</strong> khi cần gõ tiếng nước ngoài, nhấn phím dấu thêm một lần nữa để bộ gõ trả lại đúng ký tự gốc.</p>
+                    </div>
+                </section>
+
+                <section style={{ marginBottom: '40px' }}>
+                    <h2 style={{ fontSize: '24px', color: 'var(--primary-color)', marginBottom: '15px' }}>7. Telex và VNI khác nhau thế nào?</h2>
+                    <p>
+                        Telex bỏ dấu bằng các phím chữ (s, f, r, x, j) nên tay luôn ở gần hàng phím chính, gõ nhanh và đỡ mỏi. VNI thì bỏ dấu bằng hàng phím số (1-5). Nếu bạn đã quen dùng phím số, hãy xem thêm{' '}
+                        <Link to="/huong-dan-vni" style={{ color: 'var(--primary-color)', fontWeight: 'bold' }}>hướng dẫn gõ kiểu VNI</Link>.
+                    </p>
+                </section>
+
+                <section style={{ marginBottom: '40px' }}>
+                    <h2 style={{ fontSize: '24px', color: 'var(--primary-color)', marginBottom: '15px' }}>Câu hỏi thường gặp về gõ Telex</h2>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                        {faqs.map((f) => (
+                            <div key={f.q} style={{ background: 'rgba(255,255,255,0.03)', padding: '20px 25px', borderRadius: '16px' }}>
+                                <h3 style={{ fontSize: '17px', fontWeight: 600, color: 'var(--text-main)', marginBottom: '10px' }}>{f.q}</h3>
+                                <p style={{ fontSize: '15px', color: 'var(--text-muted)', lineHeight: '1.7', margin: 0 }}>{f.a}</p>
+                            </div>
+                        ))}
+                    </div>
+                </section>
             </article>
+
+            <RelatedGuides currentPath="/huong-dan-telex" />
 
             <div style={{ marginTop: '60px', padding: '30px', background: 'var(--primary-color)', borderRadius: '20px', textAlign: 'center' }}>
                 <h3 style={{ color: '#fff', marginBottom: '20px' }}>Luyện gõ Telex ngay bây giờ!</h3>

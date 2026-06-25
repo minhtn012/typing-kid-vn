@@ -246,6 +246,22 @@ const HomePage: React.FC<HomePageProps> = ({ onSelectMode, initialTabId }) => {
                 </div>
             </div>
 
+            {/* Intro content (text on-page cho crawler, bám cụm "gõ 10 ngón / gõ phím 10 ngón") */}
+            <section style={{ width: '100%', marginTop: '60px', maxWidth: '760px', lineHeight: '1.8', color: 'var(--text-muted)' }}>
+                <h2 style={{ fontSize: '28px', fontWeight: 'bold', color: 'var(--text-main)', marginBottom: '20px' }}>
+                    Vì sao nên luyện gõ 10 ngón tiếng Việt?
+                </h2>
+                <p style={{ marginBottom: '16px' }}>
+                    Gõ phím 10 ngón là kỹ năng nền tảng giúp bạn làm việc và học tập nhanh hơn mỗi ngày. Khi gõ mười ngón thành thạo, mắt bạn luôn nhìn vào màn hình thay vì bàn phím, nhờ đó tốc độ và độ chính xác đều tăng rõ rệt.
+                </p>
+                <p style={{ marginBottom: '16px' }}>
+                    Typing Kid VN giúp bạn <strong>luyện gõ 10 ngón tiếng Việt</strong> từ những bước đầu tiên: làm quen hàng phím cơ sở, mở rộng lên hàng trên và hàng dưới, rồi luyện gõ dấu theo cả kiểu Telex lẫn VNI. Mỗi bài tập có phản hồi trực quan để bạn sửa lỗi ngay khi gõ.
+                </p>
+                <p style={{ marginBottom: '0' }}>
+                    Dù bạn là học sinh mới bắt đầu hay người đi làm muốn cải thiện tốc độ, chỉ cần luyện đều mỗi ngày 10-15 phút là thói quen gõ phím 10 ngón sẽ hình thành tự nhiên và bền vững.
+                </p>
+            </section>
+
             {/* AI Search & E-E-A-T Sections */}
             <div style={{ width: '100%', marginTop: '80px', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '60px' }}>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '60px' }}>
@@ -289,17 +305,6 @@ const HomePage: React.FC<HomePageProps> = ({ onSelectMode, initialTabId }) => {
                     </section>
                 </div>
             </div>
-
-            {/* SEO Content (Hidden) */}
-            <section style={{ position: 'absolute', width: '1px', height: '1px', padding: '0', margin: '-1px', overflow: 'hidden', clip: 'rect(0,0,0,0)', border: '0' }}>
-                <h2>Gõ 10 ngón tiếng việt cùng Typing Kid VN</h2>
-                <p>
-                    Chào mừng bạn đến với Typing Kid VN, nền tảng hàng đầu giúp bạn <strong>gõ 10 ngón tiếng việt</strong> nhanh và chính xác nhất.
-                    Chúng tôi cung cấp các bài tập <strong>luyện gõ 10 ngón</strong> từ cơ bản đến nâng cao, hỗ trợ cả kiểu gõ Telex và VNI.
-                    Phần mềm <strong>gõ mười ngón</strong> của chúng tôi được thiết kế đặc biệt cho trẻ em với giao diện sinh động,
-                    giúp việc học <strong>gõ 10 ngón tiếng việt</strong> trở nên thú vị và hiệu quả.
-                </p>
-            </section>
 
             <footer style={{ marginTop: 'auto', paddingTop: '60px', color: 'var(--text-muted)', fontSize: '14px' }}>
                 Sản phẩm của Kamy Tech

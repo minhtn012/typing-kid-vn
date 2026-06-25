@@ -3,6 +3,19 @@ import { motion } from 'framer-motion';
 import { ChevronLeft, Target, Zap } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Seo from '../components/Seo';
+import JsonLd from '../components/JsonLd';
+import RelatedGuides from '../components/RelatedGuides';
+import { buildGuideSchemas } from '../components/guide-schema';
+
+// Breadcrumb + Article schema cho on-page SEO (sinh từ helper dùng chung)
+const guideSchemas = buildGuideSchemas({
+    path: '/bi-mat-phim-f-j',
+    breadcrumbName: 'Bí mật phím F và J',
+    headline: 'Bí mật của hai phím F và J: Chìa khóa để gõ không nhìn bàn phím',
+    description: 'Vì sao phím F và J có gờ nổi? Tìm hiểu cách dùng hai phím định vị này để đặt tay đúng và gõ 10 ngón không cần nhìn bàn phím.',
+    datePublished: '2026-01-15',
+    dateModified: '2026-06-25',
+});
 
 const FjRidgeGuide: React.FC = () => {
     return (
@@ -16,6 +29,10 @@ const FjRidgeGuide: React.FC = () => {
                 description="Vì sao phím F và J có gờ nổi? Tìm hiểu cách dùng hai phím định vị này để đặt tay đúng và gõ 10 ngón không cần nhìn bàn phím."
                 path="/bi-mat-phim-f-j"
             />
+            {/* Breadcrumb + Article JSON-LD */}
+            {guideSchemas.map((s) => (
+                <JsonLd key={s['@type'] as string} data={s} />
+            ))}
             <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '5px', color: 'var(--primary-color)', textDecoration: 'none', marginBottom: '30px', fontWeight: 'bold' }}>
                 <ChevronLeft size={20} /> Quay lại trang chủ
             </Link>
@@ -79,6 +96,8 @@ const FjRidgeGuide: React.FC = () => {
                     </div>
                 </section>
             </article>
+
+            <RelatedGuides currentPath="/bi-mat-phim-f-j" />
 
             <div style={{ marginTop: '60px', padding: '40px', background: 'linear-gradient(135deg, var(--primary-color), #3a8ee6)', borderRadius: '24px', textAlign: 'center' }}>
                 <h3 style={{ color: '#fff', fontSize: '24px', marginBottom: '15px' }}>Bạn đã sẵn sàng cảm nhận phím F và J chưa?</h3>

@@ -3,6 +3,19 @@ import { motion } from 'framer-motion';
 import { ChevronLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Seo from '../components/Seo';
+import JsonLd from '../components/JsonLd';
+import RelatedGuides from '../components/RelatedGuides';
+import { buildGuideSchemas } from '../components/guide-schema';
+
+// Breadcrumb + Article schema cho on-page SEO (sinh từ helper dùng chung)
+const guideSchemas = buildGuideSchemas({
+    path: '/tu-the-go-phim',
+    breadcrumbName: 'Tư thế ngồi & cách đặt tay',
+    headline: 'Hướng dẫn Tư thế ngồi & Cách đặt tay khi gõ 10 ngón',
+    description: 'Hướng dẫn tư thế ngồi và cách đặt tay chuẩn trên hàng phím cơ sở (ASDF - JKL;) để gõ 10 ngón nhanh, đúng và không mỏi tay.',
+    datePublished: '2026-01-14',
+    dateModified: '2026-06-25',
+});
 
 const PostureGuide: React.FC = () => {
     return (
@@ -16,6 +29,10 @@ const PostureGuide: React.FC = () => {
                 description="Hướng dẫn tư thế ngồi và cách đặt tay chuẩn trên hàng phím cơ sở (ASDF - JKL;) để gõ 10 ngón nhanh, đúng và không mỏi tay."
                 path="/tu-the-go-phim"
             />
+            {/* Breadcrumb + Article JSON-LD */}
+            {guideSchemas.map((s) => (
+                <JsonLd key={s['@type'] as string} data={s} />
+            ))}
             <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '5px', color: 'var(--primary-color)', textDecoration: 'none', marginBottom: '30px', fontWeight: 'bold' }}>
                 <ChevronLeft size={20} /> Quay lại trang chủ
             </Link>
@@ -71,6 +88,8 @@ const PostureGuide: React.FC = () => {
                     <p>Hai ngón cái của bạn nên đặt hờ trên phím Cách. Khi gõ, bạn có thể dùng bất kỳ ngón cái nào cảm thấy thuận tiện nhất. Thông thường, nếu bạn vừa gõ bằng tay trái, hãy dùng ngón cái phải để gõ phím Cách và ngược lại.</p>
                 </section>
             </article>
+
+            <RelatedGuides currentPath="/tu-the-go-phim" />
 
             <div style={{ marginTop: '60px', padding: '30px', background: 'var(--primary-color)', borderRadius: '20px', textAlign: 'center' }}>
                 <h3 style={{ color: '#fff', marginBottom: '20px' }}>Sẵn sàng thực hành chưa?</h3>
