@@ -3,7 +3,7 @@
 **Slug:** seo-ranking-boost
 **Ngày:** 2026-07-03
 **Branch:** main
-**Trạng thái:** ĐANG THỰC HIỆN — Phase 01 ✅ done (chờ code-review), Phase 02 ✅ done (build + code-review pass), Phase 03–04 chưa bắt đầu
+**Trạng thái:** ĐANG THỰC HIỆN — Phase 01 ✅ done (chờ code-review), Phase 02 ✅ done (build + code-review pass), Phase 03 ✅ done (build + SSG render verify pass), Phase 04 chưa bắt đầu
 
 ## Quyết định đã chốt
 1. **Prerender:** SSG thật bằng `vite-react-ssg` 0.9.0.

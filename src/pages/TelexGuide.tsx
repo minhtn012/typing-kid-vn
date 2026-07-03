@@ -87,9 +87,9 @@ const guideSchemas = buildGuideSchemas({
     path: '/huong-dan-telex',
     breadcrumbName: 'Cách gõ Telex',
     headline: 'Hướng dẫn gõ Tiếng Việt kiểu Telex - Cách gõ nhanh nhất',
-    description: 'Hướng dẫn gõ tiếng Việt kiểu Telex từ A-Z: bảng quy tắc dấu thanh, dấu mũ, cách gõ nhanh và chính xác cho người mới bắt đầu.',
+    description: 'Bảng chữ Telex đầy đủ: cách gõ 5 dấu sắc, huyền, hỏi, ngã, nặng và â/ê/ô/ơ/ư. Hướng dẫn cách đánh bàn phím Telex nhanh, có ví dụ và mẹo nhớ.',
     datePublished: '2026-01-14',
-    dateModified: '2026-06-25',
+    dateModified: '2026-07-03',
 });
 
 const cellStyle: React.CSSProperties = { padding: '12px 15px', textAlign: 'center', borderBottom: '1px solid rgba(255,255,255,0.06)' };
@@ -105,8 +105,8 @@ const TelexGuide: React.FC = () => {
             style={{ maxWidth: '800px', margin: '0 auto', padding: '60px 20px', color: 'var(--text-main)' }}
         >
             <Seo
-                title="Cách gõ Telex tiếng Việt: bảng dấu & mẹo gõ nhanh | Typing Kid VN"
-                description="Hướng dẫn gõ tiếng Việt kiểu Telex từ A-Z: bảng quy tắc dấu thanh, dấu mũ, cách gõ nhanh và chính xác cho người mới bắt đầu."
+                title="Bảng chữ Telex & cách gõ Telex nhanh | Typing Kid VN"
+                description="Bảng chữ Telex đầy đủ: cách gõ 5 dấu sắc, huyền, hỏi, ngã, nặng và â/ê/ô/ơ/ư. Hướng dẫn cách đánh bàn phím Telex nhanh, có ví dụ và mẹo nhớ."
                 path="/huong-dan-telex"
             />
             {/* FAQPage JSON-LD: sinh từ cùng mảng faqs với phần hiển thị bên dưới */}
@@ -125,7 +125,7 @@ const TelexGuide: React.FC = () => {
                     Hướng dẫn gõ Tiếng Việt kiểu Telex - Cách gõ nhanh nhất
                 </h1>
                 <p style={{ fontSize: '18px', color: 'var(--text-muted)', lineHeight: '1.6' }}>
-                    Telex là kiểu gõ phổ biến nhất hiện nay tại Việt Nam. Nó giúp bạn <strong>luyện gõ 10 ngón tiếng Việt</strong> cực nhanh vì không cần di chuyển tay lên hàng phím số.
+                    Telex là kiểu gõ tiếng Việt phổ biến nhất hiện nay. Bài viết hướng dẫn <strong>cách gõ chữ Telex</strong> và <strong>cách đánh bàn phím Telex</strong> chuẩn, giúp bạn <strong>luyện gõ 10 ngón tiếng Việt</strong> nhanh mà không phải rời hàng phím chính.
                 </p>
                 <img
                     src="/guides/keyboard.png"
@@ -172,7 +172,7 @@ const TelexGuide: React.FC = () => {
                 </section>
 
                 <section style={{ marginBottom: '40px' }}>
-                    <h2 style={{ fontSize: '24px', color: 'var(--primary-color)', marginBottom: '15px' }}>3. Bảng gõ Telex đầy đủ (nguyên âm và thanh điệu)</h2>
+                    <h2 style={{ fontSize: '24px', color: 'var(--primary-color)', marginBottom: '15px' }}>3. Bảng chữ Telex đầy đủ: bảng gõ dấu nguyên âm và thanh điệu</h2>
                     <p>Bảng tra cứu nhanh cách gõ mọi nguyên âm tiếng Việt với 5 thanh trong kiểu Telex. Cột "Gõ gốc" là cách tạo ra nguyên âm chưa dấu.</p>
                     <div style={{ overflowX: 'auto', marginTop: '20px', borderRadius: '12px' }}>
                         <table style={{ width: '100%', minWidth: '560px', borderCollapse: 'collapse', background: 'rgba(255,255,255,0.03)' }}>

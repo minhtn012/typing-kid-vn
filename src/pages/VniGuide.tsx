@@ -77,9 +77,9 @@ const guideSchemas = buildGuideSchemas({
     path: '/huong-dan-vni',
     breadcrumbName: 'Cách gõ VNI',
     headline: 'Hướng dẫn gõ Tiếng Việt kiểu VNI - Lựa chọn cho người thích phím số',
-    description: 'Hướng dẫn gõ tiếng Việt kiểu VNI: bảng quy tắc dùng phím số để bỏ dấu thanh và dấu mũ, phù hợp người quen gõ phím số.',
+    description: 'Bảng dấu VNI đầy đủ: cách gõ dấu bằng phím số 1-5 và chữ â, ê, ô, ơ, ư, đ (6-9). Hướng dẫn cách gõ VNI nhanh cho người mới, kèm ví dụ.',
     datePublished: '2026-01-14',
-    dateModified: '2026-06-25',
+    dateModified: '2026-07-03',
 });
 
 const cellStyle: React.CSSProperties = { padding: '12px 15px', textAlign: 'center', borderBottom: '1px solid rgba(255,255,255,0.06)' };
@@ -95,8 +95,8 @@ const VniGuide: React.FC = () => {
             style={{ maxWidth: '800px', margin: '0 auto', padding: '60px 20px', color: 'var(--text-main)' }}
         >
             <Seo
-                title="Cách gõ VNI tiếng Việt: bảng số dấu chi tiết | Typing Kid VN"
-                description="Hướng dẫn gõ tiếng Việt kiểu VNI: bảng quy tắc dùng phím số để bỏ dấu thanh và dấu mũ, phù hợp người quen gõ phím số."
+                title="Bảng dấu VNI & cách gõ VNI nhanh | Typing Kid VN"
+                description="Bảng dấu VNI đầy đủ: cách gõ dấu bằng phím số 1-5 và chữ â, ê, ô, ơ, ư, đ (6-9). Hướng dẫn cách gõ VNI nhanh cho người mới, kèm ví dụ."
                 path="/huong-dan-vni"
             />
             {/* FAQPage JSON-LD: sinh từ cùng mảng faqs với phần hiển thị bên dưới */}
@@ -115,7 +115,7 @@ const VniGuide: React.FC = () => {
                     Hướng dẫn gõ Tiếng Việt kiểu VNI - Lựa chọn cho người thích phím số
                 </h1>
                 <p style={{ fontSize: '18px', color: 'var(--text-muted)', lineHeight: '1.6' }}>
-                    VNI là kiểu gõ sử dụng các phím số ở hàng trên cùng để bỏ dấu. Đây là kỹ năng thú vị khi bạn muốn <strong>luyện gõ 10 ngón</strong> mà không lo bị nhầm giữa chữ cái và dấu thanh.
+                    VNI là kiểu gõ tiếng Việt dùng hàng phím số để bỏ dấu. Bài viết hướng dẫn <strong>cách gõ VNI</strong> và tra <strong>bảng dấu VNI</strong> đầy đủ, giúp bạn <strong>luyện gõ 10 ngón</strong> mà không lo nhầm giữa chữ cái và dấu thanh.
                 </p>
                 <img
                     src="/guides/keyboard.png"
@@ -150,7 +150,7 @@ const VniGuide: React.FC = () => {
                 </section>
 
                 <section style={{ marginBottom: '40px' }}>
-                    <h2 style={{ fontSize: '24px', color: 'var(--primary-color)', marginBottom: '15px' }}>3. Bảng gõ VNI đầy đủ (nguyên âm và thanh điệu)</h2>
+                    <h2 style={{ fontSize: '24px', color: 'var(--primary-color)', marginBottom: '15px' }}>3. Bảng dấu VNI đầy đủ: cách gõ nguyên âm và thanh điệu</h2>
                     <p>Bảng tra cứu cách gõ mọi nguyên âm tiếng Việt với 5 thanh trong kiểu VNI. Cột "Gõ gốc" là cách tạo ra nguyên âm chưa dấu.</p>
                     <div style={{ overflowX: 'auto', marginTop: '20px', borderRadius: '12px' }}>
                         <table style={{ width: '100%', minWidth: '560px', borderCollapse: 'collapse', background: 'rgba(255,255,255,0.03)' }}>

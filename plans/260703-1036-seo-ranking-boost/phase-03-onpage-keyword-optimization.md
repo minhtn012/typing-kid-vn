@@ -47,6 +47,15 @@
 - Rich Results Test pass cho schema guide.
 - Theo dõi GSC sau 2–4 tuần: vị trí "gõ 10 ngón tiếng việt" < 10.
 
+## Kết quả (2026-07-03)
+
+Đã thực hiện (scope tối thiểu — Phase 01/02 đã dựng sẵn bảng tra cứu, FAQ/Article/Breadcrumb schema, internal link):
+- **TelexGuide**: title→"Bảng chữ Telex & cách gõ Telex nhanh…" (52 ký tự), description bám long-tail; câu mở đầu nhúng "cách gõ chữ Telex" + "cách đánh bàn phím Telex"; H2 mục 3→"Bảng chữ Telex đầy đủ…"; bump `dateModified` 2026-07-03.
+- **VniGuide**: title→"Bảng dấu VNI & cách gõ VNI nhanh…" (48 ký tự), description bám long-tail; câu mở đầu nhúng "cách gõ VNI" + "bảng dấu VNI"; H2 mục 3→"Bảng dấu VNI đầy đủ…"; bump `dateModified`.
+- Không đụng: trang chủ (h1/title/desc đã chứa "gõ 10 ngón tiếng Việt"), Posture/FjRidge (meta đã tốt), schema HowTo (giữ FAQPage đã audit).
+
+Verify: `npm run build` pass, 5 trang SSG render. HTML tĩnh chứa đủ cụm long-tail trong `<head>` + heading; trang chủ giữ nguyên keyword (không hồi quy). FAQ array không đổi → FAQPage vẫn khớp text hiển thị.
+
 ## Files
 
 - Sửa: `src/components/HomePage.tsx`, `src/pages/TelexGuide.tsx`, `src/pages/VniGuide.tsx`
