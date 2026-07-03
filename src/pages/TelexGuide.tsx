@@ -116,7 +116,7 @@ const TelexGuide: React.FC = () => {
                 <JsonLd key={s['@type'] as string} data={s} />
             ))}
 
-            <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '5px', color: 'var(--primary-color)', textDecoration: 'none', marginBottom: '30px', fontWeight: 'bold' }}>
+            <Link to="/" className="tap-target" style={{ display: 'flex', alignItems: 'center', gap: '5px', color: 'var(--primary-color)', textDecoration: 'none', marginBottom: '30px', fontWeight: 'bold' }}>
                 <ChevronLeft size={20} /> Quay lại trang chủ
             </Link>
 

@@ -68,6 +68,19 @@ button {
   border-radius: 12px;
 }
 
+/*
+ * Tap target đủ lớn cho ngón tay trên mobile (Google khuyến nghị ≥44-48px).
+ * Chỉ áp ở ≤768px để không đổi layout desktop. Dùng min-height + inline-flex
+ * nên không xung đột với các link/nút đang dùng inline-style ở trang guide.
+ */
+@media (max-width: 768px) {
+  .tap-target {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+}
+
 ::-webkit-scrollbar {
   width: 8px;
 }
