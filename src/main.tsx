@@ -1,15 +1,11 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import { BrowserRouter } from 'react-router-dom'
-import { Analytics } from '@vercel/analytics/react'
-import './index.css'
-import App from './App.tsx'
+import { ViteReactSSG } from 'vite-react-ssg';
+import './index.css';
+import { routes } from './routes';
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <BrowserRouter>
-      <App />
-      <Analytics />
-    </BrowserRouter>
-  </StrictMode>,
-)
+/**
+ * Entry cho vite-react-ssg. Xuất `createRoot` để tool dùng chung cho cả:
+ * - build SSG (render tĩnh từng route ra HTML),
+ * - hydrate phía client sau khi tải trang.
+ * Router (createBrowserRouter/StaticRouter) do vite-react-ssg tự quản từ `routes`.
+ */
+export const createRoot = ViteReactSSG({ routes });

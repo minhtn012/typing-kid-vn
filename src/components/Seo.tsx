@@ -1,16 +1,22 @@
 import React from 'react';
+import { Head } from 'vite-react-ssg';
 
 /**
  * Seo: đặt title/description/canonical riêng cho từng trang.
  *
- * React 19 tự động "hoist" (nâng) các thẻ <title>, <meta>, <link> được render
- * trong bất kỳ component nào lên <head> của document. Nhờ vậy mỗi route có
- * metadata riêng mà không cần thư viện (react-helmet...). Đây là fix gốc rễ cho
- * vấn đề SPA: trước đây mọi trang dùng chung canonical của homepage nên Google
- * coi các trang con là bản sao và không index.
+ * Dùng <Head> của vite-react-ssg để chèn thẻ vào ĐÚNG <head> ngay khi build SSG
+ * (prerender tĩnh) — không chỉ khi JS chạy phía client. Đây là fix gốc rễ cho
+ * vấn đề SPA: trước đây mọi trang dùng chung canonical/title của homepage nên
+ * Google coi các trang con là bản sao và không index; social scraper (Facebook/
+ * Zalo) không chạy JS cũng chỉ thấy og chung.
  *
- * Lưu ý: index.html KHÔNG còn các thẻ động (title/description/canonical/og:title...)
- * để tránh bị trùng lặp với thẻ do component này render.
+ * Vì sao KHÔNG dùng cơ chế auto-hoist <title>/<meta> của React 19: khi
+ * vite-react-ssg render tĩnh (renderToString), các thẻ đó bị kẹt trong <body>
+ * thay vì <head>, khiến title/canonical sai chuẩn trong HTML tĩnh. <Head> đảm
+ * bảo thẻ nằm trong <head> ở cả HTML tĩnh lẫn sau khi hydrate.
+ *
+ * Lưu ý: index.html KHÔNG đặt sẵn title/description/canonical/og động để tránh
+ * trùng lặp với thẻ do component này chèn.
  */
 
 const SITE_URL = 'https://type.scala.vn';
@@ -29,7 +35,7 @@ const Seo: React.FC<SeoProps> = ({ title, description, path }) => {
   const url = `${SITE_URL}${path}`;
 
   return (
-    <>
+    <Head>
       <title>{title}</title>
       <meta name="description" content={description} />
       <link rel="canonical" href={url} />
@@ -42,7 +48,7 @@ const Seo: React.FC<SeoProps> = ({ title, description, path }) => {
       {/* Twitter/X theo từng trang */}
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
-    </>
+    </Head>
   );
 };
 
