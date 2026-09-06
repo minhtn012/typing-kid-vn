@@ -1,7 +1,7 @@
 # Plan: Đẩy SEO đợt 2 sau khi SSG lên production
 
 **Slug:** seo-push-round2 · **Ngày:** 2026-09-06 · **Branch:** main
-**Trạng thái:** Phase 01–02 xong (verify + commit 06/09 13:20) · Phase 03–05 đang làm
+**Trạng thái:** Phase 01–04 xong và đã lên production (06/09) · Phase 05 chờ mốc D+7 (~13/09) · Phase 06 đợt 3
 **Kế thừa:** `plans/260703-1036-seo-ranking-boost/` (phase 01–03 lên prod 06/09 ~10:50) + `plans/reports/seo-260906-1031-gsc-audit-recommendations.md`
 
 ## Quy tắc cho worker (đọc trước khi làm)
@@ -47,7 +47,7 @@ Query cơ hội (90d): `luyện gõ 10 ngón tiếng việt` 62 impr pos 11 (28d
 | 02 | [Sửa on-page kỹ thuật](phase-02-onpage-fixes.md) | FAQPage, ảnh, nav, title trang chủ | — | xong, smoke PASS sau khi sửa cuộn ngang 375px |
 | 03 | [Bảng gõ in được](phase-03-lookup-tables.md) | `/bang-go-telex`, `/bang-go-vni` | 01 | xong, smoke 5/5 PASS |
 | 04 | [Landing phụ huynh](phase-04-kids-landing.md) | `/tap-go-10-ngon-cho-be` | 01, 02 | xong |
-| 05 | [Đo lường + off-page](phase-05-measure-and-offpage.md) | Số liệu D+7/14/28, VOZ | 01–04 | chưa |
+| 05 | [Đo lường + off-page](phase-05-measure-and-offpage.md) | Số liệu D+7/14/28, VOZ | 01–04 | chờ mốc ~13/09 |
 | 06 | [Trang chọn phần mềm + mục bật kiểu gõ](phase-06-competitor-page-and-setup-sections.md) | Intent "phần mềm cho trẻ em", "bật Telex trên Win/Mac/điện thoại" | 05 (D+14) | đợt 3 |
 
 Từ khóa mở rộng và cụm theo trang: [keyword-research.md](keyword-research.md) (Google Suggest 06/09, không có volume).
