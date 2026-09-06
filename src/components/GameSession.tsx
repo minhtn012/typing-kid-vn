@@ -29,11 +29,16 @@ const GAME_TEXT = "totoro nhỏ đang chạy trốn khỏi mie nhưng mie chạy
 
 const GameSession: React.FC<GameSessionProps> = ({ onBack }) => {
     // Game State
-    const [gameState, setGameState] = useState<'playing' | 'won' | 'lost'>('playing');
+    const [gameState, setGameState] = useState<'playing' | 'won'>('playing');
     const [totoroPos, setTotoroPos] = useState(35); // Start at 35% để có khoảng cách với Mei
     const [miePos, setMiePos] = useState(0); // Start at 0%
     const [totoroSpeed, setTotoroSpeed] = useState(0.2); // Base speed
     const [frameIndex, setFrameIndex] = useState(0);
+
+    // Thua là trạng thái suy ra từ vị trí, không cần state riêng: Mie bắt kịp Totoro.
+    // Thắng vẫn là state vì nó chốt lại (bắn confetti một lần) cho tới khi chơi lại.
+    const phase: 'playing' | 'won' | 'lost' =
+        gameState === 'won' ? 'won' : miePos >= totoroPos ? 'lost' : 'playing';
 
     // Frame animation loop
     useEffect(() => {
@@ -82,7 +87,7 @@ const GameSession: React.FC<GameSessionProps> = ({ onBack }) => {
 
     // Game Loop
     useEffect(() => {
-        if (gameState !== 'playing') return;
+        if (phase !== 'playing') return;
 
         let lastTime = performance.now();
         let animationFrameId: number;
@@ -138,26 +143,11 @@ const GameSession: React.FC<GameSessionProps> = ({ onBack }) => {
         animationFrameId = requestAnimationFrame(update);
 
         return () => cancelAnimationFrame(animationFrameId);
-    }, [gameState, totoroSpeed, userInput.length]);
-
-    // Win/Loss check effect
-    useEffect(() => {
-        if (gameState !== 'playing') return;
-
-        if (miePos >= totoroPos - 5) { // Catch radius (Mie is 5% behind implies caught if visuals overlap?)
-            // Let's say if Mie >= Totoro, game over.
-            // Give a bit of grace visually?
-            // Actually let's strict check: Mie >= Totoro
-            if (miePos >= totoroPos) {
-                setGameState('lost');
-            }
-        }
-    }, [miePos, totoroPos, gameState]);
-
+    }, [phase, totoroSpeed, userInput.length]);
 
     // Input listener
     useEffect(() => {
-        if (gameState !== 'playing') return;
+        if (phase !== 'playing') return;
 
         const onKeydown = (e: KeyboardEvent) => {
             // Let browser shortcuts (Cmd+R, Ctrl+C...) through untouched
@@ -174,7 +164,7 @@ const GameSession: React.FC<GameSessionProps> = ({ onBack }) => {
 
         window.addEventListener('keydown', onKeydown);
         return () => window.removeEventListener('keydown', onKeydown);
-    }, [handleKeyDown, gameState]);
+    }, [handleKeyDown, phase]);
 
     const handleReset = () => {
         resetTyping();
@@ -254,7 +244,7 @@ const GameSession: React.FC<GameSessionProps> = ({ onBack }) => {
             </div>
 
             {/* Typing Area (Simplified) */}
-            <div style={{ opacity: gameState === 'playing' ? 1 : 0.5, transition: 'opacity 0.3s' }}>
+            <div style={{ opacity: phase === 'playing' ? 1 : 0.5, transition: 'opacity 0.3s' }}>
                 <TypingArea
                     text={GAME_TEXT}
                     userInput={userInput}
@@ -265,7 +255,7 @@ const GameSession: React.FC<GameSessionProps> = ({ onBack }) => {
             </div>
 
             {/* Game Over / Win Overlays */}
-            {gameState !== 'playing' && (
+            {phase !== 'playing' && (
                 <div style={{
                     position: 'absolute',
                     top: 0, left: 0, right: 0, bottom: 0,
@@ -282,7 +272,7 @@ const GameSession: React.FC<GameSessionProps> = ({ onBack }) => {
                         className="glass"
                         style={{ padding: '40px', textAlign: 'center', maxWidth: '400px' }}
                     >
-                        {gameState === 'won' ? (
+                        {phase === 'won' ? (
                             <>
                                 <Trophy size={60} color="#FFD700" style={{ marginBottom: '20px' }} />
                                 <h1 style={{ fontSize: '32px', marginBottom: '10px' }}>Chiến thắng!</h1>

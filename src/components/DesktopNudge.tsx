@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Monitor, ChevronLeft, BookOpen } from 'lucide-react';
-import { GUIDES } from './RelatedGuides';
+import { GUIDES } from './guides-data';
 
 interface DesktopNudgeProps {
   /** Quay lại màn hình trang chủ (thoát chế độ luyện gõ). */

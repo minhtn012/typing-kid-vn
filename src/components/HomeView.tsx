@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useSyncExternalStore } from 'react';
 import { useLocation } from 'react-router-dom';
 import HomePage from './HomePage';
 import PracticeSession from './PracticeSession';
@@ -16,9 +16,21 @@ type ViewMode = 'home' | 'practice';
  * Tách riêng để phục vụ SSG (vite-react-ssg): lúc build phía server KHÔNG có
  * `window`, nên state khởi tạo phải tất định, không đọc URL trong initializer.
  * - Server luôn render view 'home' → HTML landing đúng để Google index.
- * - Client: useEffect chạy sau khi mount, đọc query param và chuyển view.
+ * - Client: chỉ sau khi hydrate xong mới đọc query param và chuyển view.
  * Nhờ vậy không có hydration mismatch trên các trang SEO.
  */
+
+/** Không có store ngoài để theo dõi: hydrate xong là xong, không đổi lại. */
+const subscribeNoop = () => () => {};
+
+/**
+ * false lúc prerender và ở lần render đầu phía client (khớp HTML tĩnh),
+ * true từ lần render sau khi hydrate. Thay cho mẹo "setState trong useEffect".
+ */
+function useIsHydrated(): boolean {
+  return useSyncExternalStore(subscribeNoop, () => true, () => false);
+}
+
 export default function HomeView() {
   const location = useLocation();
   const isMobile = useIsMobile();
@@ -27,8 +39,13 @@ export default function HomeView() {
   const [view, setView] = useState<ViewMode>('home');
   const [selectedModeId, setSelectedModeId] = useState<string>(LESSON_MODES[0].id);
 
-  // Đồng bộ view từ URL sau khi mount (chỉ chạy phía client).
-  useEffect(() => {
+  // Đồng bộ view từ URL: bỏ qua lần render hydrate, chạy lại mỗi lần điều hướng.
+  const hydrated = useIsHydrated();
+  const locationId = hydrated ? location.key + '|' + location.search : null;
+  const [syncedLocationId, setSyncedLocationId] = useState<string | null>(null);
+
+  if (locationId !== null && locationId !== syncedLocationId) {
+    setSyncedLocationId(locationId);
     const params = new URLSearchParams(location.search);
     if (params.has('mode') || params.has('open')) {
       const modeFromUrl = params.get('mode') || params.get('open');
@@ -39,7 +56,7 @@ export default function HomeView() {
     } else {
       setView('home');
     }
-  }, [location]);
+  }
 
   const handleSelectMode = (modeId: string) => {
     setSelectedModeId(modeId);

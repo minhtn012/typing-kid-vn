@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, CheckCircle, Star } from 'lucide-react';
 import { loadProgress, type UserProgress } from '../utils/storage';
@@ -13,12 +13,16 @@ interface LessonSidebarProps {
 
 const LessonSidebar: React.FC<LessonSidebarProps> = ({ isOpen, onClose, currentMode, currentLessonIndex, onSelectLesson }) => {
     const [progress, setProgress] = useState<UserProgress>({});
+    const [wasOpen, setWasOpen] = useState(false);
 
-    useEffect(() => {
+    // Đọc lại tiến độ mỗi lần mở panel. Chỉnh state ngay trong render (không dùng
+    // effect) để danh sách hiện ra đã có tiến độ mới, không nháy 1 frame dữ liệu cũ.
+    if (isOpen !== wasOpen) {
+        setWasOpen(isOpen);
         if (isOpen) {
             setProgress(loadProgress());
         }
-    }, [isOpen]);
+    }
 
     return (
         <AnimatePresence>

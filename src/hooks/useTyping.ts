@@ -52,11 +52,16 @@ export const useTyping = (text: string, rules: Record<string, string[]> = TELEX_
     const [wordState, setWordState] = useState<WordMatchState>(() => createWordState(tokens[0].variants));
     const [stats, setStats] = useState<TypingStats>(INITIAL_STATS);
 
-    // text/rules đổi → state cũ trỏ vào variants cũ, phải reset.
-    useEffect(() => {
+    const [prevTokens, setPrevTokens] = useState(tokens);
+
+    // text/rules đổi → state cũ trỏ vào variants cũ, phải reset. Chỉnh ngay trong
+    // render thay vì effect: React render lại lập tức nên không commit frame nào
+    // dùng variants cũ.
+    if (prevTokens !== tokens) {
+        setPrevTokens(tokens);
         setWordIdx(0);
         setWordState(createWordState(tokens[0].variants));
-    }, [tokens]);
+    }
 
     // Clamp phòng 1 render giữa lúc tokens đổi và effect reset chạy.
     const safeIdx = Math.min(wordIdx, tokens.length - 1);
@@ -70,15 +75,6 @@ export const useTyping = (text: string, rules: Record<string, string[]> = TELEX_
     const committed = tokens.slice(0, safeIdx).map((t) => t.word).join(' ') + (safeIdx > 0 ? ' ' : '');
     const currentWordDisplay = composeDisplay(wordState, current.variants);
     const userInput = committed + currentWordDisplay;
-
-    useEffect(() => {
-        if (userInput.length === 1 && !stats.startTime) {
-            setStats((prev) => ({ ...prev, startTime: Date.now() }));
-        }
-        if (isFinished && !stats.endTime) {
-            setStats((prev) => ({ ...prev, endTime: Date.now() }));
-        }
-    }, [userInput, isFinished, stats.startTime, stats.endTime]);
 
     useEffect(() => {
         if (stats.startTime && !stats.endTime) {
@@ -111,8 +107,13 @@ export const useTyping = (text: string, rules: Record<string, string[]> = TELEX_
         // Ignore special keys
         if (key.length > 1) return;
 
+        // Đồng hồ chạy từ phím đúng đầu tiên (trước đây tính trong effect theo độ dài userInput).
         const markCorrect = () => {
-            setStats((prev) => ({ ...prev, correctChars: prev.correctChars + 1 }));
+            setStats((prev) => ({
+                ...prev,
+                correctChars: prev.correctChars + 1,
+                startTime: prev.startTime ?? Date.now(),
+            }));
             options?.onCorrect?.();
         };
         const markMistake = () => {
@@ -138,10 +139,14 @@ export const useTyping = (text: string, rules: Record<string, string[]> = TELEX_
         if (r.result === 'correct') {
             setWordState(r.next);
             markCorrect();
+            // Phím vừa gõ làm xong từ cuối → chốt endTime ngay tại đây.
+            if (isLastWord && isWordCompleted(r.next, current.variants)) {
+                setStats((prev) => ({ ...prev, endTime: prev.endTime ?? Date.now() }));
+            }
         } else {
             markMistake();
         }
-    }, [isFinished, currentCompleted, current.variants, tokens, safeIdx, wordState, options]);
+    }, [isFinished, currentCompleted, current.variants, tokens, safeIdx, isLastWord, wordState, options]);
 
     const reset = useCallback(() => {
         setWordIdx(0);
