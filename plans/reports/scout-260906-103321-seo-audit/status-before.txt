@@ -1,0 +1,19 @@
+ M package-lock.json
+ M package.json
+ M src/components/GameSession.tsx
+ M src/components/PracticeSession.tsx
+ M src/components/TypingArea.tsx
+ M src/constants.ts
+ M src/hooks/useTyping.ts
+ M src/pages/TelexGuide.tsx
+ M src/pages/VniGuide.tsx
+?? docs/
+?? plans/260813-0954-word-end-tone-matching-telex-vni/
+?? plans/260819-1416-kid-typing-mini-games/
+?? plans/journals/
+?? plans/reports/investigation-260813-0939-voz-feedback-bug-check.md
+?? plans/reports/pm-260813-1101-word-end-tone-matching-telex-vni.md
+?? plans/reports/scout-260906-103321-seo-audit/
+?? src/utils/typing-engine.test.ts
+?? src/utils/typing-engine.ts
+?? vitest.config.ts
