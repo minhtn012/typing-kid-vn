@@ -7,6 +7,7 @@
     "dev": "vite",
     "build": "tsc -b && vite-react-ssg build",
     "lint": "eslint .",
+    "test": "vitest run",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -32,6 +33,7 @@
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.46.4",
     "vite": "^7.2.4",
-    "vite-react-ssg": "^0.9.0"
+    "vite-react-ssg": "^0.9.0",
+    "vitest": "^4.1.10"
   }
 }
