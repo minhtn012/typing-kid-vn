@@ -20,6 +20,8 @@ export const GUIDES: GuideItem[] = [
     { path: '/huong-dan-telex', title: 'Cách gõ Telex', desc: 'Bỏ dấu bằng phím chữ: s, f, r, x, j.' },
     { path: '/huong-dan-vni', title: 'Cách gõ VNI', desc: 'Bỏ dấu bằng hàng phím số: 1, 2, 3, 4, 5.' },
     { path: '/bi-mat-phim-f-j', title: 'Bí mật phím F và J', desc: 'Dùng gờ nổi để gõ không nhìn bàn phím.' },
+    { path: '/bang-go-telex', title: 'Bảng gõ Telex (in được)', desc: 'Một trang A4: dấu, chữ đặc biệt, 12 từ mẫu.' },
+    { path: '/bang-go-vni', title: 'Bảng gõ VNI (in được)', desc: 'Một trang A4: phím số 1-9 và 12 từ mẫu.' },
 ];
 
 interface RelatedGuidesProps {

@@ -7,40 +7,7 @@ import JsonLd from '../components/JsonLd';
 import RelatedGuides from '../components/RelatedGuides';
 import { buildGuideSchemas } from '../components/guide-schema';
 import { VNI_RULES } from '../constants';
-
-/**
- * Nhóm nguyên âm theo gốc × 5 thanh — cấu trúc trình bày cho bảng tra cứu VNI.
- * Phím gõ thực tế luôn lấy từ VNI_RULES (constants.ts) để giữ 1 nguồn dữ liệu.
- */
-const VOWEL_GROUPS: { base: string; chars: string[] }[] = [
-    { base: 'a', chars: ['á', 'à', 'ả', 'ã', 'ạ'] },
-    { base: 'ă', chars: ['ắ', 'ằ', 'ẳ', 'ẵ', 'ặ'] },
-    { base: 'â', chars: ['ấ', 'ầ', 'ẩ', 'ẫ', 'ậ'] },
-    { base: 'e', chars: ['é', 'è', 'ẻ', 'ẽ', 'ẹ'] },
-    { base: 'ê', chars: ['ế', 'ề', 'ể', 'ễ', 'ệ'] },
-    { base: 'i', chars: ['í', 'ì', 'ỉ', 'ĩ', 'ị'] },
-    { base: 'o', chars: ['ó', 'ò', 'ỏ', 'õ', 'ọ'] },
-    { base: 'ô', chars: ['ố', 'ồ', 'ổ', 'ỗ', 'ộ'] },
-    { base: 'ơ', chars: ['ớ', 'ờ', 'ở', 'ỡ', 'ợ'] },
-    { base: 'u', chars: ['ú', 'ù', 'ủ', 'ũ', 'ụ'] },
-    { base: 'ư', chars: ['ứ', 'ừ', 'ử', 'ữ', 'ự'] },
-    { base: 'y', chars: ['ý', 'ỳ', 'ỷ', 'ỹ', 'ỵ'] },
-];
-
-const TONE_LABELS = ['Sắc', 'Huyền', 'Hỏi', 'Ngã', 'Nặng'];
-
-/**
- * Sinh dữ liệu bảng VNI. Phím gốc của nguyên âm có dấu (â=a6, ă=a8, ê=e6,
- * ô=o6, ơ=o7, ư=u7) lấy từ VNI_RULES; nguyên âm thường gõ chính nó.
- */
-function buildVniTable() {
-    return VOWEL_GROUPS.map(({ base, chars }) => ({
-        base,
-        baseKeys: (VNI_RULES[base] ?? [base]).join(''),
-        // Guard ?? để không crash nếu constants.ts đổi và thiếu key ký tự nào đó
-        cells: chars.map((c) => ({ char: c, keys: (VNI_RULES[c] ?? ['?']).join('') })),
-    }));
-}
+import { buildToneTable, TONE_LABELS, cellStyle, headStyle } from './typing-table-data';
 
 /** FAQ dùng chung cho phần hiển thị và JSON-LD (text phải trùng khớp). */
 const faqs: { q: string; a: string }[] = [
@@ -82,11 +49,8 @@ const guideSchemas = buildGuideSchemas({
     dateModified: '2026-08-13',
 });
 
-const cellStyle: React.CSSProperties = { padding: '12px 15px', textAlign: 'center', borderBottom: '1px solid rgba(255,255,255,0.06)' };
-const headStyle: React.CSSProperties = { padding: '14px 15px', textAlign: 'center', background: 'rgba(255,255,255,0.05)', fontWeight: 700 };
-
 const VniGuide: React.FC = () => {
-    const tableRows = buildVniTable();
+    const tableRows = buildToneTable(VNI_RULES);
 
     return (
         <motion.div
@@ -115,7 +79,7 @@ const VniGuide: React.FC = () => {
                     Hướng dẫn gõ Tiếng Việt kiểu VNI - Lựa chọn cho người thích phím số
                 </h1>
                 <p style={{ fontSize: '18px', color: 'var(--text-muted)', lineHeight: '1.6' }}>
-                    VNI là kiểu gõ tiếng Việt dùng hàng phím số để bỏ dấu. Bài viết hướng dẫn <strong>cách gõ VNI</strong> và tra <strong>bảng dấu VNI</strong> đầy đủ, giúp bạn <strong>luyện gõ 10 ngón</strong> mà không lo nhầm giữa chữ cái và dấu thanh.
+                    VNI là kiểu gõ tiếng Việt dùng hàng phím số để bỏ dấu. Bài viết hướng dẫn <strong>cách gõ VNI</strong> và tra <strong>bảng dấu VNI</strong> đầy đủ, giúp bạn <strong>luyện gõ 10 ngón</strong> mà không lo nhầm giữa chữ cái và dấu thanh. Cần bản in? Xem <Link to="/bang-go-vni">bảng gõ VNI in được</Link>.
                 </p>
                 <img
                     src="/guides/keyboard.png"

@@ -97,3 +97,12 @@ button {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--primary-color);
 }
+
+/* Bản in A4 cho trang bảng gõ: bỏ nền tối, bỏ nav/nút, kẻ viền bảng đen trắng. */
+@media print {
+    body { background: #fff !important; color: #000 !important; }
+    nav, .no-print, a.tap-target { display: none !important; }
+    table { border-collapse: collapse; }
+    th, td { border: 1px solid #999; color: #000 !important; background: none !important; }
+    @page { size: A4; margin: 12mm; }
+}

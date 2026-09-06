@@ -1,0 +1,13 @@
+ M docs/ui-map.md
+ M plans/260906-1115-seo-push-round2/task-1-lookup-tables.md
+ M scripts/gen-sitemap.mjs
+ M src/components/RelatedGuides.tsx
+ M src/index.css
+ M src/pages/TelexGuide.tsx
+ M src/pages/VniGuide.tsx
+ M src/routes.tsx
+?? plans/260906-1115-seo-push-round2/task-2-kids-landing.md
+?? plans/reports/dispatch-260906-131039-task-1-lookup-tables/
+?? src/pages/TelexTable.tsx
+?? src/pages/VniTable.tsx
+?? src/pages/typing-table-data.ts

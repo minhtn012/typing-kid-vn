@@ -21,6 +21,8 @@ const ROUTES = [
     { path: '/huong-dan-telex', files: ['src/pages/TelexGuide.tsx'] },
     { path: '/huong-dan-vni', files: ['src/pages/VniGuide.tsx'] },
     { path: '/bi-mat-phim-f-j', files: ['src/pages/FjRidgeGuide.tsx'] },
+    { path: '/bang-go-telex', files: ['src/pages/TelexTable.tsx'] },
+    { path: '/bang-go-vni', files: ['src/pages/VniTable.tsx'] },
 ];
 
 const today = new Date().toISOString().slice(0, 10);

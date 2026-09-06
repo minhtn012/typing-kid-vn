@@ -1,0 +1,31 @@
+diff --git a/plans/260906-1115-seo-push-round2/task-1-lookup-tables.md b/plans/260906-1115-seo-push-round2/task-1-lookup-tables.md
+index b84f397..3a181a6 100644
+--- a/plans/260906-1115-seo-push-round2/task-1-lookup-tables.md
++++ b/plans/260906-1115-seo-push-round2/task-1-lookup-tables.md
+@@ -38,7 +38,7 @@ Sửa:
+ - `src/components/HomePage.tsx`, `src/components/HomeView.tsx`, `src/components/DesktopNudge.tsx`
+ - `src/components/Seo.tsx`, `src/components/JsonLd.tsx`, `src/components/guide-schema.ts`
+ - `src/utils/`, `src/hooks/`, `index.html`, `package.json`, `vercel.json`
+-- Mọi file trong `plans/`, `docs/`
++- Mọi file trong `plans/` và `docs/` — **ngoại lệ**: `docs/ui-map.md` được phép cập nhật vì route thay đổi (script dispatch tự sinh lại; nếu chạy tay thì dùng generator của repo, đừng viết tay phần giữa 2 marker `ui-map:generated`).
+ 
+ ## Files chỉ đọc (tham chiếu)
+ 
+@@ -270,7 +270,7 @@ Thêm vào cuối mảng `GUIDES` (thành 6 item):
+ - Không đụng `src/constants.ts`, engine luyện gõ, mini game.
+ - Không thêm FAQPage cho 2 trang mới.
+ - Không tạo `og:image` riêng, không hreflang, không `404.html`.
+-- Không sửa `docs/`, `plans/`, `package.json`, `index.html`.
++- Không sửa `plans/`, `package.json`, `index.html`; `docs/` chỉ đụng `docs/ui-map.md` như nêu trên.
+ - Không đổi title/description của 4 trang guide và trang chủ.
+ - Không refactor thêm gì ngoài phần `typing-table-data.ts` đã nêu.
+ 
+@@ -281,7 +281,7 @@ Dán **output thật** của từng lệnh. Chưa chạy thì ghi "CHƯA CHẠY"
+ - [ ] `npx tsc -b` → exit 0
+ - [ ] `npm test` → exit 0
+ - [ ] `npm run build` → exit 0
+-- [ ] `npx eslint src/pages/typing-table-data.ts src/pages/TelexTable.tsx src/pages/VniTable.tsx src/pages/TelexGuide.tsx src/pages/VniGuide.tsx src/routes.tsx` → exit 0
++- [ ] `npx eslint src/pages src/routes.tsx` → exit 0 *(chỉ lint vùng của task — `npm run lint` toàn repo ĐỎ SẴN 34 lỗi ở `src/hooks`, `src/components`, `.opencode/**`, không phải việc của task này, đừng sửa)*
+ - [ ] `grep -n "VOWEL_GROUPS\|buildTelexTable\|buildVniTable" src/pages/TelexGuide.tsx src/pages/VniGuide.tsx` → 0 dòng
+ - [ ] `grep -c "<url>" dist/sitemap.xml` → `7`
+ - [ ] `grep -c "<h1" dist/bang-go-telex.html` → `1`

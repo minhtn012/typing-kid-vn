@@ -1,0 +1,813 @@
+diff --git a/docs/ui-map.md b/docs/ui-map.md
+index 60fe3c5..070f5f0 100644
+--- a/docs/ui-map.md
++++ b/docs/ui-map.md
+@@ -7,16 +7,20 @@
+ ## Route (nhận diện: react-router)
+ | Route | Tên / tiêu đề / component | Quyền (gợi ý từ code) | Nguồn |
+ |---|---|---|---|
++| `/bang-go-telex` | Bảng gõ Telex (in được) |  | `src/components/RelatedGuides.tsx:23` |
++| `/bang-go-telex` |  |  | `src/pages/TelexTable.tsx:12` |
++| `/bang-go-vni` | Bảng gõ VNI (in được) |  | `src/components/RelatedGuides.tsx:24` |
++| `/bang-go-vni` |  |  | `src/pages/VniTable.tsx:12` |
+ | `/bi-mat-phim-f-j` | Bí mật phím F và J |  | `src/components/RelatedGuides.tsx:22` |
+ | `/bi-mat-phim-f-j` |  |  | `src/pages/FjRidgeGuide.tsx:11` |
+ | `/huong-dan-telex` | Cách gõ Telex |  | `src/components/RelatedGuides.tsx:20` |
+-| `/huong-dan-telex` |  |  | `src/pages/TelexGuide.tsx:86` |
++| `/huong-dan-telex` |  |  | `src/pages/TelexGuide.tsx:51` |
+ | `/huong-dan-vni` | Cách gõ VNI |  | `src/components/RelatedGuides.tsx:21` |
+-| `/huong-dan-vni` |  |  | `src/pages/VniGuide.tsx:76` |
++| `/huong-dan-vni` |  |  | `src/pages/VniGuide.tsx:43` |
+ | `/tu-the-go-phim` | Tư thế ngồi & cách đặt tay |  | `src/components/RelatedGuides.tsx:19` |
+ | `/tu-the-go-phim` |  |  | `src/pages/PostureGuide.tsx:11` |
+ 
+-_Sinh bởi ui-map-scaffold.py — 8 route. Route lồng nhau (children) hiện đường dẫn tương đối như trong code; ghép với cha khi viết checklist._
++_Sinh bởi ui-map-scaffold.py — 12 route. Route lồng nhau (children) hiện đường dẫn tương đối như trong code; ghép với cha khi viết checklist._
+ <!-- ui-map:generated:end -->
+ 
+ ## Đăng nhập và đổi người dùng (ghi tay)
+diff --git a/scripts/gen-sitemap.mjs b/scripts/gen-sitemap.mjs
+index c8a9adf..e6256a5 100644
+--- a/scripts/gen-sitemap.mjs
++++ b/scripts/gen-sitemap.mjs
+@@ -21,6 +21,8 @@ const ROUTES = [
+     { path: '/huong-dan-telex', files: ['src/pages/TelexGuide.tsx'] },
+     { path: '/huong-dan-vni', files: ['src/pages/VniGuide.tsx'] },
+     { path: '/bi-mat-phim-f-j', files: ['src/pages/FjRidgeGuide.tsx'] },
++    { path: '/bang-go-telex', files: ['src/pages/TelexTable.tsx'] },
++    { path: '/bang-go-vni', files: ['src/pages/VniTable.tsx'] },
+ ];
+ 
+ const today = new Date().toISOString().slice(0, 10);
+diff --git a/src/components/RelatedGuides.tsx b/src/components/RelatedGuides.tsx
+index e37df47..6e76902 100644
+--- a/src/components/RelatedGuides.tsx
++++ b/src/components/RelatedGuides.tsx
+@@ -20,6 +20,8 @@ export const GUIDES: GuideItem[] = [
+     { path: '/huong-dan-telex', title: 'Cách gõ Telex', desc: 'Bỏ dấu bằng phím chữ: s, f, r, x, j.' },
+     { path: '/huong-dan-vni', title: 'Cách gõ VNI', desc: 'Bỏ dấu bằng hàng phím số: 1, 2, 3, 4, 5.' },
+     { path: '/bi-mat-phim-f-j', title: 'Bí mật phím F và J', desc: 'Dùng gờ nổi để gõ không nhìn bàn phím.' },
++    { path: '/bang-go-telex', title: 'Bảng gõ Telex (in được)', desc: 'Một trang A4: dấu, chữ đặc biệt, 12 từ mẫu.' },
++    { path: '/bang-go-vni', title: 'Bảng gõ VNI (in được)', desc: 'Một trang A4: phím số 1-9 và 12 từ mẫu.' },
+ ];
+ 
+ interface RelatedGuidesProps {
+diff --git a/src/index.css b/src/index.css
+index ba6b280..6b70dc0 100644
+--- a/src/index.css
++++ b/src/index.css
+@@ -96,4 +96,13 @@ button {
+ 
+ ::-webkit-scrollbar-thumb:hover {
+   background: var(--primary-color);
++}
++
++/* Bản in A4 cho trang bảng gõ: bỏ nền tối, bỏ nav/nút, kẻ viền bảng đen trắng. */
++@media print {
++    body { background: #fff !important; color: #000 !important; }
++    nav, .no-print, a.tap-target { display: none !important; }
++    table { border-collapse: collapse; }
++    th, td { border: 1px solid #999; color: #000 !important; background: none !important; }
++    @page { size: A4; margin: 12mm; }
+ }
+\ No newline at end of file
+diff --git a/src/pages/TelexGuide.tsx b/src/pages/TelexGuide.tsx
+index 79b0f33..3b723de 100644
+--- a/src/pages/TelexGuide.tsx
++++ b/src/pages/TelexGuide.tsx
+@@ -7,42 +7,7 @@ import JsonLd from '../components/JsonLd';
+ import RelatedGuides from '../components/RelatedGuides';
+ import { buildGuideSchemas } from '../components/guide-schema';
+ import { TELEX_RULES } from '../constants';
+-
+-/**
+- * Nhóm nguyên âm theo gốc × 5 thanh (sắc, huyền, hỏi, ngã, nặng).
+- * Đây chỉ là cấu trúc TRÌNH BÀY cho bảng tra cứu — phím gõ thực tế vẫn
+- * lấy từ TELEX_RULES (1 nguồn dữ liệu duy nhất ở constants.ts) để tránh lệch.
+- */
+-const VOWEL_GROUPS: { base: string; chars: string[] }[] = [
+-    { base: 'a', chars: ['á', 'à', 'ả', 'ã', 'ạ'] },
+-    { base: 'ă', chars: ['ắ', 'ằ', 'ẳ', 'ẵ', 'ặ'] },
+-    { base: 'â', chars: ['ấ', 'ầ', 'ẩ', 'ẫ', 'ậ'] },
+-    { base: 'e', chars: ['é', 'è', 'ẻ', 'ẽ', 'ẹ'] },
+-    { base: 'ê', chars: ['ế', 'ề', 'ể', 'ễ', 'ệ'] },
+-    { base: 'i', chars: ['í', 'ì', 'ỉ', 'ĩ', 'ị'] },
+-    { base: 'o', chars: ['ó', 'ò', 'ỏ', 'õ', 'ọ'] },
+-    { base: 'ô', chars: ['ố', 'ồ', 'ổ', 'ỗ', 'ộ'] },
+-    { base: 'ơ', chars: ['ớ', 'ờ', 'ở', 'ỡ', 'ợ'] },
+-    { base: 'u', chars: ['ú', 'ù', 'ủ', 'ũ', 'ụ'] },
+-    { base: 'ư', chars: ['ứ', 'ừ', 'ử', 'ữ', 'ự'] },
+-    { base: 'y', chars: ['ý', 'ỳ', 'ỷ', 'ỹ', 'ỵ'] },
+-];
+-
+-const TONE_LABELS = ['Sắc', 'Huyền', 'Hỏi', 'Ngã', 'Nặng'];
+-
+-/**
+- * Sinh dữ liệu bảng: mỗi nguyên âm gốc → phím gõ ra gốc + phím gõ 5 thanh.
+- * Phím gốc của nguyên âm có dấu mũ/móc (â, ă, ê, ô, ơ, ư) lấy từ TELEX_RULES;
+- * nguyên âm thường (a, e, i, o, u, y) thì gõ chính nó.
+- */
+-function buildTelexTable() {
+-    return VOWEL_GROUPS.map(({ base, chars }) => ({
+-        base,
+-        baseKeys: (TELEX_RULES[base] ?? [base]).join(''),
+-        // Guard ?? để không crash nếu constants.ts đổi và thiếu key ký tự nào đó
+-        cells: chars.map((c) => ({ char: c, keys: (TELEX_RULES[c] ?? ['?']).join('') })),
+-    }));
+-}
++import { buildToneTable, TONE_LABELS, cellStyle, headStyle } from './typing-table-data';
+ 
+ /**
+  * FAQ: 1 mảng dùng cho CẢ phần hiển thị lẫn JSON-LD.
+@@ -92,11 +57,8 @@ const guideSchemas = buildGuideSchemas({
+     dateModified: '2026-08-13',
+ });
+ 
+-const cellStyle: React.CSSProperties = { padding: '12px 15px', textAlign: 'center', borderBottom: '1px solid rgba(255,255,255,0.06)' };
+-const headStyle: React.CSSProperties = { padding: '14px 15px', textAlign: 'center', background: 'rgba(255,255,255,0.05)', fontWeight: 700 };
+-
+ const TelexGuide: React.FC = () => {
+-    const tableRows = buildTelexTable();
++    const tableRows = buildToneTable(TELEX_RULES);
+ 
+     return (
+         <motion.div
+@@ -125,7 +87,7 @@ const TelexGuide: React.FC = () => {
+                     Hướng dẫn gõ Tiếng Việt kiểu Telex - Cách gõ nhanh nhất
+                 </h1>
+                 <p style={{ fontSize: '18px', color: 'var(--text-muted)', lineHeight: '1.6' }}>
+-                    Telex là kiểu gõ tiếng Việt phổ biến nhất hiện nay. Bài viết hướng dẫn <strong>cách gõ chữ Telex</strong> và <strong>cách đánh bàn phím Telex</strong> chuẩn, giúp bạn <strong>luyện gõ 10 ngón tiếng Việt</strong> nhanh mà không phải rời hàng phím chính.
++                    Telex là kiểu gõ tiếng Việt phổ biến nhất hiện nay. Bài viết hướng dẫn <strong>cách gõ chữ Telex</strong> và <strong>cách đánh bàn phím Telex</strong> chuẩn, giúp bạn <strong>luyện gõ 10 ngón tiếng Việt</strong> nhanh mà không phải rời hàng phím chính. Cần bản in? Xem <Link to="/bang-go-telex">bảng gõ Telex in được</Link>.
+                 </p>
+                 <img
+                     src="/guides/keyboard.png"
+diff --git a/src/pages/TelexTable.tsx b/src/pages/TelexTable.tsx
+new file mode 100644
+index 0000000..ed65a33
+--- /dev/null
++++ b/src/pages/TelexTable.tsx
+@@ -0,0 +1,261 @@
++import React from 'react';
++import { motion } from 'framer-motion';
++import { ChevronLeft } from 'lucide-react';
++import { Link } from 'react-router-dom';
++import Seo from '../components/Seo';
++import JsonLd from '../components/JsonLd';
++import RelatedGuides from '../components/RelatedGuides';
++import { buildGuideSchemas } from '../components/guide-schema';
++import { TELEX_RULES } from '../constants';
++import { buildToneTable, TONE_LABELS, cellStyle, headStyle } from './typing-table-data';
++
++const tableSchemas = buildGuideSchemas({
++    path: '/bang-go-telex',
++    breadcrumbName: 'Bảng gõ Telex',
++    headline: 'Bảng gõ Telex đầy đủ (bản in A4)',
++    description: 'Bảng gõ Telex 1 trang: 5 dấu thanh, 7 chữ đặc biệt, bảng nguyên âm 12×5 và 12 từ hay gặp kèm phím gõ. Bấm In để dán cạnh máy cho bé tập gõ.',
++    datePublished: '2026-09-07',
++    dateModified: '2026-09-07',
++});
++
++const TONE_RULES = [
++    { tone: 'Sắc', key: 's', example: 'as → á' },
++    { tone: 'Huyền', key: 'f', example: 'af → à' },
++    { tone: 'Hỏi', key: 'r', example: 'ar → ả' },
++    { tone: 'Ngã', key: 'x', example: 'ax → ã' },
++    { tone: 'Nặng', key: 'j', example: 'aj → ạ' },
++];
++
++const SPECIAL_CHARS = [
++    { input: 'aa', output: 'â' },
++    { input: 'ee', output: 'ê' },
++    { input: 'oo', output: 'ô' },
++    { input: 'aw', output: 'ă' },
++    { input: 'ow', output: 'ơ' },
++    { input: 'uw', output: 'ư' },
++    { input: 'dd', output: 'đ' },
++];
++
++const COMMON_WORDS = [
++    { word: 'Việt Nam', keys: 'Vieetj Nam' },
++    { word: 'tiếng', keys: 'tieengs' },
++    { word: 'người', keys: 'nguwowif' },
++    { word: 'được', keys: 'dduwowcj' },
++    { word: 'trường', keys: 'truwowngf' },
++    { word: 'học', keys: 'hocj' },
++    { word: 'bàn phím', keys: 'banf phims' },
++    { word: 'mười ngón', keys: 'muwowif ngons' },
++    { word: 'chữ', keys: 'chuwx' },
++    { word: 'đẹp', keys: 'ddepj' },
++    { word: 'gõ', keys: 'gox' },
++    { word: 'nhanh', keys: 'nhanh' },
++];
++
++const COMPARISON_ROWS = [
++    { label: 'Dấu Sắc (á)', telex: 's', vni: '1' },
++    { label: 'Dấu Huyền (à)', telex: 'f', vni: '2' },
++    { label: 'Dấu Hỏi (ả)', telex: 'r', vni: '3' },
++    { label: 'Dấu Ngã (ã)', telex: 'x', vni: '4' },
++    { label: 'Dấu Nặng (ạ)', telex: 'j', vni: '5' },
++    { label: 'Chữ â', telex: 'aa', vni: 'a6' },
++    { label: 'Chữ ê', telex: 'ee', vni: 'e6' },
++    { label: 'Chữ ô', telex: 'oo', vni: 'o6' },
++    { label: 'Chữ ă', telex: 'aw', vni: 'a8' },
++    { label: 'Chữ ơ', telex: 'ow', vni: 'o7' },
++    { label: 'Chữ ư', telex: 'uw', vni: 'u7' },
++    { label: 'Chữ đ', telex: 'dd', vni: 'd9' },
++];
++
++const TelexTable: React.FC = () => {
++    const tableRows = buildToneTable(TELEX_RULES);
++
++    return (
++        <motion.div
++            initial={{ opacity: 0 }}
++            animate={{ opacity: 1 }}
++            style={{ width: '100%', maxWidth: '800px', margin: '0 auto', padding: '60px 20px', color: 'var(--text-main)' }}
++        >
++            <Seo
++                title="Bảng gõ Telex đầy đủ, in được | Typing Kid VN"
++                description="Bảng gõ Telex 1 trang: 5 dấu thanh, 7 chữ đặc biệt, bảng nguyên âm 12×5 và 12 từ hay gặp kèm phím gõ. Bấm In để dán cạnh máy cho bé tập gõ."
++                path="/bang-go-telex"
++            />
++            {tableSchemas.map((s) => (
++                <JsonLd key={s['@type'] as string} data={s} />
++            ))}
++
++            <Link to="/" className="tap-target" style={{ display: 'flex', alignItems: 'center', gap: '5px', color: 'var(--primary-color)', textDecoration: 'none', marginBottom: '30px', fontWeight: 'bold' }}>
++                <ChevronLeft size={20} /> Quay lại trang chủ
++            </Link>
++
++            <header style={{ marginBottom: '30px' }}>
++                <h1 style={{ fontSize: '36px', fontWeight: '800', marginBottom: '20px' }}>
++                    Bảng gõ Telex đầy đủ (bản in A4)
++                </h1>
++                <p style={{ fontSize: '18px', color: 'var(--text-muted)', lineHeight: '1.6', marginBottom: '20px' }}>
++                    Bảng tra cứu nhanh quy tắc gõ Telex rút gọn trên một trang, thuận tiện để in ra giấy A4 và dán cạnh máy tính cho bé luyện tập. Nếu bạn mới bắt đầu làm quen và muốn học chi tiết từng bước, hãy xem <Link to="/huong-dan-telex">hướng dẫn cách gõ Telex</Link>.
++                </p>
++                <button
++                    type="button"
++                    className="no-print"
++                    onClick={() => window.print()}
++                    style={{
++                        background: 'var(--primary-color)',
++                        color: '#fff',
++                        borderRadius: '12px',
++                        padding: '12px 20px',
++                        cursor: 'pointer',
++                        border: 'none',
++                        fontWeight: 700,
++                        fontSize: '16px',
++                    }}
++                >
++                    In bảng này
++                </button>
++            </header>
++
++            <article style={{ lineHeight: '1.8' }}>
++                {/* 1. Dấu thanh */}
++                <section style={{ marginBottom: '40px' }}>
++                    <h2 style={{ fontSize: '24px', color: 'var(--primary-color)', marginBottom: '15px' }}>1. Dấu thanh</h2>
++                    <div style={{ overflowX: 'auto', borderRadius: '12px' }}>
++                        <table style={{ width: '100%', borderCollapse: 'collapse', background: 'rgba(255,255,255,0.03)' }}>
++                            <thead>
++                                <tr>
++                                    <th style={headStyle}>Dấu</th>
++                                    <th style={headStyle}>Phím</th>
++                                    <th style={headStyle}>Ví dụ</th>
++                                </tr>
++                            </thead>
++                            <tbody>
++                                {TONE_RULES.map((r) => (
++                                    <tr key={r.tone}>
++                                        <td style={{ ...cellStyle, fontWeight: 600 }}>{r.tone}</td>
++                                        <td style={cellStyle}><code>{r.key}</code></td>
++                                        <td style={cellStyle}>{r.example}</td>
++                                    </tr>
++                                ))}
++                            </tbody>
++                        </table>
++                    </div>
++                </section>
++
++                {/* 2. Chữ đặc biệt */}
++                <section style={{ marginBottom: '40px' }}>
++                    <h2 style={{ fontSize: '24px', color: 'var(--primary-color)', marginBottom: '15px' }}>2. Chữ đặc biệt</h2>
++                    <div style={{ overflowX: 'auto', borderRadius: '12px' }}>
++                        <table style={{ width: '100%', borderCollapse: 'collapse', background: 'rgba(255,255,255,0.03)' }}>
++                            <thead>
++                                <tr>
++                                    <th style={headStyle}>Gõ</th>
++                                    <th style={headStyle}>Ra chữ</th>
++                                </tr>
++                            </thead>
++                            <tbody>
++                                {SPECIAL_CHARS.map((c) => (
++                                    <tr key={c.input}>
++                                        <td style={cellStyle}><code>{c.input}</code></td>
++                                        <td style={{ ...cellStyle, fontSize: '18px', fontWeight: 600, color: 'var(--primary-color)' }}>{c.output}</td>
++                                    </tr>
++                                ))}
++                            </tbody>
++                        </table>
++                    </div>
++                    <p style={{ marginTop: '12px', fontSize: '14px', color: 'var(--text-muted)' }}>
++                        Phím <code>z</code> xoá dấu vừa gõ.
++                    </p>
++                </section>
++
++                {/* 3. Nguyên âm × thanh */}
++                <section style={{ marginBottom: '40px' }}>
++                    <h2 style={{ fontSize: '24px', color: 'var(--primary-color)', marginBottom: '15px' }}>3. Bảng nguyên âm và thanh điệu</h2>
++                    <div style={{ overflowX: 'auto', marginTop: '20px', borderRadius: '12px' }}>
++                        <table style={{ width: '100%', minWidth: '560px', borderCollapse: 'collapse', background: 'rgba(255,255,255,0.03)' }}>
++                            <thead>
++                                <tr>
++                                    <th style={headStyle}>Nguyên âm</th>
++                                    <th style={headStyle}>Gõ gốc</th>
++                                    {TONE_LABELS.map((t) => (
++                                        <th key={t} style={headStyle}>{t}</th>
++                                    ))}
++                                </tr>
++                            </thead>
++                            <tbody>
++                                {tableRows.map((row) => (
++                                    <tr key={row.base}>
++                                        <td style={{ ...cellStyle, fontSize: '20px', fontWeight: 700, color: 'var(--primary-color)' }}>{row.base}</td>
++                                        <td style={cellStyle}><code>{row.baseKeys}</code></td>
++                                        {row.cells.map((cell) => (
++                                            <td key={cell.char} style={cellStyle}>
++                                                <div style={{ fontSize: '18px', fontWeight: 600 }}>{cell.char}</div>
++                                                <code style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{cell.keys}</code>
++                                            </td>
++                                        ))}
++                                    </tr>
++                                ))}
++                            </tbody>
++                        </table>
++                    </div>
++                </section>
++
++                {/* 4. 12 từ hay gặp */}
++                <section style={{ marginBottom: '40px' }}>
++                    <h2 style={{ fontSize: '24px', color: 'var(--primary-color)', marginBottom: '15px' }}>4. 12 từ hay gặp</h2>
++                    <div style={{ overflowX: 'auto', borderRadius: '12px' }}>
++                        <table style={{ width: '100%', borderCollapse: 'collapse', background: 'rgba(255,255,255,0.03)' }}>
++                            <thead>
++                                <tr>
++                                    <th style={headStyle}>Từ</th>
++                                    <th style={headStyle}>Gõ</th>
++                                </tr>
++                            </thead>
++                            <tbody>
++                                {COMMON_WORDS.map((item) => (
++                                    <tr key={item.word}>
++                                        <td style={{ ...cellStyle, fontWeight: 600 }}>{item.word}</td>
++                                        <td style={cellStyle}><code>{item.keys}</code></td>
++                                    </tr>
++                                ))}
++                            </tbody>
++                        </table>
++                    </div>
++                    <p style={{ marginTop: '12px', fontSize: '14px', color: 'var(--text-muted)' }}>
++                        Gõ dấu ngay sau nguyên âm (ngươfi) hay cuối từ (nguwowif) đều được.
++                    </p>
++                </section>
++
++                {/* 5. Telex và VNI cạnh nhau */}
++                <section className="no-print" style={{ marginBottom: '40px' }}>
++                    <h2 style={{ fontSize: '24px', color: 'var(--primary-color)', marginBottom: '15px' }}>5. So sánh Telex và VNI</h2>
++                    <p style={{ marginBottom: '15px' }}>
++                        Đối chiếu cách gõ giữa hai kiểu gõ tiếng Việt. Xem thêm <Link to="/bang-go-vni">bảng gõ VNI đầy đủ</Link>.
++                    </p>
++                    <div style={{ overflowX: 'auto', borderRadius: '12px' }}>
++                        <table style={{ width: '100%', borderCollapse: 'collapse', background: 'rgba(255,255,255,0.03)' }}>
++                            <thead>
++                                <tr>
++                                    <th style={headStyle}>Dấu / chữ</th>
++                                    <th style={headStyle}>Telex</th>
++                                    <th style={headStyle}>VNI</th>
++                                </tr>
++                            </thead>
++                            <tbody>
++                                {COMPARISON_ROWS.map((row) => (
++                                    <tr key={row.label}>
++                                        <td style={{ ...cellStyle, fontWeight: 600 }}>{row.label}</td>
++                                        <td style={cellStyle}><code>{row.telex}</code></td>
++                                        <td style={cellStyle}><code>{row.vni}</code></td>
++                                    </tr>
++                                ))}
++                            </tbody>
++                        </table>
++                    </div>
++                </section>
++            </article>
++
++            <RelatedGuides currentPath="/bang-go-telex" />
++        </motion.div>
++    );
++};
++
++export default TelexTable;
+diff --git a/src/pages/VniGuide.tsx b/src/pages/VniGuide.tsx
+index 94c48a4..aee48f9 100644
+--- a/src/pages/VniGuide.tsx
++++ b/src/pages/VniGuide.tsx
+@@ -7,40 +7,7 @@ import JsonLd from '../components/JsonLd';
+ import RelatedGuides from '../components/RelatedGuides';
+ import { buildGuideSchemas } from '../components/guide-schema';
+ import { VNI_RULES } from '../constants';
+-
+-/**
+- * Nhóm nguyên âm theo gốc × 5 thanh — cấu trúc trình bày cho bảng tra cứu VNI.
+- * Phím gõ thực tế luôn lấy từ VNI_RULES (constants.ts) để giữ 1 nguồn dữ liệu.
+- */
+-const VOWEL_GROUPS: { base: string; chars: string[] }[] = [
+-    { base: 'a', chars: ['á', 'à', 'ả', 'ã', 'ạ'] },
+-    { base: 'ă', chars: ['ắ', 'ằ', 'ẳ', 'ẵ', 'ặ'] },
+-    { base: 'â', chars: ['ấ', 'ầ', 'ẩ', 'ẫ', 'ậ'] },
+-    { base: 'e', chars: ['é', 'è', 'ẻ', 'ẽ', 'ẹ'] },
+-    { base: 'ê', chars: ['ế', 'ề', 'ể', 'ễ', 'ệ'] },
+-    { base: 'i', chars: ['í', 'ì', 'ỉ', 'ĩ', 'ị'] },
+-    { base: 'o', chars: ['ó', 'ò', 'ỏ', 'õ', 'ọ'] },
+-    { base: 'ô', chars: ['ố', 'ồ', 'ổ', 'ỗ', 'ộ'] },
+-    { base: 'ơ', chars: ['ớ', 'ờ', 'ở', 'ỡ', 'ợ'] },
+-    { base: 'u', chars: ['ú', 'ù', 'ủ', 'ũ', 'ụ'] },
+-    { base: 'ư', chars: ['ứ', 'ừ', 'ử', 'ữ', 'ự'] },
+-    { base: 'y', chars: ['ý', 'ỳ', 'ỷ', 'ỹ', 'ỵ'] },
+-];
+-
+-const TONE_LABELS = ['Sắc', 'Huyền', 'Hỏi', 'Ngã', 'Nặng'];
+-
+-/**
+- * Sinh dữ liệu bảng VNI. Phím gốc của nguyên âm có dấu (â=a6, ă=a8, ê=e6,
+- * ô=o6, ơ=o7, ư=u7) lấy từ VNI_RULES; nguyên âm thường gõ chính nó.
+- */
+-function buildVniTable() {
+-    return VOWEL_GROUPS.map(({ base, chars }) => ({
+-        base,
+-        baseKeys: (VNI_RULES[base] ?? [base]).join(''),
+-        // Guard ?? để không crash nếu constants.ts đổi và thiếu key ký tự nào đó
+-        cells: chars.map((c) => ({ char: c, keys: (VNI_RULES[c] ?? ['?']).join('') })),
+-    }));
+-}
++import { buildToneTable, TONE_LABELS, cellStyle, headStyle } from './typing-table-data';
+ 
+ /** FAQ dùng chung cho phần hiển thị và JSON-LD (text phải trùng khớp). */
+ const faqs: { q: string; a: string }[] = [
+@@ -82,11 +49,8 @@ const guideSchemas = buildGuideSchemas({
+     dateModified: '2026-08-13',
+ });
+ 
+-const cellStyle: React.CSSProperties = { padding: '12px 15px', textAlign: 'center', borderBottom: '1px solid rgba(255,255,255,0.06)' };
+-const headStyle: React.CSSProperties = { padding: '14px 15px', textAlign: 'center', background: 'rgba(255,255,255,0.05)', fontWeight: 700 };
+-
+ const VniGuide: React.FC = () => {
+-    const tableRows = buildVniTable();
++    const tableRows = buildToneTable(VNI_RULES);
+ 
+     return (
+         <motion.div
+@@ -115,7 +79,7 @@ const VniGuide: React.FC = () => {
+                     Hướng dẫn gõ Tiếng Việt kiểu VNI - Lựa chọn cho người thích phím số
+                 </h1>
+                 <p style={{ fontSize: '18px', color: 'var(--text-muted)', lineHeight: '1.6' }}>
+-                    VNI là kiểu gõ tiếng Việt dùng hàng phím số để bỏ dấu. Bài viết hướng dẫn <strong>cách gõ VNI</strong> và tra <strong>bảng dấu VNI</strong> đầy đủ, giúp bạn <strong>luyện gõ 10 ngón</strong> mà không lo nhầm giữa chữ cái và dấu thanh.
++                    VNI là kiểu gõ tiếng Việt dùng hàng phím số để bỏ dấu. Bài viết hướng dẫn <strong>cách gõ VNI</strong> và tra <strong>bảng dấu VNI</strong> đầy đủ, giúp bạn <strong>luyện gõ 10 ngón</strong> mà không lo nhầm giữa chữ cái và dấu thanh. Cần bản in? Xem <Link to="/bang-go-vni">bảng gõ VNI in được</Link>.
+                 </p>
+                 <img
+                     src="/guides/keyboard.png"
+diff --git a/src/pages/VniTable.tsx b/src/pages/VniTable.tsx
+new file mode 100644
+index 0000000..4770696
+--- /dev/null
++++ b/src/pages/VniTable.tsx
+@@ -0,0 +1,260 @@
++import React from 'react';
++import { motion } from 'framer-motion';
++import { ChevronLeft } from 'lucide-react';
++import { Link } from 'react-router-dom';
++import Seo from '../components/Seo';
++import JsonLd from '../components/JsonLd';
++import RelatedGuides from '../components/RelatedGuides';
++import { buildGuideSchemas } from '../components/guide-schema';
++import { VNI_RULES } from '../constants';
++import { buildToneTable, TONE_LABELS, cellStyle, headStyle } from './typing-table-data';
++
++const tableSchemas = buildGuideSchemas({
++    path: '/bang-go-vni',
++    breadcrumbName: 'Bảng gõ VNI',
++    headline: 'Bảng gõ VNI đầy đủ (bản in A4)',
++    description: 'Bảng gõ VNI 1 trang: dấu thanh phím 1-5, chữ â ê ô ơ ư ă đ phím 6-9, bảng nguyên âm 12×5 và 12 từ hay gặp kèm phím gõ. Bấm In để dán cạnh máy.',
++    datePublished: '2026-09-07',
++    dateModified: '2026-09-07',
++});
++
++const TONE_RULES = [
++    { tone: 'Sắc', key: '1', example: 'a1 → á' },
++    { tone: 'Huyền', key: '2', example: 'a2 → à' },
++    { tone: 'Hỏi', key: '3', example: 'a3 → ả' },
++    { tone: 'Ngã', key: '4', example: 'a4 → ã' },
++    { tone: 'Nặng', key: '5', example: 'a5 → ạ' },
++];
++
++const SPECIAL_CHARS = [
++    { key: '6', role: 'Dấu mũ', example: 'a6 → â, e6 → ê, o6 → ô' },
++    { key: '7', role: 'Dấu móc', example: 'o7 → ơ, u7 → ư' },
++    { key: '8', role: 'Dấu trăng', example: 'a8 → ă' },
++    { key: '9', role: 'Chữ đ', example: 'd9 → đ' },
++];
++
++const COMMON_WORDS = [
++    { word: 'Việt Nam', keys: 'Vie6t5 Nam' },
++    { word: 'tiếng', keys: 'tie6ng1' },
++    { word: 'người', keys: 'ngu7o7i2' },
++    { word: 'được', keys: 'd9u7o7c5' },
++    { word: 'trường', keys: 'tru7o7ng2' },
++    { word: 'học', keys: 'hoc5' },
++    { word: 'bàn phím', keys: 'ban2 phim1' },
++    { word: 'mười ngón', keys: 'mu7o7i2 ngon1' },
++    { word: 'chữ', keys: 'chu74' },
++    { word: 'đẹp', keys: 'd9ep5' },
++    { word: 'gõ', keys: 'go4' },
++    { word: 'nhanh', keys: 'nhanh' },
++];
++
++const COMPARISON_ROWS = [
++    { label: 'Dấu Sắc (á)', vni: '1', telex: 's' },
++    { label: 'Dấu Huyền (à)', vni: '2', telex: 'f' },
++    { label: 'Dấu Hỏi (ả)', vni: '3', telex: 'r' },
++    { label: 'Dấu Ngã (ã)', vni: '4', telex: 'x' },
++    { label: 'Dấu Nặng (ạ)', vni: '5', telex: 'j' },
++    { label: 'Chữ â', vni: 'a6', telex: 'aa' },
++    { label: 'Chữ ê', vni: 'e6', telex: 'ee' },
++    { label: 'Chữ ô', vni: 'o6', telex: 'oo' },
++    { label: 'Chữ ă', vni: 'a8', telex: 'aw' },
++    { label: 'Chữ ơ', vni: 'o7', telex: 'ow' },
++    { label: 'Chữ ư', vni: 'u7', telex: 'uw' },
++    { label: 'Chữ đ', vni: 'd9', telex: 'dd' },
++];
++
++const VniTable: React.FC = () => {
++    const tableRows = buildToneTable(VNI_RULES);
++
++    return (
++        <motion.div
++            initial={{ opacity: 0 }}
++            animate={{ opacity: 1 }}
++            style={{ width: '100%', maxWidth: '800px', margin: '0 auto', padding: '60px 20px', color: 'var(--text-main)' }}
++        >
++            <Seo
++                title="Bảng gõ VNI đầy đủ, in được | Typing Kid VN"
++                description="Bảng gõ VNI 1 trang: dấu thanh phím 1-5, chữ â ê ô ơ ư ă đ phím 6-9, bảng nguyên âm 12×5 và 12 từ hay gặp kèm phím gõ. Bấm In để dán cạnh máy."
++                path="/bang-go-vni"
++            />
++            {tableSchemas.map((s) => (
++                <JsonLd key={s['@type'] as string} data={s} />
++            ))}
++
++            <Link to="/" className="tap-target" style={{ display: 'flex', alignItems: 'center', gap: '5px', color: 'var(--primary-color)', textDecoration: 'none', marginBottom: '30px', fontWeight: 'bold' }}>
++                <ChevronLeft size={20} /> Quay lại trang chủ
++            </Link>
++
++            <header style={{ marginBottom: '30px' }}>
++                <h1 style={{ fontSize: '36px', fontWeight: '800', marginBottom: '20px' }}>
++                    Bảng gõ VNI đầy đủ (bản in A4)
++                </h1>
++                <p style={{ fontSize: '18px', color: 'var(--text-muted)', lineHeight: '1.6', marginBottom: '20px' }}>
++                    Bảng tra cứu nhanh quy tắc gõ VNI rút gọn trên một trang, thuận tiện để in ra giấy A4 và dán cạnh máy tính cho bé luyện tập. Nếu bạn mới bắt đầu làm quen và muốn học chi tiết từng bước, hãy xem <Link to="/huong-dan-vni">hướng dẫn cách gõ VNI</Link>.
++                </p>
++                <button
++                    type="button"
++                    className="no-print"
++                    onClick={() => window.print()}
++                    style={{
++                        background: 'var(--primary-color)',
++                        color: '#fff',
++                        borderRadius: '12px',
++                        padding: '12px 20px',
++                        cursor: 'pointer',
++                        border: 'none',
++                        fontWeight: 700,
++                        fontSize: '16px',
++                    }}
++                >
++                    In bảng này
++                </button>
++            </header>
++
++            <article style={{ lineHeight: '1.8' }}>
++                {/* 1. Dấu thanh */}
++                <section style={{ marginBottom: '40px' }}>
++                    <h2 style={{ fontSize: '24px', color: 'var(--primary-color)', marginBottom: '15px' }}>1. Dấu thanh</h2>
++                    <div style={{ overflowX: 'auto', borderRadius: '12px' }}>
++                        <table style={{ width: '100%', borderCollapse: 'collapse', background: 'rgba(255,255,255,0.03)' }}>
++                            <thead>
++                                <tr>
++                                    <th style={headStyle}>Dấu</th>
++                                    <th style={headStyle}>Phím</th>
++                                    <th style={headStyle}>Ví dụ</th>
++                                </tr>
++                            </thead>
++                            <tbody>
++                                {TONE_RULES.map((r) => (
++                                    <tr key={r.tone}>
++                                        <td style={{ ...cellStyle, fontWeight: 600 }}>{r.tone}</td>
++                                        <td style={cellStyle}><code>{r.key}</code></td>
++                                        <td style={cellStyle}>{r.example}</td>
++                                    </tr>
++                                ))}
++                            </tbody>
++                        </table>
++                    </div>
++                </section>
++
++                {/* 2. Chữ đặc biệt */}
++                <section style={{ marginBottom: '40px' }}>
++                    <h2 style={{ fontSize: '24px', color: 'var(--primary-color)', marginBottom: '15px' }}>2. Chữ đặc biệt</h2>
++                    <div style={{ overflowX: 'auto', borderRadius: '12px' }}>
++                        <table style={{ width: '100%', borderCollapse: 'collapse', background: 'rgba(255,255,255,0.03)' }}>
++                            <thead>
++                                <tr>
++                                    <th style={headStyle}>Phím</th>
++                                    <th style={headStyle}>Chức năng</th>
++                                    <th style={headStyle}>Ví dụ</th>
++                                </tr>
++                            </thead>
++                            <tbody>
++                                {SPECIAL_CHARS.map((c) => (
++                                    <tr key={c.key}>
++                                        <td style={{ ...cellStyle, fontSize: '18px', fontWeight: 600, color: 'var(--primary-color)' }}><code>{c.key}</code></td>
++                                        <td style={{ ...cellStyle, fontWeight: 600 }}>{c.role}</td>
++                                        <td style={cellStyle}>{c.example}</td>
++                                    </tr>
++                                ))}
++                            </tbody>
++                        </table>
++                    </div>
++                    <p style={{ marginTop: '12px', fontSize: '14px', color: 'var(--text-muted)' }}>
++                        Phím <code>0</code> xoá dấu vừa gõ.
++                    </p>
++                </section>
++
++                {/* 3. Nguyên âm × thanh */}
++                <section style={{ marginBottom: '40px' }}>
++                    <h2 style={{ fontSize: '24px', color: 'var(--primary-color)', marginBottom: '15px' }}>3. Bảng nguyên âm và thanh điệu</h2>
++                    <div style={{ overflowX: 'auto', marginTop: '20px', borderRadius: '12px' }}>
++                        <table style={{ width: '100%', minWidth: '560px', borderCollapse: 'collapse', background: 'rgba(255,255,255,0.03)' }}>
++                            <thead>
++                                <tr>
++                                    <th style={headStyle}>Nguyên âm</th>
++                                    <th style={headStyle}>Gõ gốc</th>
++                                    {TONE_LABELS.map((t) => (
++                                        <th key={t} style={headStyle}>{t}</th>
++                                    ))}
++                                </tr>
++                            </thead>
++                            <tbody>
++                                {tableRows.map((row) => (
++                                    <tr key={row.base}>
++                                        <td style={{ ...cellStyle, fontSize: '20px', fontWeight: 700, color: 'var(--primary-color)' }}>{row.base}</td>
++                                        <td style={cellStyle}><code>{row.baseKeys}</code></td>
++                                        {row.cells.map((cell) => (
++                                            <td key={cell.char} style={cellStyle}>
++                                                <div style={{ fontSize: '18px', fontWeight: 600 }}>{cell.char}</div>
++                                                <code style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{cell.keys}</code>
++                                            </td>
++                                        ))}
++                                    </tr>
++                                ))}
++                            </tbody>
++                        </table>
++                    </div>
++                </section>
++
++                {/* 4. 12 từ hay gặp */}
++                <section style={{ marginBottom: '40px' }}>
++                    <h2 style={{ fontSize: '24px', color: 'var(--primary-color)', marginBottom: '15px' }}>4. 12 từ hay gặp</h2>
++                    <div style={{ overflowX: 'auto', borderRadius: '12px' }}>
++                        <table style={{ width: '100%', borderCollapse: 'collapse', background: 'rgba(255,255,255,0.03)' }}>
++                            <thead>
++                                <tr>
++                                    <th style={headStyle}>Từ</th>
++                                    <th style={headStyle}>Gõ</th>
++                                </tr>
++                            </thead>
++                            <tbody>
++                                {COMMON_WORDS.map((item) => (
++                                    <tr key={item.word}>
++                                        <td style={{ ...cellStyle, fontWeight: 600 }}>{item.word}</td>
++                                        <td style={cellStyle}><code>{item.keys}</code></td>
++                                    </tr>
++                                ))}
++                            </tbody>
++                        </table>
++                    </div>
++                    <p style={{ marginTop: '12px', fontSize: '14px', color: 'var(--text-muted)' }}>
++                        Gõ dấu ngay sau nguyên âm (ngu7o72i) hay cuối từ (ngu7o7i2) đều được.
++                    </p>
++                </section>
++
++                {/* 5. Telex và VNI cạnh nhau */}
++                <section className="no-print" style={{ marginBottom: '40px' }}>
++                    <h2 style={{ fontSize: '24px', color: 'var(--primary-color)', marginBottom: '15px' }}>5. So sánh VNI và Telex</h2>
++                    <p style={{ marginBottom: '15px' }}>
++                        Đối chiếu cách gõ giữa hai kiểu gõ tiếng Việt. Xem thêm <Link to="/bang-go-telex">bảng gõ Telex đầy đủ</Link>.
++                    </p>
++                    <div style={{ overflowX: 'auto', borderRadius: '12px' }}>
++                        <table style={{ width: '100%', borderCollapse: 'collapse', background: 'rgba(255,255,255,0.03)' }}>
++                            <thead>
++                                <tr>
++                                    <th style={headStyle}>Dấu / chữ</th>
++                                    <th style={headStyle}>VNI</th>
++                                    <th style={headStyle}>Telex</th>
++                                </tr>
++                            </thead>
++                            <tbody>
++                                {COMPARISON_ROWS.map((row) => (
++                                    <tr key={row.label}>
++                                        <td style={{ ...cellStyle, fontWeight: 600 }}>{row.label}</td>
++                                        <td style={cellStyle}><code>{row.vni}</code></td>
++                                        <td style={cellStyle}><code>{row.telex}</code></td>
++                                    </tr>
++                                ))}
++                            </tbody>
++                        </table>
++                    </div>
++                </section>
++            </article>
++
++            <RelatedGuides currentPath="/bang-go-vni" />
++        </motion.div>
++    );
++};
++
++export default VniTable;
+diff --git a/src/pages/typing-table-data.ts b/src/pages/typing-table-data.ts
+new file mode 100644
+index 0000000..73fa3a6
+--- /dev/null
++++ b/src/pages/typing-table-data.ts
+@@ -0,0 +1,41 @@
++import type React from 'react';
++
++/** 12 nguyên âm gốc × 5 ký tự có dấu — cấu trúc TRÌNH BÀY của bảng tra cứu. */
++export const VOWEL_GROUPS: { base: string; chars: string[] }[] = [
++    { base: 'a', chars: ['á', 'à', 'ả', 'ã', 'ạ'] },
++    { base: 'ă', chars: ['ắ', 'ằ', 'ẳ', 'ẵ', 'ặ'] },
++    { base: 'â', chars: ['ấ', 'ầ', 'ẩ', 'ẫ', 'ậ'] },
++    { base: 'e', chars: ['é', 'è', 'ẻ', 'ẽ', 'ẹ'] },
++    { base: 'ê', chars: ['ế', 'ề', 'ể', 'ễ', 'ệ'] },
++    { base: 'i', chars: ['í', 'ì', 'ỉ', 'ĩ', 'ị'] },
++    { base: 'o', chars: ['ó', 'ò', 'ỏ', 'õ', 'ọ'] },
++    { base: 'ô', chars: ['ố', 'ồ', 'ổ', 'ỗ', 'ộ'] },
++    { base: 'ơ', chars: ['ớ', 'ờ', 'ở', 'ỡ', 'ợ'] },
++    { base: 'u', chars: ['ú', 'ù', 'ủ', 'ũ', 'ụ'] },
++    { base: 'ư', chars: ['ứ', 'ừ', 'ử', 'ữ', 'ự'] },
++    { base: 'y', chars: ['ý', 'ỳ', 'ỷ', 'ỹ', 'ỵ'] },
++];
++
++export const TONE_LABELS = ['Sắc', 'Huyền', 'Hỏi', 'Ngã', 'Nặng'];
++
++export interface ToneTableRow {
++    base: string;
++    baseKeys: string;
++    cells: { char: string; keys: string }[];
++}
++
++/**
++ * Sinh dữ liệu bảng nguyên âm × thanh từ bảng luật của một kiểu gõ.
++ * Thay cho buildTelexTable()/buildVniTable() vốn giống hệt nhau ngoài tham số rules.
++ */
++export function buildToneTable(rules: Record<string, string[]>): ToneTableRow[] {
++    return VOWEL_GROUPS.map(({ base, chars }) => ({
++        base,
++        baseKeys: (rules[base] ?? [base]).join(''),
++        // Guard ?? để không crash nếu constants.ts đổi và thiếu key ký tự nào đó
++        cells: chars.map((c) => ({ char: c, keys: (rules[c] ?? ['?']).join('') })),
++    }));
++}
++
++export const cellStyle: React.CSSProperties = { padding: '12px 15px', textAlign: 'center', borderBottom: '1px solid rgba(255,255,255,0.06)' };
++export const headStyle: React.CSSProperties = { padding: '14px 15px', textAlign: 'center', background: 'rgba(255,255,255,0.05)', fontWeight: 700 };
+diff --git a/src/routes.tsx b/src/routes.tsx
+index 77eefff..e54f72e 100644
+--- a/src/routes.tsx
++++ b/src/routes.tsx
+@@ -8,6 +8,8 @@ import PostureGuide from './pages/PostureGuide';
+ import TelexGuide from './pages/TelexGuide';
+ import VniGuide from './pages/VniGuide';
+ import FjRidgeGuide from './pages/FjRidgeGuide';
++import TelexTable from './pages/TelexTable';
++import VniTable from './pages/VniTable';
+ 
+ /**
+  * Danh sách route dạng mảng dữ liệu để vite-react-ssg biết đường prerender.
+@@ -37,6 +39,8 @@ export const routes: RouteRecord[] = [
+       { path: 'huong-dan-telex', element: <TelexGuide /> },
+       { path: 'huong-dan-vni', element: <VniGuide /> },
+       { path: 'bi-mat-phim-f-j', element: <FjRidgeGuide /> },
++      { path: 'bang-go-telex', element: <TelexTable /> },
++      { path: 'bang-go-vni', element: <VniTable /> },
+     ],
+   },
+ ];

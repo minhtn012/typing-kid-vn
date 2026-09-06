@@ -1,0 +1,21 @@
+LÁCH LINT (dòng thêm mới):
+(không)
+
+EXPORT MỚI KHÔNG AI GỌI:
+VOWEL_GROUPS (định nghĩa ở src/pages/typing-table-data.ts)
+
+VI PHẠM QUY ƯỚC (vue, dòng thêm mới):
+src/pages/TelexTable.tsx: màu hardcode: color: '#fff',
+src/pages/TelexTable.tsx: màu hardcode: <table style={{ width: '100%', borderCollapse: 'collapse', background: 'rgba(255,255,255,0.03)' }}>
+src/pages/TelexTable.tsx: màu hardcode: <table style={{ width: '100%', borderCollapse: 'collapse', background: 'rgba(255,255,255,0.03)' }}>
+src/pages/TelexTable.tsx: màu hardcode: <table style={{ width: '100%', minWidth: '560px', borderCollapse: 'collapse', background: 'rgba(255,255,255,0.03)' }}>
+src/pages/TelexTable.tsx: màu hardcode: <table style={{ width: '100%', borderCollapse: 'collapse', background: 'rgba(255,255,255,0.03)' }}>
+src/pages/TelexTable.tsx: màu hardcode: <table style={{ width: '100%', borderCollapse: 'collapse', background: 'rgba(255,255,255,0.03)' }}>
+src/pages/VniTable.tsx: màu hardcode: color: '#fff',
+src/pages/VniTable.tsx: màu hardcode: <table style={{ width: '100%', borderCollapse: 'collapse', background: 'rgba(255,255,255,0.03)' }}>
+src/pages/VniTable.tsx: màu hardcode: <table style={{ width: '100%', borderCollapse: 'collapse', background: 'rgba(255,255,255,0.03)' }}>
+src/pages/VniTable.tsx: màu hardcode: <table style={{ width: '100%', minWidth: '560px', borderCollapse: 'collapse', background: 'rgba(255,255,255,0.03)' }}>
+src/pages/VniTable.tsx: màu hardcode: <table style={{ width: '100%', borderCollapse: 'collapse', background: 'rgba(255,255,255,0.03)' }}>
+src/pages/VniTable.tsx: màu hardcode: <table style={{ width: '100%', borderCollapse: 'collapse', background: 'rgba(255,255,255,0.03)' }}>
+src/pages/typing-table-data.ts: màu hardcode: export const cellStyle: React.CSSProperties = { padding: '12px 15px', textAlign: 'center', borderBottom: '1px solid rgba
+src/pages/typing-table-data.ts: màu hardcode: export const headStyle: React.CSSProperties = { padding: '14px 15px', textAlign: 'center', background: 'rgba(255,255,255

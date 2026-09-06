@@ -7,42 +7,7 @@ import JsonLd from '../components/JsonLd';
 import RelatedGuides from '../components/RelatedGuides';
 import { buildGuideSchemas } from '../components/guide-schema';
 import { TELEX_RULES } from '../constants';
-
-/**
- * Nhóm nguyên âm theo gốc × 5 thanh (sắc, huyền, hỏi, ngã, nặng).
- * Đây chỉ là cấu trúc TRÌNH BÀY cho bảng tra cứu — phím gõ thực tế vẫn
- * lấy từ TELEX_RULES (1 nguồn dữ liệu duy nhất ở constants.ts) để tránh lệch.
- */
-const VOWEL_GROUPS: { base: string; chars: string[] }[] = [
-    { base: 'a', chars: ['á', 'à', 'ả', 'ã', 'ạ'] },
-    { base: 'ă', chars: ['ắ', 'ằ', 'ẳ', 'ẵ', 'ặ'] },
-    { base: 'â', chars: ['ấ', 'ầ', 'ẩ', 'ẫ', 'ậ'] },
-    { base: 'e', chars: ['é', 'è', 'ẻ', 'ẽ', 'ẹ'] },
-    { base: 'ê', chars: ['ế', 'ề', 'ể', 'ễ', 'ệ'] },
-    { base: 'i', chars: ['í', 'ì', 'ỉ', 'ĩ', 'ị'] },
-    { base: 'o', chars: ['ó', 'ò', 'ỏ', 'õ', 'ọ'] },
-    { base: 'ô', chars: ['ố', 'ồ', 'ổ', 'ỗ', 'ộ'] },
-    { base: 'ơ', chars: ['ớ', 'ờ', 'ở', 'ỡ', 'ợ'] },
-    { base: 'u', chars: ['ú', 'ù', 'ủ', 'ũ', 'ụ'] },
-    { base: 'ư', chars: ['ứ', 'ừ', 'ử', 'ữ', 'ự'] },
-    { base: 'y', chars: ['ý', 'ỳ', 'ỷ', 'ỹ', 'ỵ'] },
-];
-
-const TONE_LABELS = ['Sắc', 'Huyền', 'Hỏi', 'Ngã', 'Nặng'];
-
-/**
- * Sinh dữ liệu bảng: mỗi nguyên âm gốc → phím gõ ra gốc + phím gõ 5 thanh.
- * Phím gốc của nguyên âm có dấu mũ/móc (â, ă, ê, ô, ơ, ư) lấy từ TELEX_RULES;
- * nguyên âm thường (a, e, i, o, u, y) thì gõ chính nó.
- */
-function buildTelexTable() {
-    return VOWEL_GROUPS.map(({ base, chars }) => ({
-        base,
-        baseKeys: (TELEX_RULES[base] ?? [base]).join(''),
-        // Guard ?? để không crash nếu constants.ts đổi và thiếu key ký tự nào đó
-        cells: chars.map((c) => ({ char: c, keys: (TELEX_RULES[c] ?? ['?']).join('') })),
-    }));
-}
+import { buildToneTable, TONE_LABELS, cellStyle, headStyle } from './typing-table-data';
 
 /**
  * FAQ: 1 mảng dùng cho CẢ phần hiển thị lẫn JSON-LD.
@@ -92,11 +57,8 @@ const guideSchemas = buildGuideSchemas({
     dateModified: '2026-08-13',
 });
 
-const cellStyle: React.CSSProperties = { padding: '12px 15px', textAlign: 'center', borderBottom: '1px solid rgba(255,255,255,0.06)' };
-const headStyle: React.CSSProperties = { padding: '14px 15px', textAlign: 'center', background: 'rgba(255,255,255,0.05)', fontWeight: 700 };
-
 const TelexGuide: React.FC = () => {
-    const tableRows = buildTelexTable();
+    const tableRows = buildToneTable(TELEX_RULES);
 
     return (
         <motion.div
@@ -125,7 +87,7 @@ const TelexGuide: React.FC = () => {
                     Hướng dẫn gõ Tiếng Việt kiểu Telex - Cách gõ nhanh nhất
                 </h1>
                 <p style={{ fontSize: '18px', color: 'var(--text-muted)', lineHeight: '1.6' }}>
-                    Telex là kiểu gõ tiếng Việt phổ biến nhất hiện nay. Bài viết hướng dẫn <strong>cách gõ chữ Telex</strong> và <strong>cách đánh bàn phím Telex</strong> chuẩn, giúp bạn <strong>luyện gõ 10 ngón tiếng Việt</strong> nhanh mà không phải rời hàng phím chính.
+                    Telex là kiểu gõ tiếng Việt phổ biến nhất hiện nay. Bài viết hướng dẫn <strong>cách gõ chữ Telex</strong> và <strong>cách đánh bàn phím Telex</strong> chuẩn, giúp bạn <strong>luyện gõ 10 ngón tiếng Việt</strong> nhanh mà không phải rời hàng phím chính. Cần bản in? Xem <Link to="/bang-go-telex">bảng gõ Telex in được</Link>.
                 </p>
                 <img
                     src="/guides/keyboard.png"

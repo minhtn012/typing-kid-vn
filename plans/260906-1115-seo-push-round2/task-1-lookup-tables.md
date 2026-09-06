@@ -38,7 +38,7 @@ Sửa:
 - `src/components/HomePage.tsx`, `src/components/HomeView.tsx`, `src/components/DesktopNudge.tsx`
 - `src/components/Seo.tsx`, `src/components/JsonLd.tsx`, `src/components/guide-schema.ts`
 - `src/utils/`, `src/hooks/`, `index.html`, `package.json`, `vercel.json`
-- Mọi file trong `plans/`, `docs/`
+- Mọi file trong `plans/` và `docs/` — **ngoại lệ**: `docs/ui-map.md` được phép cập nhật vì route thay đổi (script dispatch tự sinh lại; nếu chạy tay thì dùng generator của repo, đừng viết tay phần giữa 2 marker `ui-map:generated`).
 
 ## Files chỉ đọc (tham chiếu)
 
@@ -270,7 +270,7 @@ Thêm vào cuối mảng `GUIDES` (thành 6 item):
 - Không đụng `src/constants.ts`, engine luyện gõ, mini game.
 - Không thêm FAQPage cho 2 trang mới.
 - Không tạo `og:image` riêng, không hreflang, không `404.html`.
-- Không sửa `docs/`, `plans/`, `package.json`, `index.html`.
+- Không sửa `plans/`, `package.json`, `index.html`; `docs/` chỉ đụng `docs/ui-map.md` như nêu trên.
 - Không đổi title/description của 4 trang guide và trang chủ.
 - Không refactor thêm gì ngoài phần `typing-table-data.ts` đã nêu.
 
@@ -281,7 +281,7 @@ Dán **output thật** của từng lệnh. Chưa chạy thì ghi "CHƯA CHẠY"
 - [ ] `npx tsc -b` → exit 0
 - [ ] `npm test` → exit 0
 - [ ] `npm run build` → exit 0
-- [ ] `npx eslint src/pages/typing-table-data.ts src/pages/TelexTable.tsx src/pages/VniTable.tsx src/pages/TelexGuide.tsx src/pages/VniGuide.tsx src/routes.tsx` → exit 0
+- [ ] `npx eslint src/pages src/routes.tsx` → exit 0 *(chỉ lint vùng của task — `npm run lint` toàn repo ĐỎ SẴN 34 lỗi ở `src/hooks`, `src/components`, `.opencode/**`, không phải việc của task này, đừng sửa)*
 - [ ] `grep -n "VOWEL_GROUPS\|buildTelexTable\|buildVniTable" src/pages/TelexGuide.tsx src/pages/VniGuide.tsx` → 0 dòng
 - [ ] `grep -c "<url>" dist/sitemap.xml` → `7`
 - [ ] `grep -c "<h1" dist/bang-go-telex.html` → `1`
@@ -291,7 +291,7 @@ Dán **output thật** của từng lệnh. Chưa chạy thì ghi "CHƯA CHẠY"
 - [ ] `grep -c 'rel="canonical" href="https://type.scala.vn/bang-go-vni"' dist/bang-go-vni.html` → `1`
 - [ ] `grep -c 'BreadcrumbList' dist/bang-go-telex.html` → `1`
 - [ ] `grep -c '"@type":"Article"' dist/bang-go-telex.html` → `1`
-- [ ] `grep -c "bang-go-telex" dist/huong-dan-telex.html` → `≥ 2`
+- [ ] `grep -o "bang-go-telex" dist/huong-dan-telex.html | wc -l` → `≥ 2` *(sửa 06/09: bản cũ dùng `grep -c` đếm SỐ DÒNG khớp, mà vite-react-ssg dồn cả DOM vào 1 dòng nên luôn ra 1 — worker báo BLOCKED đúng, lỗi ở spec)*
 - [ ] `grep -c "@media print" src/index.css` → `1`
 - [ ] `python3 -c "import re;t=lambda f:re.findall(r'<table.*?</table>',open(f,encoding='utf-8').read(),re.S);print('SAME' if t('/tmp/p03/huong-dan-telex.html')==t('dist/huong-dan-telex.html') else 'DIFF')"` → `SAME` *(chứng minh việc tách module không đổi nội dung bảng của guide; cần bước 1 đã chạy trước khi sửa)*
 - [ ] `python3 -c "import re;t=lambda f:re.findall(r'<table.*?</table>',open(f,encoding='utf-8').read(),re.S);print('SAME' if t('/tmp/p03/huong-dan-vni.html')==t('dist/huong-dan-vni.html') else 'DIFF')"` → `SAME`

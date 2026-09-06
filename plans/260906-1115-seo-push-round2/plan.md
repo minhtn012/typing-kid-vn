@@ -45,7 +45,7 @@ Query cơ hội (90d): `luyện gõ 10 ngón tiếng việt` 62 impr pos 11 (28d
 |---|---|---|---|---|
 | 01 | [Kích index + sitemap tự động](phase-01-reindex-and-sitemap.md) | Google crawl lại bản SSG, hết lệch lastmod | — | code + build verify xong; còn submit sitemap GSC + Request Indexing (user) |
 | 02 | [Sửa on-page kỹ thuật](phase-02-onpage-fixes.md) | FAQPage, ảnh, nav, title trang chủ | — | xong, smoke PASS sau khi sửa cuộn ngang 375px |
-| 03 | [Bảng gõ in được](phase-03-lookup-tables.md) | `/bang-go-telex`, `/bang-go-vni` | 01 | chưa |
+| 03 | [Bảng gõ in được](phase-03-lookup-tables.md) | `/bang-go-telex`, `/bang-go-vni` | 01 | xong, smoke 5/5 PASS |
 | 04 | [Landing phụ huynh](phase-04-kids-landing.md) | `/tap-go-10-ngon-cho-be` | 01, 02 | chưa |
 | 05 | [Đo lường + off-page](phase-05-measure-and-offpage.md) | Số liệu D+7/14/28, VOZ | 01–04 | chưa |
 | 06 | [Trang chọn phần mềm + mục bật kiểu gõ](phase-06-competitor-page-and-setup-sections.md) | Intent "phần mềm cho trẻ em", "bật Telex trên Win/Mac/điện thoại" | 05 (D+14) | đợt 3 |
@@ -79,3 +79,13 @@ Từ khóa mở rộng và cụm theo trang: [keyword-research.md](keyword-resea
 - `npm test` 27/27 pass. `npm run lint` ĐỎ SẴN từ trước (34 lỗi ở `src/hooks/useTyping.ts`, `LessonSidebar`, `HomeView`, `GameSession`, `RelatedGuides`, `.opencode/**`) — không file nào thuộc phase 01/02; gate lint dùng bản giới hạn theo file.
 - Smoke agy (`plans/reports/smoke-260906-130123-p12-nav-img/`): nav 4 link OK ở 1280 và 375; **FAIL** cuộn ngang `/huong-dan-telex` ở 375px.
 - Xác minh lỗi cuộn ngang **có sẵn trên production** (`scrollWidth` 600 vs `innerWidth` 375 trên `/huong-dan-telex` và `/huong-dan-vni` live, `/tu-the-go-phim` bình thường) → không phải hồi quy của phase 02. Nguyên nhân: `#root` là flex column, wrapper trang guide chỉ có `maxWidth: 800px` nên bị co theo `min-content` = bảng `minWidth: 560px` + padding 40. Sửa: thêm `width: '100%'` vào wrapper 4 trang guide. Sau sửa cả 5 route đều `scrollWidth == innerWidth == 375`.
+
+### 06/09 13:20 — phase 03
+
+- Giao worker `agy` (`task-1-lookup-tables.md`, `gemini-3.8-flash-high`, 314s). Worker báo BLOCKED vì **tiêu chí 14 của spec sai**: `grep -c` đếm số dòng khớp, mà vite-react-ssg dồn cả DOM vào 1 dòng nên luôn ra 1; `grep -o … | wc -l` ra đúng 2. 17 tiêu chí còn lại pass. Đã sửa tiêu chí trong spec.
+- Coordinator tự chạy lại: `tsc -b`, `npm test` 27/27, `npm run build`, `npx eslint src/pages src/routes.tsx` — đều exit 0. Escape check repo chính sạch.
+- 2 test hồi quy bảng guide trước/sau khi tách `typing-table-data.ts`: `SAME`.
+- `CONV_VIOLATION=14` là dương tính giả — script đoán stack là `vue` (repo là React), 12/14 là `rgba(255,255,255,0.03)` chép nguyên từ code cũ. `LINT_DODGE=0`.
+- Sửa tay sau apply: bỏ `export` thừa của `VOWEL_GROUPS` (`DEAD_EXPORT=1`), thêm newline cuối `src/index.css`, viết lại đoạn mở `/bang-go-vni` cho khác `/bang-go-telex`, điền phần ghi tay `docs/ui-map.md`.
+- Smoke agy (`plans/reports/smoke-260906-131844-p03-tables/`) 5/5 PASS: 2 trang mới `scrollWidth == innerWidth == 375`, bảng nguyên âm cuộn trong khung (`560 > 335`, `overflowX: auto`), chuỗi phím VNI đọc từ DOM đúng (`chữ → chu74`, `được → d9u7o7c5`), link chéo chạy, guide Telex sau refactor vẫn 12 dòng × 7 cột.
+- `dist`: 7 trang; 2 trang bảng `h1=1`, `FAQPage=0`, `BreadcrumbList=1`, `Article=1`, canonical đúng; `sitemap.xml` 7 URL.

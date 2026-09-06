@@ -1,0 +1,11 @@
+File router/menu/quyền trong diff:
+src/routes.tsx
+
+File màn hình trong diff (sửa tay mục 'Đường đi và bẫy' nếu đổi luồng):
+src/components/RelatedGuides.tsx
+src/pages/TelexGuide.tsx
+src/pages/VniGuide.tsx
+src/routes.tsx
+src/pages/TelexTable.tsx
+src/pages/VniTable.tsx
+ui-map: đã ghi /Users/minhtn/Projects/typing-kid/../.agent-worktrees/typing-kid/task-1-lookup-tables-260906-131039/docs/ui-map.md (react-router, 12 route)
