@@ -79,7 +79,7 @@ const KidsRoadmap: React.FC = () => {
                     Tập gõ 10 ngón cho bé: lộ trình 4 tuần tại nhà
                 </h1>
                 <p style={{ fontSize: '18px', color: 'var(--text-muted)', lineHeight: '1.6' }}>
-                    Nhiều phụ huynh băn khoăn thời điểm thích hợp để hướng dẫn con làm quen bàn phím. Thực tế, các bé từ 7–8 tuổi đã hoàn toàn đủ khả năng tập gõ 10 ngón. Điều cốt lõi không phải mua phần mềm phức tạp, mà là duy trì đều đặn 10 phút mỗi ngày và giữ đúng ngón tay ngay từ đầu. Dưới đây là lộ trình 4 tuần rõ ràng kết hợp cùng các bài thực hành miễn phí trên Typing Kid VN chạy trên máy tính.
+                    Bé từ 7–8 tuổi là tập gõ 10 ngón được. Không cần mua phần mềm; chỉ cần 10 phút mỗi ngày và giữ đúng ngón ngay từ đầu. Dưới đây là lộ trình 4 tuần, kèm bài tập miễn phí trên Typing Kid VN (chạy trên máy tính).
                 </p>
             </header>
 
@@ -87,36 +87,36 @@ const KidsRoadmap: React.FC = () => {
                 <section style={{ marginBottom: '40px' }}>
                     <h2 style={{ fontSize: '24px', color: 'var(--primary-color)', marginBottom: '15px' }}>1. Mấy tuổi thì bắt đầu được?</h2>
                     <p style={{ marginBottom: '16px' }}>
-                        Độ tuổi lý tưởng nhất để bé bắt đầu tập gõ 10 ngón là từ 7 đến 8 tuổi, tương đương giai đoạn học sinh bước vào lớp 2 hoặc lớp 3. Lúc này, bàn tay của bé đã phát triển đủ lớn để trải đều bốn ngón lên bốn phím liền kề mà không bị căng cơ, đồng thời khả năng nhận diện mặt chữ và đọc hiểu văn bản đã tương đối vững vàng.
+                        Tuổi bắt đầu hợp lý là 7–8, tức lớp 2 hoặc lớp 3. Lúc đó bàn tay bé đủ rộng để đặt bốn ngón lên bốn phím liền nhau mà không phải căng, và bé đã đọc chữ tốt.
                     </p>
                     <p style={{ marginBottom: '16px' }}>
-                        Nếu bé đang học lớp 1 hoặc dưới 7 tuổi, phụ huynh chưa nên đặt nặng yêu cầu con phải đặt đúng ngón tay ngay. Ở độ tuổi này, các bé chỉ nên tham gia các trò chơi tương tác vui nhộn nhằm làm quen vị trí phím bấm và nuôi dưỡng sự tò mò. Ngược lại, trẻ từ 10 tuổi trở lên tiếp thu kỹ năng đánh máy rất nhanh, có thể hiểu quy tắc và bứt phá tốc độ gần như người lớn.
+                        Dưới 7 tuổi thì chưa cần ép đúng ngón, cho bé chơi game làm quen vị trí phím là đủ. Từ 10 tuổi trở lên bé học nhanh, tốc độ có thể gần bằng người lớn.
                     </p>
                     <p style={{ marginBottom: '0' }}>
-                        Để biết con đã thực sự sẵn sàng bước vào hành trình tập đánh máy hay chưa, cha mẹ có thể quan sát hai dấu hiệu then chốt: bé có thể tự giác ngồi yên chăm chú trước màn hình trong khoảng 10 phút và đọc trôi chảy từng câu ngắn độc lập mà không cần hỗ trợ đánh vần từng từ.
+                        Hai dấu hiệu bé đã sẵn sàng: ngồi yên trước màn hình được 10 phút, và đọc trôi một câu ngắn mà không phải đánh vần.
                     </p>
                 </section>
 
                 <section style={{ marginBottom: '40px' }}>
                     <h2 style={{ fontSize: '24px', color: 'var(--primary-color)', marginBottom: '15px' }}>2. Chuẩn bị: bàn phím, tư thế, quy tắc 10 phút</h2>
                     <p style={{ marginBottom: '16px' }}>
-                        Trước khi bước vào buổi học đầu tiên, việc chuẩn bị một không gian học tập khoa học đóng vai trò quyết định giúp bảo vệ cột sống và thị lực cho con. Ba mẹ nên trang bị cho bé một bàn phím máy tính rời cỡ chuẩn, có độ nảy phím êm ái, tránh để bé tập lâu trên những chiếc laptop 13 inch có khoảng cách phím quá chật hẹp khiến các ngón tay bị co cụm.
+                        Bé cần một bàn phím rời cỡ chuẩn. Bàn phím laptop 13 inch quá hẹp, các ngón phải co lại nên bé khó giữ đúng thế tay.
                     </p>
                     <p style={{ marginBottom: '16px' }}>
-                        Về góc ngồi học, ghế cần có chiều cao phù hợp để hai bàn chân bé chạm phẳng xuống sàn nhà, khuỷu tay gập góc vuông ngang tầm bàn và tầm mắt cách xa màn hình từ 50 đến 70 cm. Trước buổi thực hành, hãy hướng dẫn bé xem kỹ bài viết về <Link to="/tu-the-go-phim" style={{ color: 'var(--primary-color)', fontWeight: 600 }}>tư thế ngồi và cách đặt tay</Link> để bé ghi nhớ cách thả lỏng vai và cổ tay.
+                        Ghế chỉnh sao cho hai bàn chân bé chạm sàn, khuỷu tay gập vuông ngang mặt bàn, mắt cách màn hình 50–70 cm. Xem thêm <Link to="/tu-the-go-phim" style={{ color: 'var(--primary-color)', fontWeight: 600 }}>tư thế ngồi và cách đặt tay</Link>.
                     </p>
                     <p style={{ marginBottom: '16px' }}>
-                        Đặc biệt, cha mẹ hãy chỉ cho con khám phá <Link to="/bi-mat-phim-f-j" style={{ color: 'var(--primary-color)', fontWeight: 600 }}>gờ nổi trên phím F và J</Link>. Hai chiếc gờ nhỏ bé này chính là kim chỉ nam giúp ngón trỏ của hai bàn tay tự tìm đúng vị trí xuất phát bất cứ lúc nào mà mắt bé hoàn toàn không cần liếc nhìn xuống bàn phím.
+                        Chỉ cho bé <Link to="/bi-mat-phim-f-j" style={{ color: 'var(--primary-color)', fontWeight: 600 }}>gờ nổi trên phím F và J</Link>: hai ngón trỏ sờ thấy gờ là biết tay đã về đúng chỗ, không cần nhìn xuống.
                     </p>
                     <p style={{ marginBottom: '0' }}>
-                        Về thời lượng, quy tắc vàng là chỉ cho bé luyện tập đúng 10 phút mỗi ngày, duy trì 5–6 ngày trong tuần. Phụ huynh hãy chủ động cho con dừng buổi học ngay khi nhận thấy bé có biểu hiện mỏi tay, chớp mắt nhiều hoặc giảm tập trung. Trong những tuần đầu, tuyệt đối không tạo áp lực hay so đo tốc độ; mục tiêu cốt lõi duy nhất là bé gõ chuẩn xác và dùng đúng ngón tay đã phân công.
+                        Mỗi ngày 10 phút, 5–6 ngày một tuần. Dừng ngay khi bé mỏi tay hoặc mất tập trung. Vài tuần đầu đừng nhắc tới tốc độ: chỉ cần gõ đúng phím bằng đúng ngón.
                     </p>
                 </section>
 
                 <section style={{ marginBottom: '40px' }}>
                     <h2 style={{ fontSize: '24px', color: 'var(--primary-color)', marginBottom: '15px' }}>3. Lộ trình 4 tuần</h2>
                     <p style={{ marginBottom: '16px' }}>
-                        Một lộ trình rõ ràng giúp cả phụ huynh và bé dễ dàng theo dõi sự tiến bộ từng ngày mà không bị ngợp. Dưới đây là kế hoạch 4 tuần được thiết kế tương thích với hệ thống bài tập từng bước trên Typing Kid VN:
+                        Mỗi tuần một mục tiêu, khớp với các bài tập trên Typing Kid VN:
                     </p>
                     <div style={{ overflowX: 'auto', marginTop: '20px', marginBottom: '25px' }}>
                         <table style={{ width: '100%', borderCollapse: 'collapse', background: 'rgba(255,255,255,0.03)', borderRadius: '12px', overflow: 'hidden' }}>
@@ -169,38 +169,38 @@ const KidsRoadmap: React.FC = () => {
                             <strong>Hướng dẫn chi tiết từng tuần cho cha mẹ:</strong>
                         </p>
                         <ul style={{ paddingLeft: '20px', margin: 0, display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                            <li><strong>Tuần 1:</strong> Khắc sâu vị trí nghỉ của 8 ngón tay trên hàng cơ sở. Nhắc bé luôn đặt ngón trỏ vào hai phím có gờ và tuyệt đối không cúi đầu nhìn bàn tay.</li>
-                            <li><strong>Tuần 2:</strong> Rèn luyện phản xạ vươn ngón tay lên hàng trên gõ chữ rồi lập tức rút ngón quay về vị trí nghỉ ban đầu ở hàng cơ sở.</li>
-                            <li><strong>Tuần 3:</strong> Mở rộng tầm với xuống hàng dưới, kết hợp dùng ngón cái nhấn phím cách (Spacebar) nhịp nhàng và ngón út giữ Shift khi cần viết hoa chữ cái đầu.</li>
-                            <li><strong>Tuần 4:</strong> Bắt đầu gõ từ ngữ hoàn chỉnh có dấu thanh tiếng Việt. Hãy cho con thực hành với họ tên của chính mình, tên người thân và tên trường lớp thân quen.</li>
+                            <li><strong>Tuần 1:</strong> Nhớ vị trí nghỉ của 8 ngón trên hàng cơ sở, hai ngón trỏ luôn đặt vào phím có gờ, không cúi nhìn tay.</li>
+                            <li><strong>Tuần 2:</strong> Vươn ngón lên hàng trên gõ rồi rút về hàng cơ sở ngay.</li>
+                            <li><strong>Tuần 3:</strong> Thêm hàng dưới, ngón cái nhấn phím cách, ngón út giữ Shift khi viết hoa.</li>
+                            <li><strong>Tuần 4:</strong> Gõ từ có dấu. Cho bé tập với tên mình, tên người nhà và tên trường.</li>
                         </ul>
                     </div>
                     <p style={{ marginBottom: '0' }}>
-                        Khi bước vào tuần thứ 4, phụ huynh cần giúp con lựa chọn kiểu gõ dấu phù hợp. Với học sinh tiểu học, cách tiếp cận thuận lợi nhất là chọn kiểu Telex vì các phím bỏ dấu nằm ngay trong khu vực chữ cái, con không cần vươn tay lên hàng phím số. Ba mẹ có thể mở bài hướng dẫn <Link to="/huong-dan-telex" style={{ color: 'var(--primary-color)', fontWeight: 600 }}>cách gõ Telex</Link> chi tiết và in <Link to="/bang-go-telex" style={{ color: 'var(--primary-color)', fontWeight: 600 }}>bảng gõ Telex</Link> khổ A4 dán ngay bên cạnh màn hình máy tính. Nếu cả gia đình đã có thói quen dùng kiểu VNI, hãy cho bé làm quen qua bài hướng dẫn <Link to="/huong-dan-vni" style={{ color: 'var(--primary-color)', fontWeight: 600 }}>cách gõ VNI</Link> và tham khảo <Link to="/bang-go-vni" style={{ color: 'var(--primary-color)', fontWeight: 600 }}>bảng gõ VNI</Link> tương ứng.
+                        Tuần 4 phải chọn kiểu gõ dấu. Với học sinh tiểu học nên chọn Telex, vì phím bỏ dấu nằm ngay trong vùng chữ, bé không phải vươn lên hàng số: xem <Link to="/huong-dan-telex" style={{ color: 'var(--primary-color)', fontWeight: 600 }}>cách gõ Telex</Link> và in <Link to="/bang-go-telex" style={{ color: 'var(--primary-color)', fontWeight: 600 }}>bảng gõ Telex</Link> khổ A4 dán cạnh màn hình. Nhà đã quen VNI thì dùng <Link to="/huong-dan-vni" style={{ color: 'var(--primary-color)', fontWeight: 600 }}>cách gõ VNI</Link> và <Link to="/bang-go-vni" style={{ color: 'var(--primary-color)', fontWeight: 600 }}>bảng gõ VNI</Link>.
                     </p>
                 </section>
 
                 <section style={{ marginBottom: '40px' }}>
                     <h2 style={{ fontSize: '24px', color: 'var(--primary-color)', marginBottom: '15px' }}>4. Giữ bé không chán</h2>
                     <p style={{ marginBottom: '16px' }}>
-                        Tâm lý trẻ nhỏ rất nhanh chán nếu phải gõ đi gõ lại những ký tự đơn điệu. Để mỗi buổi học luôn hào hứng và nhẹ nhàng, phụ huynh có thể áp dụng vài bí quyết đơn giản sau:
+                        Gõ đi gõ lại một dãy ký tự thì bé chán rất nhanh. Vài cách giữ buổi tập nhẹ nhàng:
                     </p>
                     <div style={{ background: 'rgba(255,255,255,0.03)', padding: '20px 25px', borderRadius: '16px' }}>
                         <ul style={{ paddingLeft: '20px', margin: 0, display: 'flex', flexDirection: 'column', gap: '10px' }}>
                             <li>
-                                <strong>Xen kẽ trò chơi tương tác:</strong> Vào giữa hoặc cuối buổi tập 10 phút, hãy thưởng cho bé 2–3 phút trải nghiệm <Link to="/?mode=totoro_chase" style={{ color: 'var(--primary-color)', fontWeight: 600 }}>Game: Mie đuổi bắt</Link>. Trò chơi giúp bé vừa thư giãn vừa rèn luyện phản xạ gõ nhanh các phím chữ đang chạy.
+                                <strong>Xen game:</strong> cuối buổi thưởng bé 2–3 phút <Link to="/?mode=totoro_chase" style={{ color: 'var(--primary-color)', fontWeight: 600 }}>Game: Mie đuổi bắt</Link> — vẫn là gõ, nhưng bé thấy như chơi.
                             </li>
                             <li>
-                                <strong>Thay đổi bài tập sau mỗi 3 phút:</strong> Không nên bắt bé gõ một bài quá lâu. Hãy chuyển đổi linh hoạt giữa các bài luyện ký tự đơn, từ vựng ngắn và câu chuyện vui.
+                                <strong>Đổi bài sau mỗi 3 phút:</strong> luân phiên bài ký tự đơn, từ ngắn và câu.
                             </li>
                             <li>
-                                <strong>Khen ngợi độ chính xác thay vì tốc độ:</strong> Hãy cổ vũ số lần gõ đúng và việc con không nhìn bàn phím. Khi độ chuẩn xác đạt 90–95%, tốc độ gõ sẽ tự nhiên tăng dần theo thời gian.
+                                <strong>Khen độ chính xác, đừng khen tốc độ:</strong> đạt 90–95% đúng thì tốc độ tự lên.
                             </li>
                             <li>
-                                <strong>Dán sẵn bảng tra cứu cạnh máy:</strong> Giúp bé tự liếc nhìn bảng gõ in sẵn khi quên quy tắc bỏ dấu, hạn chế thói quen cúi đầu nhìn xuống bàn phím.
+                                <strong>Dán bảng tra cạnh máy:</strong> quên cách bỏ dấu thì bé liếc bảng, không cúi nhìn bàn phím.
                             </li>
                             <li>
-                                <strong>Cùng con xem lại kết quả:</strong> Cuối mỗi bài tập, hãy để bé tự bấm xem bảng thành tích về độ chính xác và tỷ lệ hoàn thành để con cảm nhận rõ ràng từng bước tiến bộ của bản thân.
+                                <strong>Xem kết quả cùng bé:</strong> cuối bài cho bé tự đọc số liệu chính xác và hoàn thành để thấy mình tiến bộ.
                             </li>
                         </ul>
                     </div>
@@ -209,31 +209,31 @@ const KidsRoadmap: React.FC = () => {
                 <section style={{ marginBottom: '40px' }}>
                     <h2 style={{ fontSize: '24px', color: 'var(--primary-color)', marginBottom: '15px' }}>5. Lỗi hay gặp và cách sửa</h2>
                     <p style={{ marginBottom: '16px' }}>
-                        Trong quá trình cùng con rèn luyện thói quen gõ phím tại nhà, cha mẹ thường sẽ thấy bé mắc phải bốn lỗi cơ bản dưới đây. Hãy kiên trì giúp con điều chỉnh nhẹ nhàng:
+                        Bốn lỗi hầu như bé nào cũng mắc, và cách sửa:
                     </p>
                     <div style={{ background: 'rgba(255,255,255,0.03)', padding: '25px', borderRadius: '16px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
                         <div>
                             <h3 style={{ fontSize: '16px', fontWeight: 700, color: 'var(--text-main)', marginBottom: '6px' }}>Lỗi 1: Bé luôn nhìn xuống bàn phím khi gõ</h3>
                             <p style={{ margin: 0, color: 'var(--text-muted)' }}>
-                                Vấn đề là bé chưa đủ tự tin vào cảm giác vị trí của từng đầu ngón tay. Cách sửa hiệu quả nhất là dùng một chiếc khăn tay mỏng hoặc tờ giấy A4 phủ nhẹ lên hai mu bàn tay của bé, khuyến khích con nhìn thẳng vào màn hình và dựa vào hai gờ nổi F và J để định vị.
+                                Bé chưa tin vào cảm giác ngón tay. Phủ một chiếc khăn mỏng hoặc tờ A4 lên mu hai bàn tay, cho bé nhìn màn hình và định vị bằng gờ F, J.
                             </p>
                         </div>
                         <div>
                             <h3 style={{ fontSize: '16px', fontWeight: 700, color: 'var(--text-main)', marginBottom: '6px' }}>Lỗi 2: Bé chỉ dùng hai ngón trỏ để mổ cò</h3>
                             <p style={{ margin: 0, color: 'var(--text-muted)' }}>
-                                Thói quen này xuất hiện khi bé muốn gõ nhanh cho xong bài tập. Phụ huynh hãy đưa con quay trở lại tuần 1 với bài hàng phím cơ sở, yêu cầu con gõ thật chậm rãi và chỉ bấm phím khi ngón tay tương ứng đã được đặt đúng chỗ.
+                                Bé muốn gõ nhanh cho xong. Quay lại bài hàng phím cơ sở của tuần 1, gõ thật chậm, chỉ bấm khi đúng ngón đã đặt đúng phím.
                             </p>
                         </div>
                         <div>
                             <h3 style={{ fontSize: '16px', fontWeight: 700, color: 'var(--text-main)', marginBottom: '6px' }}>Lỗi 3: Bé lúng túng gõ dấu sai thứ tự hoặc sai vị trí</h3>
                             <p style={{ margin: 0, color: 'var(--text-muted)' }}>
-                                Nhiều bé loay hoay không biết phải gõ dấu ngay sau nguyên âm hay khi nào. Ba mẹ hãy giải thích và nhắc bé rằng hệ thống bộ gõ tiếng Việt đều cho phép gõ phím dấu ở ngay sau nguyên âm hoặc gõ ở cuối từ đều được nhận diện chính xác.
+                                Bé không biết gõ dấu lúc nào. Nói với bé: gõ dấu ngay sau nguyên âm hay để cuối từ đều được, bộ gõ nhận cả hai cách.
                             </p>
                         </div>
                         <div>
                             <h3 style={{ fontSize: '16px', fontWeight: 700, color: 'var(--text-main)', marginBottom: '6px' }}>Lỗi 4: Bé ngồi cong lưng hoặc cúi sát mắt vào màn hình</h3>
                             <p style={{ margin: 0, color: 'var(--text-muted)' }}>
-                                Đây là dấu hiệu rõ ràng cho thấy cơ thể bé đã bắt đầu mỏi mệt hoặc ghế ngồi chưa vừa tầm. Hãy cho con tạm nghỉ ngay lập tức, cùng con vươn vai vận động vài phút và điều chỉnh lại độ cao bàn ghế cùng khoảng cách màn hình trước khi tiếp tục.
+                                Bé đã mỏi, hoặc ghế chưa vừa tầm. Cho nghỉ ngay, vươn vai vài phút, rồi chỉnh lại độ cao ghế và khoảng cách màn hình.
                             </p>
                         </div>
                     </div>
