@@ -89,7 +89,7 @@ const guideSchemas = buildGuideSchemas({
     headline: 'Hướng dẫn gõ Tiếng Việt kiểu Telex - Cách gõ nhanh nhất',
     description: 'Bảng chữ Telex đầy đủ: cách gõ 5 dấu sắc, huyền, hỏi, ngã, nặng và â/ê/ô/ơ/ư. Hướng dẫn cách đánh bàn phím Telex nhanh, có ví dụ và mẹo nhớ.',
     datePublished: '2026-01-14',
-    dateModified: '2026-07-03',
+    dateModified: '2026-08-13',
 });
 
 const cellStyle: React.CSSProperties = { padding: '12px 15px', textAlign: 'center', borderBottom: '1px solid rgba(255,255,255,0.06)' };
@@ -207,6 +207,13 @@ const TelexGuide: React.FC = () => {
                     <h2 style={{ fontSize: '24px', color: 'var(--primary-color)', marginBottom: '15px' }}>4. Mẹo gõ Telex nhanh</h2>
                     <p>Luôn tuân thủ quy tắc: <strong>Gõ hết các chữ cái trong từ rồi mới gõ phím dấu.</strong></p>
                     <p style={{ marginTop: '10px' }}>Ví dụ: Để gõ chữ "Trường", hãy gõ liên tục <code>t-r-u-o-n-g-w-f</code>.</p>
+                    <div style={{ background: 'rgba(255,255,255,0.03)', padding: '25px', borderRadius: '16px', marginTop: '20px' }}>
+                        <p style={{ marginBottom: '12px' }}><strong>Hai cách bỏ dấu đều được chấp nhận</strong> khi luyện tập trên Typing Kid:</p>
+                        <ul style={{ margin: 0, paddingLeft: '20px' }}>
+                            <li style={{ marginBottom: '10px' }}><strong>Bỏ dấu ngay tại chữ cái:</strong> "học" gõ <code>h-o-j-c</code> — dấu nặng đi liền sau chữ o.</li>
+                            <li style={{ marginBottom: '0' }}><strong>Bỏ dấu cuối từ (kiểu Unikey):</strong> "học" gõ <code>h-o-c-j</code> — gõ hết chữ rồi mới bỏ dấu. Đây là thói quen phổ biến nhất và cũng là cách bàn phím gợi ý phím sáng.</li>
+                        </ul>
+                    </div>
                 </section>
 
                 <section style={{ marginBottom: '40px' }}>

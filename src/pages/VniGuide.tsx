@@ -79,7 +79,7 @@ const guideSchemas = buildGuideSchemas({
     headline: 'Hướng dẫn gõ Tiếng Việt kiểu VNI - Lựa chọn cho người thích phím số',
     description: 'Bảng dấu VNI đầy đủ: cách gõ dấu bằng phím số 1-5 và chữ â, ê, ô, ơ, ư, đ (6-9). Hướng dẫn cách gõ VNI nhanh cho người mới, kèm ví dụ.',
     datePublished: '2026-01-14',
-    dateModified: '2026-07-03',
+    dateModified: '2026-08-13',
 });
 
 const cellStyle: React.CSSProperties = { padding: '12px 15px', textAlign: 'center', borderBottom: '1px solid rgba(255,255,255,0.06)' };
@@ -187,6 +187,13 @@ const VniGuide: React.FC = () => {
                         <p style={{ marginBottom: '12px' }}><strong>1. Số bị chèn vào giữa chữ:</strong> nếu bộ gõ chưa bật chế độ VNI, phím số sẽ ra số thật. Hãy kiểm tra đã chọn đúng kiểu gõ VNI trong bộ gõ.</p>
                         <p style={{ marginBottom: '12px' }}><strong>2. Gõ sai thứ tự dấu mũ và thanh:</strong> luôn tạo chữ đặc biệt trước (a6 = â) rồi mới thêm thanh (a6-1 = ấ).</p>
                         <p style={{ marginBottom: '0' }}><strong>3. Cần gõ số thật ngay sau nguyên âm:</strong> nhấn phím số thêm lần nữa hoặc dùng phím khử dấu để bộ gõ trả lại con số.</p>
+                    </div>
+                    <div style={{ background: 'rgba(255,255,255,0.03)', padding: '25px', borderRadius: '16px', marginTop: '20px' }}>
+                        <p style={{ marginBottom: '12px' }}><strong>Hai cách bỏ dấu đều được chấp nhận</strong> khi luyện tập trên Typing Kid:</p>
+                        <ul style={{ margin: 0, paddingLeft: '20px' }}>
+                            <li style={{ marginBottom: '10px' }}><strong>Bỏ dấu ngay tại chữ cái:</strong> "gần" gõ <code>g-a-6-2-n</code> — dấu đi liền sau nguyên âm.</li>
+                            <li style={{ marginBottom: '0' }}><strong>Bỏ dấu cuối từ (kiểu Unikey):</strong> "gần" gõ <code>g-a-6-n-2</code> hoặc <code>g-a-n-6-2</code> — gõ hết chữ rồi mới bỏ dấu. Đây là thói quen phổ biến nhất và cũng là cách bàn phím gợi ý phím sáng.</li>
+                        </ul>
                     </div>
                 </section>
 
