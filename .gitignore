@@ -24,3 +24,6 @@ dist-ssr
 *.sw?
 .opencode
 .claude
+# Ảnh smoke/change-report của agy (nặng, sinh lại được)
+plans/reports/smoke-*/shots/
+plans/reports/change-report-*/

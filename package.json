@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite-react-ssg build",
+    "postbuild": "node scripts/gen-sitemap.mjs",
     "lint": "eslint .",
     "test": "vitest run",
     "preview": "vite preview"

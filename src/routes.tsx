@@ -1,6 +1,8 @@
 import type { RouteRecord } from 'vite-react-ssg';
 import RootLayout from './components/RootLayout';
 import Seo from './components/Seo';
+import JsonLd from './components/JsonLd';
+import { HOME_FAQ } from './components/home-faq';
 import HomeView from './components/HomeView';
 import PostureGuide from './pages/PostureGuide';
 import TelexGuide from './pages/TelexGuide';
@@ -22,10 +24,11 @@ export const routes: RouteRecord[] = [
         element: (
           <>
             <Seo
-              title="Gõ 10 ngón tiếng Việt miễn phí | Typing Kid VN"
-              description="Website học gõ 10 ngón tiếng Việt trực tuyến miễn phí cho trẻ em và người mới bắt đầu. Luyện gõ mười ngón nhanh, chính xác chuẩn Telex và VNI."
+              title="Luyện gõ 10 ngón tiếng Việt miễn phí cho trẻ em | Typing Kid VN"
+              description="Website luyện gõ 10 ngón tiếng Việt miễn phí cho trẻ em và người mới. Tập gõ 10 ngón nhanh, chính xác chuẩn Telex và VNI, có bài học và mini game."
               path="/"
             />
+            <JsonLd data={HOME_FAQ} />
             <HomeView />
           </>
         ),

@@ -69,6 +69,7 @@ const HomePage: React.FC<HomePageProps> = ({ onSelectMode, initialTabId }) => {
                     <Link to="/tu-the-go-phim" className="tap-target" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '14px', fontWeight: '500', transition: 'color 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.color = 'var(--primary-color)'} onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-muted)'}>Tư thế ngồi</Link>
                     <Link to="/huong-dan-telex" className="tap-target" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '14px', fontWeight: '500', transition: 'color 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.color = 'var(--primary-color)'} onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-muted)'}>Cách gõ Telex</Link>
                     <Link to="/huong-dan-vni" className="tap-target" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '14px', fontWeight: '500', transition: 'color 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.color = 'var(--primary-color)'} onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-muted)'}>Cách gõ VNI</Link>
+                    <Link to="/bi-mat-phim-f-j" className="tap-target" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '14px', fontWeight: '500', transition: 'color 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.color = 'var(--primary-color)'} onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-muted)'}>Phím F và J</Link>
                 </nav>
                 <h1 style={{ fontSize: '16px', fontWeight: '700', color: 'var(--primary-color)', margin: '0 0 12px', letterSpacing: '0.01em' }}>Luyện gõ 10 ngón tiếng Việt - Phần mềm gõ mười ngón miễn phí</h1>
                 <div style={{ fontSize: '48px', fontWeight: '800', letterSpacing: '-0.03em', background: 'linear-gradient(to right, #fff, #8b949e)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', marginBottom: '10px' }}>
@@ -77,6 +78,7 @@ const HomePage: React.FC<HomePageProps> = ({ onSelectMode, initialTabId }) => {
                 <p style={{ color: 'var(--text-muted)', fontSize: '18px', maxWidth: '600px', lineHeight: '1.6' }}>
                     Nền tảng <strong>luyện gõ 10 ngón tiếng Việt</strong> chuyên sâu.
                     Học gõ mười ngón nhanh và chuẩn xác với phương pháp trực quan nhất.
+                    Trẻ em và người mới có thể <strong>tập gõ 10 ngón</strong> (tập đánh máy 10 ngón) ngay trên web, không cần cài đặt, mỗi ngày 10 phút từ hàng phím cơ sở.
                 </p>
             </header>
 
@@ -184,7 +186,7 @@ const HomePage: React.FC<HomePageProps> = ({ onSelectMode, initialTabId }) => {
             {/* Instructional Guides Section (AIO/SEO focused) */}
             <div style={{ width: '100%', marginTop: '40px', background: 'rgba(255, 255, 255, 0.02)', borderRadius: '24px', padding: '40px', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
                 <h2 style={{ fontSize: '32px', fontWeight: 'bold', color: 'var(--text-main)', marginBottom: '40px', textAlign: 'center' }}>
-                    Cẩm nang luyện gõ 10 ngón Tiếng Việt
+                    Cẩm nang luyện gõ 10 ngón tiếng Việt: gõ có dấu Telex/VNI
                 </h2>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>

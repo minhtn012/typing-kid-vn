@@ -22,7 +22,7 @@ const PostureGuide: React.FC = () => {
         <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            style={{ maxWidth: '800px', margin: '0 auto', padding: '60px 20px', color: 'var(--text-main)' }}
+            style={{ width: '100%', maxWidth: '800px', margin: '0 auto', padding: '60px 20px', color: 'var(--text-main)' }}
         >
             <Seo
                 title="Tư thế ngồi & cách đặt tay gõ 10 ngón đúng | Typing Kid VN"
@@ -47,7 +47,9 @@ const PostureGuide: React.FC = () => {
                 <img
                     src="/guides/posture.png"
                     alt="Minh họa tư thế ngồi gõ phím chuẩn"
-                    style={{ width: '100%', borderRadius: '20px', marginTop: '30px', boxShadow: '0 20px 40px rgba(0,0,0,0.3)' }}
+                    width={1024}
+                    height={1024}
+                    style={{ width: '100%', height: 'auto', borderRadius: '20px', marginTop: '30px', boxShadow: '0 20px 40px rgba(0,0,0,0.3)' }}
                 />
             </header>
 
