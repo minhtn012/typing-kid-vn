@@ -146,7 +146,7 @@ export const FINGER_MAP: Record<string, number> = {
   ' ': 5, // Thumb (left or right, usually right)
   'y': 7, 'h': 7, 'n': 7, 'u': 7, 'j': 7, 'm': 7, '6': 7, '7': 7,
   'i': 8, 'k': 8, ',': 8, '8': 8,
-  'o': 9, 'l': 9, '.': 9, '9': 0,
+  'o': 9, 'l': 9, '.': 9, '9': 9,
   'p': 10, ';': 10, '/': 10, '[': 10, ']': 10, "'": 10, '0': 10, '-': 10, '=': 10, 'backspace': 10, 'enter': 10, 'shift-right': 10,
 };
 

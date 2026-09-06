@@ -15,6 +15,9 @@ interface PracticeSessionProps {
     onBack: () => void;
 }
 
+// Basic mode không có rule gõ dấu; hoisted để giữ reference ổn định giữa các render.
+const BASIC_RULES: Record<string, string[]> = {};
+
 const PracticeSession: React.FC<PracticeSessionProps> = ({ initialModeId, onBack }) => {
     const [currentModeId] = useState(initialModeId);
     const [lessonIndex, setLessonIndex] = useState(0);
@@ -33,15 +36,15 @@ const PracticeSession: React.FC<PracticeSessionProps> = ({ initialModeId, onBack
         text = isCustomSetupDone ? customText : " ";
     }
 
-    const getRules = () => {
-        if (currentMode.inputMethod === 'vni') return VNI_RULES;
-        if (currentMode.inputMethod === 'telex') return TELEX_RULES;
-        return {}; // Basic mode or unknown
-    };
+    // Reference phải ổn định giữa các render: useTyping memoize tokens theo
+    // identity của rules — object mới mỗi render sẽ gây vòng lặp re-render.
+    const rules = currentMode.inputMethod === 'vni'
+        ? VNI_RULES
+        : currentMode.inputMethod === 'telex'
+            ? TELEX_RULES
+            : BASIC_RULES;
 
-    const rules = getRules();
-
-    const { userInput, stats, isFinished, handleKeyDown, reset, currentIndex, currentKeyToPress, currentFinger, telexBuffer } = useTyping(text, rules);
+    const { userInput, stats, isFinished, handleKeyDown, reset, currentIndex, currentKeyToPress, currentFinger, currentWordRange, currentWordDisplay } = useTyping(text, rules);
     const [pressedKey, setPressedKey] = useState<string | null>(null);
 
     // Reset when mode or lesson changes
@@ -53,10 +56,16 @@ const PracticeSession: React.FC<PracticeSessionProps> = ({ initialModeId, onBack
         if (isCustomMode && !isCustomSetupDone) return;
 
         const onKeydown = (e: KeyboardEvent) => {
+            // Let browser shortcuts (Cmd+R, Ctrl+C...) through untouched
+            if (e.ctrlKey || e.metaKey || e.altKey) return;
+
             setPressedKey(e.key);
             handleKeyDown(e);
 
-            if (e.key === " " && e.target === document.body) {
+            // Block browser defaults that steal keystrokes: Firefox Quick Find
+            // (opens on '/', "'" or any letter with find-as-you-type), Space scrolling.
+            // Skip when finished so Space/Enter still activate the result-modal buttons.
+            if (!isFinished && (e.key.length === 1 || e.key === 'Backspace')) {
                 e.preventDefault();
             }
         };
@@ -68,7 +77,7 @@ const PracticeSession: React.FC<PracticeSessionProps> = ({ initialModeId, onBack
             window.removeEventListener('keydown', onKeydown);
             window.removeEventListener('keyup', onKeyup);
         };
-    }, [handleKeyDown, isCustomMode, isCustomSetupDone]);
+    }, [handleKeyDown, isCustomMode, isCustomSetupDone, isFinished]);
 
     useEffect(() => {
         if (isFinished) {
@@ -221,7 +230,7 @@ const PracticeSession: React.FC<PracticeSessionProps> = ({ initialModeId, onBack
                             <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginBottom: '5px', textAlign: 'center' }}>
                                 {isCustomMode ? 'Bài tập tùy chỉnh' : `Bài ${lessonIndex + 1} / ${currentMode.text.length}`}
                             </div>
-                            <TypingArea text={text} userInput={userInput} currentIndex={currentIndex} telexBuffer={telexBuffer} rules={rules} />
+                            <TypingArea text={text} userInput={userInput} currentIndex={currentIndex} currentWordRange={currentWordRange} currentWordDisplay={currentWordDisplay} />
                         </div>
 
                         {/* Keyboard and Hands Layout - Centered Stack */}

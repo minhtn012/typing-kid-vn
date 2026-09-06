@@ -1,35 +1,22 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { TELEX_RULES } from '../constants';
 
 
 interface TypingAreaProps {
     text: string;
     userInput: string;
     currentIndex: number;
-    telexBuffer?: string[];
-    rules?: Record<string, string[]>;
+    /** Vùng [start, end) của từ đang gõ trong text; null khi đã finish. */
+    currentWordRange?: { start: number; end: number } | null;
+    /** Text tạm của từ đang gõ (từ composeDisplay của engine). */
+    currentWordDisplay?: string;
 }
 
-const getPartialChar = (keys: string[], rules: Record<string, string[]>): string => {
-    if (keys.length === 0) return '';
+const TypingArea: React.FC<TypingAreaProps> = ({ text, userInput, currentIndex, currentWordRange = null, currentWordDisplay = '' }) => {
+    // Trước từ đang gõ là phần đã commit; không có range (finish) → tất cả đã commit.
+    const wordStart = currentWordRange ? currentWordRange.start : currentIndex;
+    const wordEnd = currentWordRange ? currentWordRange.end : currentIndex;
 
-    // Check if keys match a known rule
-    const ruleMatch = Object.entries(rules).find(([_, ruleKeys]) => {
-        if (ruleKeys.length !== keys.length) return false;
-        return ruleKeys.every((k, i) => k === keys[i]);
-    });
-
-    if (ruleMatch) return ruleMatch[0];
-
-    // Fallback: If it's a single key, return it (e.g. 'a')
-    if (keys.length === 1) return keys[0];
-
-    // If no match (shouldn't happen with correct logic), join keys
-    return keys.join('');
-};
-
-const TypingArea: React.FC<TypingAreaProps> = ({ text, userInput, currentIndex, telexBuffer = [], rules = TELEX_RULES }) => {
     return (
         <div className="typing-area glass" style={{ padding: '30px', fontSize: '32px', letterSpacing: '0.02em', lineHeight: '1.6', minHeight: '120px', position: 'relative', maxWidth: '1000px', margin: '0 auto', userSelect: 'none' }}>
             <div style={{ position: 'absolute', top: '10px', right: '15px', fontSize: '12px', color: 'var(--text-muted)', fontWeight: 'bold', textTransform: 'uppercase' }}>
@@ -37,8 +24,8 @@ const TypingArea: React.FC<TypingAreaProps> = ({ text, userInput, currentIndex, 
             </div>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
                 {text.split('').map((char, index) => {
-                    // Logic for past characters
-                    if (index < userInput.length) {
+                    // Logic for past characters (đã commit)
+                    if (index < wordStart) {
                         const isCorrect = userInput[index] === char;
                         return (
                             <motion.span
@@ -54,14 +41,15 @@ const TypingArea: React.FC<TypingAreaProps> = ({ text, userInput, currentIndex, 
                                     borderRadius: '4px',
                                 }}
                             >
-                                {char === ' ' ? '\u00A0' : char}
+                                {char === ' ' ? ' ' : char}
                             </motion.span>
                         );
                     }
 
-                    // Logic for current character
-                    if (index === currentIndex) {
-                        const partialChar = getPartialChar(telexBuffer, rules);
+                    // Từ đang gõ: gạch chân cả cụm, overlay ký tự tạm đã compose
+                    // (với kiểu gõ deferred, ký tự có thể đổi dạng khi phím dấu tới sau: gan + 6 → gân)
+                    if (index < wordEnd) {
+                        const partialChar = currentWordDisplay[index - wordStart] ?? '';
 
                         return (
                             <motion.span
@@ -75,7 +63,7 @@ const TypingArea: React.FC<TypingAreaProps> = ({ text, userInput, currentIndex, 
                                 }}
                             >
                                 {/* Base Layer: Full Target Char (White/Main) - lowered opacity to suggest pending */}
-                                <span style={{ opacity: 0.3 }}>{char === ' ' ? '\u00A0' : char}</span>
+                                <span style={{ opacity: 0.3 }}>{char === ' ' ? ' ' : char}</span>
 
                                 {/* Overlay Layer: Partial Char (Green/Active) */}
                                 <span style={{
@@ -94,7 +82,7 @@ const TypingArea: React.FC<TypingAreaProps> = ({ text, userInput, currentIndex, 
                     // Future characters
                     return (
                         <span key={index} style={{ color: 'var(--text-muted)', display: 'inline-block', padding: '0 2px' }}>
-                            {char === ' ' ? '\u00A0' : char}
+                            {char === ' ' ? ' ' : char}
                         </span>
                     );
                 })}

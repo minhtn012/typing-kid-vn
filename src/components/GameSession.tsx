@@ -64,7 +64,7 @@ const GameSession: React.FC<GameSessionProps> = ({ onBack }) => {
     };
 
     // Typing Hook integration
-    const { userInput, currentIndex, telexBuffer, handleKeyDown, reset: resetTyping } = useTyping(
+    const { userInput, currentIndex, currentWordRange, currentWordDisplay, handleKeyDown, reset: resetTyping } = useTyping(
         GAME_TEXT,
         TELEX_RULES,
         {
@@ -160,8 +160,14 @@ const GameSession: React.FC<GameSessionProps> = ({ onBack }) => {
         if (gameState !== 'playing') return;
 
         const onKeydown = (e: KeyboardEvent) => {
+            // Let browser shortcuts (Cmd+R, Ctrl+C...) through untouched
+            if (e.ctrlKey || e.metaKey || e.altKey) return;
+
             handleKeyDown(e);
-            if (e.key === " " && e.target === document.body) {
+
+            // Block browser defaults that steal keystrokes: Firefox Quick Find
+            // (opens on '/', "'" or any letter with find-as-you-type), Space scrolling.
+            if (e.key.length === 1 || e.key === 'Backspace') {
                 e.preventDefault();
             }
         };
@@ -253,8 +259,8 @@ const GameSession: React.FC<GameSessionProps> = ({ onBack }) => {
                     text={GAME_TEXT}
                     userInput={userInput}
                     currentIndex={currentIndex}
-                    telexBuffer={telexBuffer}
-                    rules={TELEX_RULES}
+                    currentWordRange={currentWordRange}
+                    currentWordDisplay={currentWordDisplay}
                 />
             </div>
 
