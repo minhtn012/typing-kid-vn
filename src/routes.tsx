@@ -10,6 +10,7 @@ import VniGuide from './pages/VniGuide';
 import FjRidgeGuide from './pages/FjRidgeGuide';
 import TelexTable from './pages/TelexTable';
 import VniTable from './pages/VniTable';
+import KidsRoadmap from './pages/KidsRoadmap';
 
 /**
  * Danh sách route dạng mảng dữ liệu để vite-react-ssg biết đường prerender.
@@ -41,6 +42,7 @@ export const routes: RouteRecord[] = [
       { path: 'bi-mat-phim-f-j', element: <FjRidgeGuide /> },
       { path: 'bang-go-telex', element: <TelexTable /> },
       { path: 'bang-go-vni', element: <VniTable /> },
+      { path: 'tap-go-10-ngon-cho-be', element: <KidsRoadmap /> },
     ],
   },
 ];

@@ -1,0 +1,10 @@
+ M docs/scope-map.md
+ M docs/ui-map.md
+ M plans/260906-1115-seo-push-round2/plan.md
+ M plans/260906-1115-seo-push-round2/task-2-kids-landing.md
+ M scripts/gen-sitemap.mjs
+ M src/components/HomePage.tsx
+ M src/components/RelatedGuides.tsx
+ M src/routes.tsx
+?? plans/reports/dispatch-260906-132247-task-2-kids-landing/
+?? src/pages/KidsRoadmap.tsx

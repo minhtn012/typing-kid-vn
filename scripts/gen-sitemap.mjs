@@ -23,6 +23,7 @@ const ROUTES = [
     { path: '/bi-mat-phim-f-j', files: ['src/pages/FjRidgeGuide.tsx'] },
     { path: '/bang-go-telex', files: ['src/pages/TelexTable.tsx'] },
     { path: '/bang-go-vni', files: ['src/pages/VniTable.tsx'] },
+    { path: '/tap-go-10-ngon-cho-be', files: ['src/pages/KidsRoadmap.tsx'] },
 ];
 
 const today = new Date().toISOString().slice(0, 10);

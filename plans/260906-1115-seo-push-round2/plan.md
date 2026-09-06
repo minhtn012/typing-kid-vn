@@ -46,7 +46,7 @@ Query cơ hội (90d): `luyện gõ 10 ngón tiếng việt` 62 impr pos 11 (28d
 | 01 | [Kích index + sitemap tự động](phase-01-reindex-and-sitemap.md) | Google crawl lại bản SSG, hết lệch lastmod | — | code + build verify xong; còn submit sitemap GSC + Request Indexing (user) |
 | 02 | [Sửa on-page kỹ thuật](phase-02-onpage-fixes.md) | FAQPage, ảnh, nav, title trang chủ | — | xong, smoke PASS sau khi sửa cuộn ngang 375px |
 | 03 | [Bảng gõ in được](phase-03-lookup-tables.md) | `/bang-go-telex`, `/bang-go-vni` | 01 | xong, smoke 5/5 PASS |
-| 04 | [Landing phụ huynh](phase-04-kids-landing.md) | `/tap-go-10-ngon-cho-be` | 01, 02 | chưa |
+| 04 | [Landing phụ huynh](phase-04-kids-landing.md) | `/tap-go-10-ngon-cho-be` | 01, 02 | xong |
 | 05 | [Đo lường + off-page](phase-05-measure-and-offpage.md) | Số liệu D+7/14/28, VOZ | 01–04 | chưa |
 | 06 | [Trang chọn phần mềm + mục bật kiểu gõ](phase-06-competitor-page-and-setup-sections.md) | Intent "phần mềm cho trẻ em", "bật Telex trên Win/Mac/điện thoại" | 05 (D+14) | đợt 3 |
 
@@ -89,3 +89,15 @@ Từ khóa mở rộng và cụm theo trang: [keyword-research.md](keyword-resea
 - Sửa tay sau apply: bỏ `export` thừa của `VOWEL_GROUPS` (`DEAD_EXPORT=1`), thêm newline cuối `src/index.css`, viết lại đoạn mở `/bang-go-vni` cho khác `/bang-go-telex`, điền phần ghi tay `docs/ui-map.md`.
 - Smoke agy (`plans/reports/smoke-260906-131844-p03-tables/`) 5/5 PASS: 2 trang mới `scrollWidth == innerWidth == 375`, bảng nguyên âm cuộn trong khung (`560 > 335`, `overflowX: auto`), chuỗi phím VNI đọc từ DOM đúng (`chữ → chu74`, `được → d9u7o7c5`), link chéo chạy, guide Telex sau refactor vẫn 12 dòng × 7 cột.
 - `dist`: 7 trang; 2 trang bảng `h1=1`, `FAQPage=0`, `BreadcrumbList=1`, `Article=1`, canonical đúng; `sitemap.xml` 7 URL.
+
+### 06/09 19:20 — phase 04
+
+- Dispatch `agy` 2 lần đều ERROR phía Antigravity (attempt1 `network issue` sau 5023s, retry `timeout` sau 569s) — **không phải lỗi spec**: worker đã ghi xong đủ 5 file trong worktree trước khi mất kết nối. Coordinator lấy diff từ worktree, tự chạy toàn bộ acceptance criteria thay cho báo cáo worker.
+- Verify tự chạy: `tsc -b`, `npm test` 27/27, `npm run build`, `npx eslint src/pages src/routes.tsx src/components/HomePage.tsx` — exit 0. `dist/tap-go-10-ngon-cho-be.html`: h1=1, h2=7, FAQPage=1, BreadcrumbList=1, Article=1, canonical đúng, 1672 từ trong `<article>`, đủ 6 link `?mode=`, 0 lần xuất hiện cụm cấm "luyện gõ 10 ngón tiếng việt cho trẻ em". Sitemap 8 URL.
+- Sửa tay: meta description 161 ký tự → 156 (Google cắt ~155).
+- Smoke agy timeout sau 2/5 bước (Antigravity không ổn định cả ngày). Coordinator tự verify bằng `agent-browser eval` (chỉ số liệu, không ảnh): trang mới ở 375px `scrollWidth 375 == innerWidth 375`, 1 h1, 7 h2, bảng 4 dòng, bảng bọc `overflowX: auto`; CTA "Bắt đầu tuần 1 ngay" → `/?mode=basic_home` kèm dòng nhắc mở trên máy tính; "Hướng dẫn liên quan" 6 thẻ; trong bài đủ link tới 2 guide, 2 bảng gõ, tư thế, phím F/J; nav trang chủ 5 link, trang chủ không cuộn ngang; 0 lỗi console.
+- `/?mode=basic_home` mở đúng màn luyện gõ ("Cơ bản: Hàng phím cơ sở", WPM, bàn phím ảo). Lưu ý: `agent-browser click` trên link trong ô bảng **không** điều hướng (hit-test lỗi của công cụ), `el.click()` thì được — app không có lỗi.
+
+### 06/09 19:20 — ngoài plan, user duyệt
+
+- Phát hiện trang chủ có **hai** danh sách link và khối "Cẩm nang" hardcode 4 thẻ (không đọc `GUIDES`), nên `/bang-go-telex` và `/bang-go-vni` không được trang chủ link tới lần nào. User chọn thêm 3 thẻ vào khối Cẩm nang (thành 7). Sau khi thêm: mọi trang nội dung đều có ≥1 link từ trang chủ.

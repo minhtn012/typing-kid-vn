@@ -17,10 +17,12 @@
 | `/huong-dan-telex` |  |  | `src/pages/TelexGuide.tsx:51` |
 | `/huong-dan-vni` | Cách gõ VNI |  | `src/components/RelatedGuides.tsx:21` |
 | `/huong-dan-vni` |  |  | `src/pages/VniGuide.tsx:43` |
+| `/tap-go-10-ngon-cho-be` | Tập gõ 10 ngón cho bé |  | `src/components/RelatedGuides.tsx:25` |
+| `/tap-go-10-ngon-cho-be` |  |  | `src/pages/KidsRoadmap.tsx:45` |
 | `/tu-the-go-phim` | Tư thế ngồi & cách đặt tay |  | `src/components/RelatedGuides.tsx:19` |
 | `/tu-the-go-phim` |  |  | `src/pages/PostureGuide.tsx:11` |
 
-_Sinh bởi ui-map-scaffold.py — 12 route. Route lồng nhau (children) hiện đường dẫn tương đối như trong code; ghép với cha khi viết checklist._
+_Sinh bởi ui-map-scaffold.py — 14 route. Route lồng nhau (children) hiện đường dẫn tương đối như trong code; ghép với cha khi viết checklist._
 <!-- ui-map:generated:end -->
 
 ## Đăng nhập và đổi người dùng (ghi tay)

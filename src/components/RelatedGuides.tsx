@@ -22,6 +22,7 @@ export const GUIDES: GuideItem[] = [
     { path: '/bi-mat-phim-f-j', title: 'Bí mật phím F và J', desc: 'Dùng gờ nổi để gõ không nhìn bàn phím.' },
     { path: '/bang-go-telex', title: 'Bảng gõ Telex (in được)', desc: 'Một trang A4: dấu, chữ đặc biệt, 12 từ mẫu.' },
     { path: '/bang-go-vni', title: 'Bảng gõ VNI (in được)', desc: 'Một trang A4: phím số 1-9 và 12 từ mẫu.' },
+    { path: '/tap-go-10-ngon-cho-be', title: 'Tập gõ 10 ngón cho bé', desc: 'Lộ trình 4 tuần tại nhà, 10 phút mỗi ngày.' },
 ];
 
 interface RelatedGuidesProps {

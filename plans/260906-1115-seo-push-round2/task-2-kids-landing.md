@@ -194,20 +194,22 @@ Không đổi gì khác trong file này.
 
 Dán **output thật** của từng lệnh. Chưa chạy thì ghi "CHƯA CHẠY".
 
+**Lưu ý về grep**: `vite-react-ssg` xuất toàn bộ DOM ứng dụng vào **một dòng** của file HTML, nên `grep -c` (đếm số DÒNG khớp) luôn ra `1`. Các tiêu chí đếm số lần xuất hiện dùng `grep -o … | wc -l`. Nếu một tiêu chí vẫn không thể đạt vì lý do tương tự, báo BLOCKED kèm lệnh thay thế và số thật — đừng sửa code cho khớp lệnh.
+
 - [ ] `npx tsc -b` → exit 0
 - [ ] `npm test` → exit 0
 - [ ] `npm run build` → exit 0
 - [ ] `npx eslint src/pages src/routes.tsx src/components/HomePage.tsx` → exit 0
 - [ ] `grep -c "<url>" dist/sitemap.xml` → `8`
-- [ ] `grep -c "<h1" dist/tap-go-10-ngon-cho-be.html` → `1`
-- [ ] `grep -c "<h2" dist/tap-go-10-ngon-cho-be.html` → `≥ 6`
+- [ ] `grep -o "<h1" dist/tap-go-10-ngon-cho-be.html | wc -l` → `1`
+- [ ] `grep -o "<h2" dist/tap-go-10-ngon-cho-be.html | wc -l` → `≥ 6`
 - [ ] `grep -o '"@type":"FAQPage"' dist/tap-go-10-ngon-cho-be.html | wc -l` → `1`
-- [ ] `grep -c 'BreadcrumbList' dist/tap-go-10-ngon-cho-be.html` → `1`
-- [ ] `grep -c '"@type":"Article"' dist/tap-go-10-ngon-cho-be.html` → `1`
-- [ ] `grep -c 'rel="canonical" href="https://type.scala.vn/tap-go-10-ngon-cho-be"' dist/tap-go-10-ngon-cho-be.html` → `1`
+- [ ] `grep -o 'BreadcrumbList' dist/tap-go-10-ngon-cho-be.html | wc -l` → `2` *(1 lần ở `@type`, 1 lần ở tên schema — dán số thật)*
+- [ ] `grep -o '"@type":"Article"' dist/tap-go-10-ngon-cho-be.html | wc -l` → `1`
+- [ ] `grep -o 'rel="canonical" href="https://type.scala.vn/tap-go-10-ngon-cho-be"' dist/tap-go-10-ngon-cho-be.html | wc -l` → `1`
 - [ ] `grep -c '<title[^>]*>Tập gõ 10 ngón cho bé: lộ trình 4 tuần tại nhà | Typing Kid VN</title>' dist/tap-go-10-ngon-cho-be.html` → `1`
 - [ ] `grep -o 'mode=basic_home\|mode=basic_top\|mode=basic_bottom\|mode=vietnamese_telex\|mode=vietnamese_vni\|mode=totoro_chase' dist/tap-go-10-ngon-cho-be.html | sort -u | wc -l` → `6`
-- [ ] `grep -c "tap-go-10-ngon-cho-be" dist/index.html` → `≥ 2`
+- [ ] `grep -o "tap-go-10-ngon-cho-be" dist/index.html | wc -l` → `≥ 2`
 - [ ] `grep -n "luyện gõ 10 ngón tiếng việt cho trẻ em" dist/tap-go-10-ngon-cho-be.html` → 0 dòng *(không nhắm cụm trang chủ đang giữ)*
 - [ ] `python3 -c "import re,html;s=open('dist/tap-go-10-ngon-cho-be.html',encoding='utf-8').read();m=re.search(r'<article.*?</article>',s,re.S);t=re.sub(r'<[^>]+>',' ',m.group(0));print(len(html.unescape(t).split()))"` → `≥ 900` *(đếm số từ phần thân bài)*
 - [ ] `git status --porcelain src/constants.ts src/index.css src/pages/TelexGuide.tsx src/pages/VniGuide.tsx src/pages/TelexTable.tsx src/pages/VniTable.tsx index.html package.json` → 0 dòng *(vùng cấm không bị đụng)*
