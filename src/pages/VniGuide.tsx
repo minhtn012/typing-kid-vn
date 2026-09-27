@@ -25,7 +25,15 @@ const faqs: { q: string; a: string }[] = [
     },
     {
         q: 'Có gõ được VNI trên điện thoại không?',
-        a: 'Có. Cài Gboard hoặc Laban Key, vào cài đặt bàn phím tiếng Việt và chọn kiểu gõ VNI. Cách bỏ dấu bằng phím số giống hệt trên máy tính.',
+        a: 'Có. Trên iPhone vào Cài đặt → Cài đặt chung → Bàn phím → Thêm bàn phím mới → Tiếng Việt → VNI. Trên Android dùng Laban Key (Kiểu gõ → VNI). Cách bỏ dấu bằng phím số giống hệt trên máy tính.',
+    },
+    {
+        q: 'Gõ VNI nên chọn bảng mã nào?',
+        a: 'Chọn bảng mã Unicode. Bảng mã "VNI Windows" là bảng mã cũ chỉ trùng tên với kiểu gõ VNI; dùng nó thì chữ dễ bị lỗi font khi mở trên máy khác.',
+    },
+    {
+        q: 'Cách bật kiểu gõ VNI trên Windows 11?',
+        a: 'Vào Settings → Time & language → Language & region, bấm dấu … cạnh Tiếng Việt → Language options → Add a keyboard và chọn Vietnamese Number Key-based. Nhấn Windows + Space để chuyển bàn phím.',
     },
 ];
 
@@ -46,7 +54,7 @@ const guideSchemas = buildGuideSchemas({
     headline: 'Hướng dẫn gõ Tiếng Việt kiểu VNI - Lựa chọn cho người thích phím số',
     description: 'Bảng dấu VNI đầy đủ: cách gõ dấu bằng phím số 1-5 và chữ â, ê, ô, ơ, ư, đ (6-9). Hướng dẫn cách gõ VNI nhanh cho người mới, kèm ví dụ.',
     datePublished: '2026-01-14',
-    dateModified: '2026-08-13',
+    dateModified: '2026-09-27',
 });
 
 const VniGuide: React.FC = () => {
@@ -54,7 +62,7 @@ const VniGuide: React.FC = () => {
 
     return (
         <motion.div
-            initial={{ opacity: 0 }}
+            initial={false}
             animate={{ opacity: 1 }}
             style={{ width: '100%', maxWidth: '800px', margin: '0 auto', padding: '60px 20px', color: 'var(--text-main)' }}
         >
@@ -164,7 +172,41 @@ const VniGuide: React.FC = () => {
                 </section>
 
                 <section style={{ marginBottom: '40px' }}>
-                    <h2 style={{ fontSize: '24px', color: 'var(--primary-color)', marginBottom: '15px' }}>5. Nên chọn VNI hay Telex?</h2>
+                    <h2 style={{ fontSize: '24px', color: 'var(--primary-color)', marginBottom: '15px' }}>5. Cách bật kiểu gõ VNI trên máy tính và điện thoại</h2>
+                    <p>Phím số chỉ ra dấu khi bộ gõ tiếng Việt đang ở chế độ VNI. Chọn đúng mục theo thiết bị bạn dùng:</p>
+                    <h3 style={{ fontSize: '18px', fontWeight: 700, color: 'var(--text-main)', margin: '24px 0 10px' }}>Windows 11</h3>
+                    <ol style={{ margin: 0, paddingLeft: '20px', lineHeight: '1.7' }}>
+                        <li>Mở Settings (Cài đặt) → Time & language → Language & region, thêm Tiếng Việt nếu chưa có.</li>
+                        <li>Bấm dấu … cạnh Tiếng Việt → Language options → Add a keyboard, chọn Vietnamese Number Key-based. Đây chính là kiểu gõ VNI.</li>
+                        <li>Nhấn phím Windows + Space để chuyển sang bàn phím vừa thêm.</li>
+                        <li>Nếu dùng Unikey hoặc EVKey: chọn Kiểu gõ VNI và Bảng mã Unicode.</li>
+                    </ol>
+                    <h3 style={{ fontSize: '18px', fontWeight: 700, color: 'var(--text-main)', margin: '24px 0 10px' }}>macOS (MacBook, iMac)</h3>
+                    <ol style={{ margin: 0, paddingLeft: '20px', lineHeight: '1.7' }}>
+                        <li>Mở Cài đặt hệ thống → Bàn phím.</li>
+                        <li>Ở mục Nguồn nhập bấm Sửa, rồi bấm dấu +.</li>
+                        <li>Chọn Tiếng Việt → VNI, bấm Thêm.</li>
+                        <li>Chuyển nguồn nhập bằng phím Globe (Fn) hoặc Control + Space.</li>
+                    </ol>
+                    <h3 style={{ fontSize: '18px', fontWeight: 700, color: 'var(--text-main)', margin: '24px 0 10px' }}>iPhone, iPad</h3>
+                    <ol style={{ margin: 0, paddingLeft: '20px', lineHeight: '1.7' }}>
+                        <li>Mở Cài đặt → Cài đặt chung → Bàn phím → Bàn phím → Thêm bàn phím mới.</li>
+                        <li>Chọn Tiếng Việt, rồi chọn kiểu VNI.</li>
+                        <li>Khi gõ, chạm giữ biểu tượng quả địa cầu ở góc dưới bên trái để đổi bàn phím.</li>
+                    </ol>
+                    <h3 style={{ fontSize: '18px', fontWeight: 700, color: 'var(--text-main)', margin: '24px 0 10px' }}>Android</h3>
+                    <ol style={{ margin: 0, paddingLeft: '20px', lineHeight: '1.7' }}>
+                        <li>Laban Key: mở ứng dụng Laban Key → Kiểu gõ → VNI.</li>
+                        <li>Gboard: mở cài đặt Gboard → Ngôn ngữ → Thêm bàn phím → Tiếng Việt. Nếu không thấy lựa chọn VNI, hãy dùng Laban Key.</li>
+                    </ol>
+                    <div style={{ background: 'rgba(255,255,255,0.03)', padding: '25px', borderRadius: '16px', marginTop: '20px' }}>
+                        <p style={{ marginBottom: '10px' }}><strong>VNI là kiểu gõ, không phải bảng mã</strong></p>
+                        <p style={{ margin: 0 }}>Kiểu gõ VNI là cách bấm phím số để ra dấu. Bảng mã là cách máy lưu chữ có dấu. Hãy luôn chọn bảng mã Unicode. Bảng mã "VNI Windows" trong Unikey là bảng mã cũ, trùng tên với kiểu gõ nhưng không liên quan: chọn nhầm thì chữ sẽ hiện thành ký tự lạ khi gửi sang máy khác.</p>
+                    </div>
+                </section>
+
+                <section style={{ marginBottom: '40px' }}>
+                    <h2 style={{ fontSize: '24px', color: 'var(--primary-color)', marginBottom: '15px' }}>6. Nên chọn VNI hay Telex?</h2>
                     <p>
                         VNI tách bạch chữ cái và dấu (dấu nằm ở hàng số) nên dễ hình dung, hợp người mới. Telex gõ nhanh hơn vì không phải rời hàng phím chính. Bạn có thể tham khảo thêm{' '}
                         <Link to="/huong-dan-telex" style={{ color: 'var(--primary-color)', fontWeight: 'bold' }}>hướng dẫn gõ kiểu Telex</Link> để so sánh và chọn kiểu phù hợp.

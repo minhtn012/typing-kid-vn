@@ -33,7 +33,15 @@ const faqs: { q: string; a: string }[] = [
     },
     {
         q: 'Làm sao để gõ Telex trên điện thoại?',
-        a: 'Cài bộ gõ hỗ trợ tiếng Việt như Gboard hoặc Laban Key, vào phần cài đặt bàn phím và chọn kiểu gõ Telex. Sau đó bạn gõ y hệt như trên máy tính: s = sắc, f = huyền, aa = â...',
+        a: 'Trên iPhone vào Cài đặt → Cài đặt chung → Bàn phím → Thêm bàn phím mới → Tiếng Việt → Telex. Trên Android dùng Gboard (thêm bàn phím Tiếng Việt) hoặc Laban Key (Kiểu gõ → Telex). Sau đó gõ y hệt như trên máy tính: s = sắc, f = huyền, aa = â.',
+    },
+    {
+        q: 'Kiểu gõ Telex dùng bảng mã gì?',
+        a: 'Dùng bảng mã Unicode. Telex chỉ là kiểu gõ, tức cách bấm phím ra dấu; Unicode là bảng mã chuẩn của Windows, macOS, điện thoại và web nên chữ gõ ra hiển thị đúng ở mọi nơi.',
+    },
+    {
+        q: 'Cách bật Telex trên Windows 11 như thế nào?',
+        a: 'Vào Settings → Time & language → Language & region và thêm Tiếng Việt. Windows cài sẵn bàn phím Vietnamese Telex; nhấn Windows + Space để chuyển giữa tiếng Anh và tiếng Việt.',
     },
 ];
 
@@ -54,7 +62,7 @@ const guideSchemas = buildGuideSchemas({
     headline: 'Hướng dẫn gõ Tiếng Việt kiểu Telex - Cách gõ nhanh nhất',
     description: 'Bảng chữ Telex đầy đủ: cách gõ 5 dấu sắc, huyền, hỏi, ngã, nặng và â/ê/ô/ơ/ư. Hướng dẫn cách đánh bàn phím Telex nhanh, có ví dụ và mẹo nhớ.',
     datePublished: '2026-01-14',
-    dateModified: '2026-08-13',
+    dateModified: '2026-09-27',
 });
 
 const TelexGuide: React.FC = () => {
@@ -62,7 +70,7 @@ const TelexGuide: React.FC = () => {
 
     return (
         <motion.div
-            initial={{ opacity: 0 }}
+            initial={false}
             animate={{ opacity: 1 }}
             style={{ width: '100%', maxWidth: '800px', margin: '0 auto', padding: '60px 20px', color: 'var(--text-main)' }}
         >
@@ -181,14 +189,37 @@ const TelexGuide: React.FC = () => {
                 </section>
 
                 <section style={{ marginBottom: '40px' }}>
-                    <h2 style={{ fontSize: '24px', color: 'var(--primary-color)', marginBottom: '15px' }}>5. Cách gõ Telex trên điện thoại</h2>
-                    <p>Trên điện thoại, bạn cần một bàn phím ảo hỗ trợ tiếng Việt thì mới gõ được Telex:</p>
+                    <h2 style={{ fontSize: '24px', color: 'var(--primary-color)', marginBottom: '15px' }}>5. Cách bật kiểu gõ Telex trên máy tính và điện thoại</h2>
+                    <p>Muốn gõ Telex, máy cần một bộ gõ tiếng Việt đang ở chế độ Telex. Chọn đúng mục theo thiết bị bạn dùng:</p>
+                    <h3 style={{ fontSize: '18px', fontWeight: 700, color: 'var(--text-main)', margin: '24px 0 10px' }}>Windows 11</h3>
+                    <ol style={{ margin: 0, paddingLeft: '20px', lineHeight: '1.7' }}>
+                        <li>Mở Settings (Cài đặt) → Time & language → Language & region.</li>
+                        <li>Bấm Add a language, chọn Tiếng Việt. Windows cài sẵn bàn phím Vietnamese Telex.</li>
+                        <li>Nhấn phím Windows + Space để chuyển giữa tiếng Anh và tiếng Việt.</li>
+                        <li>Nếu dùng Unikey hoặc EVKey: chọn Kiểu gõ Telex và Bảng mã Unicode.</li>
+                    </ol>
+                    <h3 style={{ fontSize: '18px', fontWeight: 700, color: 'var(--text-main)', margin: '24px 0 10px' }}>macOS (MacBook, iMac)</h3>
+                    <ol style={{ margin: 0, paddingLeft: '20px', lineHeight: '1.7' }}>
+                        <li>Mở Cài đặt hệ thống → Bàn phím.</li>
+                        <li>Ở mục Nguồn nhập bấm Sửa, rồi bấm dấu +.</li>
+                        <li>Chọn Tiếng Việt → Telex, bấm Thêm. Chọn Telex đơn giản nếu không muốn phím [ và ] biến thành ơ, ư.</li>
+                        <li>Chuyển nguồn nhập bằng phím Globe (Fn) hoặc Control + Space.</li>
+                    </ol>
+                    <h3 style={{ fontSize: '18px', fontWeight: 700, color: 'var(--text-main)', margin: '24px 0 10px' }}>iPhone, iPad</h3>
+                    <ol style={{ margin: 0, paddingLeft: '20px', lineHeight: '1.7' }}>
+                        <li>Mở Cài đặt → Cài đặt chung → Bàn phím → Bàn phím → Thêm bàn phím mới.</li>
+                        <li>Chọn Tiếng Việt, rồi chọn kiểu Telex.</li>
+                        <li>Khi gõ, chạm giữ biểu tượng quả địa cầu ở góc dưới bên trái để đổi bàn phím.</li>
+                    </ol>
+                    <h3 style={{ fontSize: '18px', fontWeight: 700, color: 'var(--text-main)', margin: '24px 0 10px' }}>Android (Gboard, Laban Key)</h3>
+                    <ol style={{ margin: 0, paddingLeft: '20px', lineHeight: '1.7' }}>
+                        <li>Gboard: mở cài đặt Gboard → Ngôn ngữ → Thêm bàn phím → Tiếng Việt. Bàn phím tiếng Việt của Gboard gõ theo kiểu Telex.</li>
+                        <li>Laban Key: mở ứng dụng Laban Key → Kiểu gõ → Telex.</li>
+                        <li>Sau khi bật, cách gõ dấu giống hệt trên máy tính: s = sắc, f = huyền, aa = â.</li>
+                    </ol>
                     <div style={{ background: 'rgba(255,255,255,0.03)', padding: '25px', borderRadius: '16px', marginTop: '20px' }}>
-                        <ul style={{ margin: 0, paddingLeft: '20px' }}>
-                            <li style={{ marginBottom: '10px' }}><strong>Android:</strong> dùng <strong>Gboard</strong> hoặc <strong>Laban Key</strong>. Vào Cài đặt bàn phím → Ngôn ngữ → thêm "Tiếng Việt (Telex)".</li>
-                            <li style={{ marginBottom: '10px' }}><strong>iPhone:</strong> mở Cài đặt → Cài đặt chung → Bàn phím → thêm bàn phím "Tiếng Việt - Telex".</li>
-                            <li>Sau khi bật, cách gõ dấu hoàn toàn giống trên máy tính: <code>s</code> = sắc, <code>f</code> = huyền, <code>aa</code> = â.</li>
-                        </ul>
+                        <p style={{ marginBottom: '10px' }}><strong>Telex là kiểu gõ, không phải bảng mã</strong></p>
+                        <p style={{ margin: 0 }}>Kiểu gõ (Telex, VNI) là cách bấm phím để ra dấu. Bảng mã là cách máy lưu chữ có dấu. Dù gõ Telex hay VNI, hãy chọn bảng mã Unicode: đây là chuẩn chung của Windows, macOS, điện thoại và web. Chọn nhầm bảng mã cũ như TCVN3 hay VNI Windows thì chữ sẽ hiện thành ký tự lạ khi gửi sang máy khác.</p>
                     </div>
                 </section>
 
