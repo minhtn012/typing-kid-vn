@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useTyping } from '../hooks/useTyping';
-import { TELEX_RULES } from '../constants';
+import { LESSON_MODES, TELEX_RULES } from '../constants';
 import TypingArea from './TypingArea';
 import { ArrowLeft, Trophy } from 'lucide-react';
 import confetti from 'canvas-confetti';
@@ -22,7 +22,14 @@ interface GameSessionProps {
     onBack: () => void;
 }
 
-const GAME_TEXT = "totoro nhỏ đang chạy trốn khỏi mie nhưng mie chạy rất nhanh bạn phải gõ thật nhanh";
+// Câu của game nằm trong LESSON_MODES (id totoro_chase); mỗi ván lấy ngẫu nhiên một câu,
+// ván sau đổi câu khác để chơi lại không bị lặp.
+const GAME_TEXTS = LESSON_MODES.find((m) => m.id === 'totoro_chase')?.text ?? [];
+
+const pickGameText = (exclude?: string): string => {
+    const pool = GAME_TEXTS.length > 1 ? GAME_TEXTS.filter((t) => t !== exclude) : GAME_TEXTS;
+    return pool[Math.floor(Math.random() * pool.length)];
+};
 
 // No longer using CSS spritesheet animation
 
@@ -34,6 +41,8 @@ const GameSession: React.FC<GameSessionProps> = ({ onBack }) => {
     const [miePos, setMiePos] = useState(0); // Start at 0%
     const [totoroSpeed, setTotoroSpeed] = useState(0.2); // Base speed
     const [frameIndex, setFrameIndex] = useState(0);
+    // GameSession chỉ render sau khi người dùng chọn game trên client, nên random không lệch HTML SSG.
+    const [gameText, setGameText] = useState(() => pickGameText());
 
     // Thua là trạng thái suy ra từ vị trí, không cần state riêng: Mie bắt kịp Totoro.
     // Thắng vẫn là state vì nó chốt lại (bắn confetti một lần) cho tới khi chơi lại.
@@ -70,7 +79,7 @@ const GameSession: React.FC<GameSessionProps> = ({ onBack }) => {
 
     // Typing Hook integration
     const { userInput, currentIndex, currentWordRange, currentWordDisplay, handleKeyDown, reset: resetTyping } = useTyping(
-        GAME_TEXT,
+        gameText,
         TELEX_RULES,
         {
             onCorrect: () => {
@@ -121,7 +130,7 @@ const GameSession: React.FC<GameSessionProps> = ({ onBack }) => {
             });
 
             // Check Win/Loss
-            if (userInput.length === GAME_TEXT.length) {
+            if (userInput.length === gameText.length) {
                 setGameState('won');
                 confetti({
                     particleCount: 150,
@@ -143,7 +152,7 @@ const GameSession: React.FC<GameSessionProps> = ({ onBack }) => {
         animationFrameId = requestAnimationFrame(update);
 
         return () => cancelAnimationFrame(animationFrameId);
-    }, [phase, totoroSpeed, userInput.length]);
+    }, [phase, totoroSpeed, userInput.length, gameText.length]);
 
     // Input listener
     useEffect(() => {
@@ -167,6 +176,7 @@ const GameSession: React.FC<GameSessionProps> = ({ onBack }) => {
     }, [handleKeyDown, phase]);
 
     const handleReset = () => {
+        setGameText(pickGameText(gameText));
         resetTyping();
         setGameState('playing');
         setTotoroPos(35);
@@ -246,7 +256,7 @@ const GameSession: React.FC<GameSessionProps> = ({ onBack }) => {
             {/* Typing Area (Simplified) */}
             <div style={{ opacity: phase === 'playing' ? 1 : 0.5, transition: 'opacity 0.3s' }}>
                 <TypingArea
-                    text={GAME_TEXT}
+                    text={gameText}
                     userInput={userInput}
                     currentIndex={currentIndex}
                     currentWordRange={currentWordRange}

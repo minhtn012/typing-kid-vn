@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { TELEX_RULES, VNI_RULES } from '../constants';
+import { LESSON_MODES, TELEX_RULES, VNI_RULES } from '../constants';
 import {
     buildWordVariants,
     composeDisplay,
@@ -252,4 +252,35 @@ describe('composeDisplay', () => {
         const { state } = typeAll(variants, ['T', 'o', 'o', 'i']);
         expect(composeDisplay(state, variants)).toBe('Tôi');
     });
+});
+
+describe('nội dung bài luyện', () => {
+    const RULES_BY_METHOD: Record<string, Rules> = { basic: {}, telex: TELEX_RULES, vni: VNI_RULES };
+
+    // Gõ đúng theo phím gợi ý (nextExpectedKey) phải hoàn thành được mọi từ của mọi bài,
+    // nếu không bé sẽ kẹt ở một từ mà bàn phím ảo không chỉ được đường.
+    it.each(LESSON_MODES.filter((m) => m.text.length > 0).map((m) => [m.id, m] as const))(
+        'mọi từ của bài %s gõ được theo phím gợi ý',
+        (_id, mode) => {
+            const rules = RULES_BY_METHOD[mode.inputMethod];
+            expect(rules, `inputMethod lạ: ${mode.inputMethod}`).toBeDefined();
+            for (const line of mode.text) {
+                expect(line, 'dòng không được có khoảng trắng thừa').toBe(line.trim().replace(/ {2,}/g, ' '));
+                for (const word of line.split(' ')) {
+                    const variants = buildWordVariants(word, rules);
+                    let state = createWordState(variants);
+                    let completed = false;
+                    for (let i = 0; i < 20 && !completed; i += 1) {
+                        const key = nextExpectedKey(state, variants);
+                        expect(key, `"${word}" trong "${line}" hết gợi ý trước khi xong`).not.toBe('');
+                        const r = matchKey(state, variants, key);
+                        expect(r.result, `"${word}": phím gợi ý "${key}" bị chấm sai`).toBe('correct');
+                        state = r.next;
+                        completed = r.completed;
+                    }
+                    expect(completed, `"${word}" trong "${line}"`).toBe(true);
+                }
+            }
+        },
+    );
 });

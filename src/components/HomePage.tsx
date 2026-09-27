@@ -14,17 +14,17 @@ const CATEGORIES = [
     {
         id: 'basic',
         title: 'Luyện ngón cơ bản',
-        modeIds: ['basic_home', 'basic_top', 'basic_bottom']
+        modeIds: ['basic_home', 'basic_top', 'basic_bottom', 'basic_review', 'basic_numbers']
     },
     {
         id: 'telex',
         title: 'Luyện gõ Telex',
-        modeIds: ['vietnamese_telex', 'vietnamese_words', 'sentences']
+        modeIds: ['vietnamese_telex', 'vietnamese_short_words', 'vietnamese_words', 'sentences']
     },
     {
         id: 'vni',
         title: 'Luyện gõ VNI',
-        modeIds: ['vietnamese_vni', 'vietnamese_words_vni']
+        modeIds: ['vietnamese_vni', 'vietnamese_short_words_vni', 'vietnamese_words_vni', 'sentences_vni']
     },
     {
         id: 'custom',
@@ -352,7 +352,7 @@ const HomePage: React.FC<HomePageProps> = ({ onSelectMode, initialTabId }) => {
                             </li>
                             <li style={{ fontSize: '14px', color: 'var(--text-muted)', display: 'flex', gap: '10px' }}>
                                 <span style={{ color: 'var(--primary-color)' }}>✓</span>
-                                <strong>9 bài luyện theo lộ trình:</strong> 3 bài hàng phím (cơ sở, trên, dưới), 3 bài Telex (dấu, từ, câu), 2 bài VNI (dấu, từ) và 1 bài tự nhập văn bản.
+                                <strong>14 bài luyện theo lộ trình:</strong> 5 bài bàn phím (hàng cơ sở, hàng trên, hàng dưới, ôn 3 hàng, hàng số), 4 bài Telex và 4 bài VNI (dấu, từ ngắn, ca dao tục ngữ, câu) và 1 bài tự nhập văn bản.
                             </li>
                             <li style={{ fontSize: '14px', color: 'var(--text-muted)', display: 'flex', gap: '10px' }}>
                                 <span style={{ color: 'var(--primary-color)' }}>✓</span>
@@ -393,9 +393,14 @@ const getModeDescription = (id: string): string => {
         case 'basic_bottom': return "Luyện tập hàng phím dưới cùng với Z, X, C, V, B, N, M, phẩy và chấm.";
         case 'vietnamese_telex': return "Tập gõ dấu Tiếng Việt theo kiểu Telex: s (sắc), f (huyền), r (hỏi), x (ngã), j (nặng).";
         case 'vietnamese_vni': return "Tập gõ dấu Tiếng Việt theo kiểu VNI: 1 (sắc), 2 (huyền), 3 (hỏi), 4 (ngã), 5 (nặng)...";
-        case 'vietnamese_words': return "Gõ các từ vựng và cụm từ tiếng Việt thông dụng có ý nghĩa (Telex).";
-        case 'vietnamese_words_vni': return "Gõ các từ vựng và cụm từ tiếng Việt thông dụng có ý nghĩa (VNI).";
-        case 'sentences': return "Thử thách với các câu danh ngôn và thành ngữ tiếng Việt trọn vẹn.";
+        case 'basic_review': return "Gõ từ và câu không dấu dùng cả 3 hàng phím, có chữ hoa (giữ Shift) và dấu câu.";
+        case 'basic_numbers': return "Làm quen hàng phím số 1–0, cần cho kiểu gõ VNI.";
+        case 'vietnamese_short_words': return "Gõ từ ngắn có dấu quen thuộc với bé: gia đình, trường lớp, màu sắc (Telex).";
+        case 'vietnamese_short_words_vni': return "Gõ từ ngắn có dấu quen thuộc với bé: gia đình, trường lớp, màu sắc (VNI).";
+        case 'vietnamese_words': return "Gõ ca dao, tục ngữ quen thuộc (Telex).";
+        case 'vietnamese_words_vni': return "Gõ ca dao, tục ngữ quen thuộc (VNI).";
+        case 'sentences': return "Gõ câu hoàn chỉnh có chữ hoa và dấu câu về trường lớp, gia đình (Telex).";
+        case 'sentences_vni': return "Gõ câu hoàn chỉnh có chữ hoa và dấu câu về trường lớp, gia đình (VNI).";
         case 'custom': return "Tự nhập văn bản của bạn để luyện tập.";
         default: return "Bài tập luyện gõ phím.";
     }

@@ -48,7 +48,7 @@ const pageSchemas = buildGuideSchemas({
     headline: 'Tập gõ 10 ngón cho bé: lộ trình 4 tuần tại nhà',
     description: 'Cho bé tập gõ 10 ngón tiếng Việt tại nhà: mấy tuổi bắt đầu, 10 phút mỗi ngày, lộ trình 4 tuần từ hàng phím cơ sở đến gõ dấu Telex/VNI, kèm bài tập miễn phí.',
     datePublished: '2026-09-08',
-    dateModified: '2026-09-08',
+    dateModified: '2026-09-27',
 });
 
 const KidsRoadmap: React.FC = () => {
@@ -149,7 +149,7 @@ const KidsRoadmap: React.FC = () => {
                                     <td style={cellStyle}>3</td>
                                     <td style={{ ...cellStyle, textAlign: 'left' }}>Hàng phím dưới, phím cách, chữ hoa</td>
                                     <td style={{ ...cellStyle, textAlign: 'left' }}>
-                                        <Link to="/?mode=basic_bottom" style={{ color: 'var(--primary-color)', fontWeight: 600 }}>Cơ bản: Hàng phím dưới</Link>
+                                        <Link to="/?mode=basic_bottom" style={{ color: 'var(--primary-color)', fontWeight: 600 }}>Cơ bản: Hàng phím dưới</Link>, rồi <Link to="/?mode=basic_review" style={{ color: 'var(--primary-color)', fontWeight: 600 }}>Cơ bản: Ôn cả 3 hàng</Link>
                                     </td>
                                     <td style={{ ...cellStyle, textAlign: 'left' }}>gõ được câu ngắn không dấu</td>
                                 </tr>
@@ -157,7 +157,7 @@ const KidsRoadmap: React.FC = () => {
                                     <td style={cellStyle}>4</td>
                                     <td style={{ ...cellStyle, textAlign: 'left' }}>Dấu tiếng Việt: chọn Telex hoặc VNI</td>
                                     <td style={{ ...cellStyle, textAlign: 'left' }}>
-                                        <Link to="/?mode=vietnamese_telex" style={{ color: 'var(--primary-color)', fontWeight: 600 }}>Luyện dấu Telex</Link> hoặc <Link to="/?mode=vietnamese_vni" style={{ color: 'var(--primary-color)', fontWeight: 600 }}>Luyện dấu VNI</Link>
+                                        <Link to="/?mode=vietnamese_telex" style={{ color: 'var(--primary-color)', fontWeight: 600 }}>Luyện dấu Telex</Link> rồi <Link to="/?mode=vietnamese_short_words" style={{ color: 'var(--primary-color)', fontWeight: 600 }}>Từ ngắn có dấu (Telex)</Link>, hoặc <Link to="/?mode=vietnamese_vni" style={{ color: 'var(--primary-color)', fontWeight: 600 }}>Luyện dấu VNI</Link> rồi <Link to="/?mode=vietnamese_short_words_vni" style={{ color: 'var(--primary-color)', fontWeight: 600 }}>Từ ngắn có dấu (VNI)</Link>
                                     </td>
                                     <td style={{ ...cellStyle, textAlign: 'left' }}>gõ được tên bé và tên trường có dấu</td>
                                 </tr>

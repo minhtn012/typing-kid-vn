@@ -6,11 +6,11 @@
 export const HOME_FAQS: { q: string; a: string }[] = [
     {
         q: 'Typing Kid VN là gì?',
-        a: 'Typing Kid VN (type.scala.vn) là trang web luyện gõ 10 ngón tiếng Việt miễn phí cho trẻ em và người mới bắt đầu. Trang chạy ngay trên trình duyệt máy tính, không cần cài đặt hay tạo tài khoản. Có 9 bài luyện đi từ hàng phím cơ sở đến gõ câu có dấu theo kiểu Telex và VNI, kèm 1 mini game.',
+        a: 'Typing Kid VN (type.scala.vn) là trang web luyện gõ 10 ngón tiếng Việt miễn phí cho trẻ em và người mới bắt đầu. Trang chạy ngay trên trình duyệt máy tính, không cần cài đặt hay tạo tài khoản. Có 14 bài luyện đi từ hàng phím cơ sở đến gõ câu có dấu theo kiểu Telex và VNI, kèm 1 mini game.',
     },
     {
         q: 'Làm thế nào để gõ 10 ngón tiếng Việt nhanh nhất?',
-        a: 'Đặt tay đúng trên hàng phím cơ sở (ASDF - JKL;), tập gõ không nhìn bàn phím và luyện đều mỗi ngày 10–15 phút. Trên Typing Kid VN, bạn đi lần lượt 3 bài hàng phím rồi mới sang bài gõ dấu Telex hoặc VNI.',
+        a: 'Đặt tay đúng trên hàng phím cơ sở (ASDF - JKL;), tập gõ không nhìn bàn phím và luyện đều mỗi ngày 10–15 phút. Trên Typing Kid VN, bạn đi lần lượt các bài hàng phím (cơ sở, trên, dưới, ôn cả 3 hàng) rồi mới sang bài gõ dấu Telex hoặc VNI.',
     },
     {
         q: 'Học gõ 10 ngón tiếng Việt có khó không?',

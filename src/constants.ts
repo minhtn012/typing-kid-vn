@@ -201,7 +201,7 @@ export const LESSON_MODES = [
       "q w e r u i o p",
       "q w e r t y u i o p",
       "qa ws ed rf uj ik ol p;",
-      "que ruoi to piques",
+      "tre que tai pha tra",
       "qwerty uiop",
     ]
   },
@@ -214,6 +214,32 @@ export const LESSON_MODES = [
       "z x c v b n m , . /",
       "za xs cd vf mj ,k .l /;",
       "zxcv bnm,./",
+      "ba ma ca na va xa ban",
+    ]
+  },
+  {
+    id: 'basic_review',
+    name: 'Cơ bản: Ôn cả 3 hàng',
+    inputMethod: 'basic',
+    text: [
+      "em di hoc",
+      "me mua cho em cai but moi",
+      "ban lan ngoi canh em",
+      "Em yeu truong em.",
+      "Hom nay, em tap go ca ba hang phim.",
+    ]
+  },
+  {
+    id: 'basic_numbers',
+    name: 'Cơ bản: Hàng phím số',
+    inputMethod: 'basic',
+    text: [
+      "1 2 3 4 5 6 7 8 9 0",
+      "1a 2s 3d 4f 5f 6j 7j 8k 9l 0;",
+      "12 34 56 78 90",
+      "em hoc lop 3",
+      "lop em co 35 ban",
+      "nam 2026 em tron 8 tuoi",
     ]
   },
   {
@@ -257,8 +283,38 @@ export const LESSON_MODES = [
     ]
   },
   {
+    id: 'vietnamese_short_words',
+    name: 'Từ ngắn có dấu (Telex)',
+    inputMethod: 'telex',
+    text: [
+      "bà mẹ cô bé",
+      "cá gà mèo chó",
+      "bàn ghế bút thước",
+      "cô giáo lớp học",
+      "trường học người bạn",
+      "nước mưa vườn rau",
+      "đỏ vàng xanh tím",
+      "ông bà bố mẹ",
+    ]
+  },
+  {
+    id: 'vietnamese_short_words_vni',
+    name: 'Từ ngắn có dấu (VNI)',
+    inputMethod: 'vni',
+    text: [
+      "bà mẹ cô bé",
+      "cá gà mèo chó",
+      "bàn ghế bút thước",
+      "cô giáo lớp học",
+      "trường học người bạn",
+      "nước mưa vườn rau",
+      "đỏ vàng xanh tím",
+      "ông bà bố mẹ",
+    ]
+  },
+  {
     id: 'vietnamese_words',
-    name: 'Từ vựng Tiếng Việt (Telex)',
+    name: 'Ca dao, tục ngữ (Telex)',
     inputMethod: 'telex',
     text: [
       "con cò bé bé nó đậu cành tre",
@@ -271,7 +327,7 @@ export const LESSON_MODES = [
   },
   {
     id: 'vietnamese_words_vni',
-    name: 'Từ vựng Tiếng Việt (VNI)',
+    name: 'Ca dao, tục ngữ (VNI)',
     inputMethod: 'vni',
     text: [
       "con cò bé bé nó đậu cành tre",
@@ -284,15 +340,28 @@ export const LESSON_MODES = [
   },
   {
     id: 'sentences',
-    name: 'Câu danh ngôn',
+    name: 'Câu có dấu (Telex)',
     inputMethod: 'telex',
     text: [
-      "Chúc các bạn luyện gõ mười ngón thật tốt và hiệu quả.",
-      "Học đi đôi với hành, luyện tập hàng ngày sẽ giúp bạn tiến bộ.",
-      "Tiếng Việt là ngôn ngữ giàu và đẹp, hãy gõ thật chính xác.",
-      "Công nghệ giúp cuộc sống trở nên dễ dàng và thuận tiện hơn.",
-      "Hãy kiên trì, thành công sẽ đến với những người nỗ lực không ngừng.",
-      "Tôi yêu Việt Nam",
+      "Em là học sinh lớp Ba.",
+      "Mẹ đưa em đến trường mỗi sáng.",
+      "Cô giáo dạy chúng em đọc và viết.",
+      "Giờ ra chơi, chúng em chơi nhảy dây.",
+      "Chú mèo nhà em thích nằm sưởi nắng.",
+      "Em yêu Việt Nam.",
+    ],
+  },
+  {
+    id: 'sentences_vni',
+    name: 'Câu có dấu (VNI)',
+    inputMethod: 'vni',
+    text: [
+      "Em là học sinh lớp Ba.",
+      "Mẹ đưa em đến trường mỗi sáng.",
+      "Cô giáo dạy chúng em đọc và viết.",
+      "Giờ ra chơi, chúng em chơi nhảy dây.",
+      "Chú mèo nhà em thích nằm sưởi nắng.",
+      "Em yêu Việt Nam.",
     ],
   },
   {
@@ -309,7 +378,8 @@ export const LESSON_MODES = [
       "một ngày đẹp trời, totoro nhỏ đang dạo chơi trong rừng thì gặp mie.",
       "mie muốn bắt totoro nhỏ để chơi cùng, nhưng totoro sợ quá chạy mất.",
       "chạy nhanh đi totoro ơi, mie sắp đuổi kịp rồi đó!",
-      "cố lên nào các bạn nhỏ, gõ thật nhanh để cứu totoro nhé."
+      "cố lên nào các bạn nhỏ, gõ thật nhanh để cứu totoro nhé.",
+      "totoro nhỏ đang chạy trốn khỏi mie nhưng mie chạy rất nhanh bạn phải gõ thật nhanh"
     ]
   }
 ];
