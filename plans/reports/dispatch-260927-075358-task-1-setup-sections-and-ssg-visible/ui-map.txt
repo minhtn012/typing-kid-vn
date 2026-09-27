@@ -1,0 +1,11 @@
+Router/menu/permission files in the diff:
+(none)
+
+Screen files in the diff (edit the 'Paths and traps' section by hand if the flow changed):
+src/pages/FjRidgeGuide.tsx
+src/pages/KidsRoadmap.tsx
+src/pages/PostureGuide.tsx
+src/pages/TelexGuide.tsx
+src/pages/TelexTable.tsx
+src/pages/VniGuide.tsx
+src/pages/VniTable.tsx

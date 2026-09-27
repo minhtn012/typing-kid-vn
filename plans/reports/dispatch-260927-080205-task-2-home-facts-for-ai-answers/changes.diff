@@ -1,0 +1,146 @@
+diff --git a/src/components/HomePage.tsx b/src/components/HomePage.tsx
+index bce11e4..ce31ab3 100644
+--- a/src/components/HomePage.tsx
++++ b/src/components/HomePage.tsx
+@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
+ import { Keyboard as KeyboardIcon, BookOpen, ChevronRight, Focus } from 'lucide-react';
+ import { Link } from 'react-router-dom';
+ import { LESSON_MODES } from '../constants';
++import { HOME_FAQS } from './home-faq';
+ 
+ interface HomePageProps {
+     onSelectMode: (modeId: string) => void;
+@@ -315,36 +316,48 @@ const HomePage: React.FC<HomePageProps> = ({ onSelectMode, initialTabId }) => {
+                     <section>
+                         <h2 style={{ fontSize: '24px', fontWeight: 'bold', color: 'var(--text-main)', marginBottom: '30px' }}>Câu hỏi thường gặp</h2>
+                         <div style={{ display: 'flex', flexDirection: 'column', gap: '25px' }}>
+-                            <div>
+-                                <h3 style={{ fontSize: '16px', fontWeight: '600', color: 'var(--primary-color)', marginBottom: '10px' }}>Làm thế nào để gõ 10 ngón tiếng việt nhanh nhất?</h3>
+-                                <p style={{ fontSize: '14px', color: 'var(--text-muted)', lineHeight: '1.6' }}>
+-                                    Bạn cần luyện tập đặt tay đúng vị trí trên hàng phím cơ sở (ASDF - JKL;), gõ không nhìn bàn phím và sử dụng Typing Kid VN đều đặn mỗi ngày.
+-                                </p>
+-                            </div>
+-                            <div>
+-                                <h3 style={{ fontSize: '16px', fontWeight: '600', color: 'var(--primary-color)', marginBottom: '10px' }}>Nên dùng kiểu gõ Telex hay VNI?</h3>
+-                                <p style={{ fontSize: '14px', color: 'var(--text-muted)', lineHeight: '1.6' }}>
+-                                    Telex phổ biến hơn và giúp gõ nhanh hơn trên các thiết bị hiện đại. VNI phù hợp nếu bạn đã quen với việc sử dụng hàng phím số để gõ dấu.
+-                                </p>
+-                            </div>
++                            {HOME_FAQS.map((f) => (
++                                <div key={f.q}>
++                                    <h3 style={{ fontSize: '16px', fontWeight: '600', color: 'var(--primary-color)', marginBottom: '10px' }}>{f.q}</h3>
++                                    <p style={{ fontSize: '14px', color: 'var(--text-muted)', lineHeight: '1.6' }}>
++                                        {f.a}
++                                    </p>
++                                </div>
++                            ))}
+                         </div>
+                     </section>
+ 
+-                    {/* Why Us Section */}
++                    {/* Dữ kiện cụ thể về sản phẩm */}
+                     <section>
+-                        <h2 style={{ fontSize: '24px', fontWeight: 'bold', color: 'var(--text-main)', marginBottom: '30px' }}>Tại sao chọn chúng tôi?</h2>
++                        <h2 style={{ fontSize: '24px', fontWeight: 'bold', color: 'var(--text-main)', marginBottom: '30px' }}>Typing Kid VN có gì?</h2>
+                         <ul style={{ padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '15px' }}>
+                             <li style={{ fontSize: '14px', color: 'var(--text-muted)', display: 'flex', gap: '10px' }}>
+                                 <span style={{ color: 'var(--primary-color)' }}>✓</span>
+-                                <strong>Hỗ trợ Tiếng Việt tuyệt đối:</strong> Tối ưu riêng cho bảng mã Telex và VNI, điều mà các trang quốc tế thường bỏ qua.
++                                <strong>Miễn phí, không cài đặt, không cần tài khoản:</strong> mở trình duyệt trên máy tính là luyện được; kết quả từng bài lưu ngay trên trình duyệt.
++                            </li>
++                            <li style={{ fontSize: '14px', color: 'var(--text-muted)', display: 'flex', gap: '10px' }}>
++                                <span style={{ color: 'var(--primary-color)' }}>✓</span>
++                                <strong>9 bài luyện theo lộ trình:</strong> 3 bài hàng phím (cơ sở, trên, dưới), 3 bài Telex (dấu, từ, câu), 2 bài VNI (dấu, từ) và 1 bài tự nhập văn bản.
++                            </li>
++                            <li style={{ fontSize: '14px', color: 'var(--text-muted)', display: 'flex', gap: '10px' }}>
++                                <span style={{ color: 'var(--primary-color)' }}>✓</span>
++                                <strong>Bàn phím và bàn tay chỉ đường:</strong> bàn phím ảo sáng phím cần gõ, hình bàn tay sáng ngón cần dùng.
++                            </li>
++                            <li style={{ fontSize: '14px', color: 'var(--text-muted)', display: 'flex', gap: '10px' }}>
++                                <span style={{ color: 'var(--primary-color)' }}>✓</span>
++                                <strong>Đo tiến bộ:</strong> mỗi bài tính tốc độ (WPM), độ chính xác và chấm 1–3 sao.
++                            </li>
++                            <li style={{ fontSize: '14px', color: 'var(--text-muted)', display: 'flex', gap: '10px' }}>
++                                <span style={{ color: 'var(--primary-color)' }}>✓</span>
++                                <strong>Gõ dấu linh hoạt:</strong> chấp nhận cả bỏ dấu ngay sau nguyên âm lẫn bỏ dấu cuối từ như Unikey.
+                             </li>
+                             <li style={{ fontSize: '14px', color: 'var(--text-muted)', display: 'flex', gap: '10px' }}>
+                                 <span style={{ color: 'var(--primary-color)' }}>✓</span>
+-                                <strong>Nội dung thuần Việt:</strong> Kho bài tập phong phú từ ca dao, tục ngữ đến các thành ngữ Tiếng Việt ý nghĩa.
++                                <strong>Mini game "Mie đuổi bắt":</strong> gõ đúng câu để giúp Totoro chạy thoát.
+                             </li>
+                             <li style={{ fontSize: '14px', color: 'var(--text-muted)', display: 'flex', gap: '10px' }}>
+                                 <span style={{ color: 'var(--primary-color)' }}>✓</span>
+-                                <strong>Giao diện thân thiện:</strong> Thiết kế hiện đại, giúp việc <strong>luyện gõ 10 ngón</strong> không còn nhàm chán.
++                                <strong>Giới hạn:</strong> chỉ luyện được trên máy tính có bàn phím; điện thoại dùng để đọc hướng dẫn.
+                             </li>
+                         </ul>
+                     </section>
+diff --git a/src/components/home-faq.ts b/src/components/home-faq.ts
+index 130f468..743f389 100644
+--- a/src/components/home-faq.ts
++++ b/src/components/home-faq.ts
+@@ -3,33 +3,38 @@
+  * bị lặp lên mọi route (guide có FAQPage riêng → 2 khối FAQPage/URL, Google cảnh báo).
+  * Đưa vào route "/" qua <JsonLd> để chỉ trang chủ có nó.
+  */
++export const HOME_FAQS: { q: string; a: string }[] = [
++    {
++        q: 'Typing Kid VN là gì?',
++        a: 'Typing Kid VN (type.scala.vn) là trang web luyện gõ 10 ngón tiếng Việt miễn phí cho trẻ em và người mới bắt đầu. Trang chạy ngay trên trình duyệt máy tính, không cần cài đặt hay tạo tài khoản. Có 9 bài luyện đi từ hàng phím cơ sở đến gõ câu có dấu theo kiểu Telex và VNI, kèm 1 mini game.',
++    },
++    {
++        q: 'Làm thế nào để gõ 10 ngón tiếng Việt nhanh nhất?',
++        a: 'Đặt tay đúng trên hàng phím cơ sở (ASDF - JKL;), tập gõ không nhìn bàn phím và luyện đều mỗi ngày 10–15 phút. Trên Typing Kid VN, bạn đi lần lượt 3 bài hàng phím rồi mới sang bài gõ dấu Telex hoặc VNI.',
++    },
++    {
++        q: 'Học gõ 10 ngón tiếng Việt có khó không?',
++        a: 'Không khó nếu đi đúng thứ tự: hàng phím cơ sở trước, rồi hàng trên, hàng dưới, cuối cùng mới gõ dấu. Trẻ từ 7–8 tuổi, khi đã đọc tốt, có thể bắt đầu với các bài hàng phím.',
++    },
++    {
++        q: 'Nên dùng kiểu gõ Telex hay VNI?',
++        a: 'Telex phổ biến hơn và gõ nhanh hơn vì dấu nằm trên phím chữ (s, f, r, x, j), tay không phải rời hàng phím chính. VNI bỏ dấu bằng phím số 1–5, hợp với người đã quen hàng phím số.',
++    },
++    {
++        q: 'Typing Kid VN có dùng được trên điện thoại không?',
++        a: 'Phần luyện gõ cần bàn phím thật nên chỉ dùng trên máy tính. Trên điện thoại, trang sẽ nhắc mở bằng máy tính; bạn vẫn đọc được các bài hướng dẫn Telex, VNI và bảng gõ in được.',
++    },
++];
++
+ export const HOME_FAQ: Record<string, unknown> = {
+     '@context': 'https://schema.org',
+     '@type': 'FAQPage',
+-    mainEntity: [
+-        {
+-            '@type': 'Question',
+-            name: 'Làm thế nào để gõ 10 ngón tiếng việt nhanh nhất?',
+-            acceptedAnswer: {
+-                '@type': 'Answer',
+-                text: 'Để gõ 10 ngón tiếng việt nhanh nhất, bạn cần luyện tập đặt tay đúng vị trí trên hàng phím cơ sở (ASDF - JKL;), gõ không nhìn bàn phím và sử dụng các phần mềm luyện tập như Typing Kid VN để làm quen với kiểu gõ Telex hoặc VNI.',
+-            },
++    mainEntity: HOME_FAQS.map((f) => ({
++        '@type': 'Question',
++        name: f.q,
++        acceptedAnswer: {
++            '@type': 'Answer',
++            text: f.a,
+         },
+-        {
+-            '@type': 'Question',
+-            name: 'Học gõ 10 ngón tiếng việt có khó không?',
+-            acceptedAnswer: {
+-                '@type': 'Answer',
+-                text: 'Hoàn toàn không khó nếu bạn luyện tập đúng phương pháp. Typing Kid VN cung cấp các bài học từ cơ bản đến nâng cao giúp bạn làm quen với từng hàng phím một cách tự nhiên và thú vị.',
+-            },
+-        },
+-        {
+-            '@type': 'Question',
+-            name: 'Nên dùng kiểu gõ Telex hay VNI?',
+-            acceptedAnswer: {
+-                '@type': 'Answer',
+-                text: 'Telex phổ biến hơn và giúp gõ nhanh hơn trên các thiết bị hiện đại vì không cần di chuyển tay lên hàng phím số. Tuy nhiên, VNI vẫn là lựa chọn tốt nếu bạn đã quen với việc gõ số.',
+-            },
+-        },
+-    ],
++    })),
+ };

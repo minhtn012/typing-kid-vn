@@ -1,0 +1,5 @@
+Router/menu/permission files in the diff:
+(none)
+
+Screen files in the diff (edit the 'Paths and traps' section by hand if the flow changed):
+src/components/HomePage.tsx
