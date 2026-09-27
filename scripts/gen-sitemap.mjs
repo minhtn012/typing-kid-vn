@@ -16,7 +16,7 @@ const OUT = 'dist/sitemap.xml';
 
 /** path → file nguồn quyết định nội dung trang (đổi file nào thì lastmod trang đó đổi) */
 const ROUTES = [
-    { path: '/', files: ['src/components/HomePage.tsx', 'src/components/HomeView.tsx', 'src/routes.tsx'] },
+    { path: '/', files: ['src/components/HomePage.tsx', 'src/components/HomeView.tsx', 'src/components/home-faq.ts', 'src/routes.tsx'] },
     { path: '/tu-the-go-phim', files: ['src/pages/PostureGuide.tsx'] },
     { path: '/huong-dan-telex', files: ['src/pages/TelexGuide.tsx'] },
     { path: '/huong-dan-vni', files: ['src/pages/VniGuide.tsx'] },
