@@ -44,7 +44,7 @@ const PracticeSession: React.FC<PracticeSessionProps> = ({ initialModeId, onBack
             ? TELEX_RULES
             : BASIC_RULES;
 
-    const { userInput, stats, isFinished, handleKeyDown, reset, currentIndex, currentKeyToPress, currentFinger, currentWordRange, currentWordDisplay } = useTyping(text, rules);
+    const { userInput, stats, isFinished, handleKeyDown, reset, currentIndex, currentKeyToPress, currentFinger, currentShift, currentShiftFinger, currentWordRange, currentWordDisplay } = useTyping(text, rules);
     const [pressedKey, setPressedKey] = useState<string | null>(null);
 
     // Reset when mode or lesson changes
@@ -236,10 +236,10 @@ const PracticeSession: React.FC<PracticeSessionProps> = ({ initialModeId, onBack
                         {/* Keyboard and Hands Layout - Centered Stack */}
                         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px', width: '100%' }}>
                             <div style={{ position: 'relative' }}>
-                                <Keyboard targetKey={currentKeyToPress} pressedKey={pressedKey} />
+                                <Keyboard targetKey={currentKeyToPress} shiftSide={currentShift} pressedKey={pressedKey} />
                             </div>
                             <div style={{ width: '100%', maxWidth: '800px' }}>
-                                <Hands activeFinger={currentFinger} />
+                                <Hands activeFinger={currentFinger} shiftFinger={currentShiftFinger} />
                             </div>
                         </div>
                     </>

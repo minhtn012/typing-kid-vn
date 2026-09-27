@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
-import { TELEX_RULES, FINGER_MAP } from '../constants';
+import { TELEX_RULES } from '../constants';
+import { keyHint } from '../utils/key-hint';
 import {
     buildWordVariants,
     composeDisplay,
@@ -154,13 +155,14 @@ export const useTyping = (text: string, rules: Record<string, string[]> = TELEX_
         setStats(INITIAL_STATS);
     }, [tokens]);
 
-    // Gợi ý phím kế tiếp theo biến thể word-end (Unikey); lowercase cho Keyboard/Hands.
-    const currentKeyToPress = isFinished
+    // Gợi ý phím kế tiếp theo biến thể word-end (Unikey); tách Shift khỏi chữ hoa/ký hiệu cho Keyboard/Hands.
+    const hint = keyHint(isFinished
         ? ''
         : currentCompleted
             ? ' '
-            : nextExpectedKey(wordState, current.variants).toLowerCase();
-    const currentFinger = FINGER_MAP[currentKeyToPress] || null;
+            : nextExpectedKey(wordState, current.variants));
+    const currentKeyToPress = hint.key;
+    const currentFinger = hint.finger;
 
     return {
         userInput,
@@ -171,6 +173,8 @@ export const useTyping = (text: string, rules: Record<string, string[]> = TELEX_
         currentIndex: userInput.length,
         currentKeyToPress,
         currentFinger,
+        currentShift: hint.shift,
+        currentShiftFinger: hint.shiftFinger,
         // Vùng ký tự của từ đang gõ trong text + text tạm để TypingArea render.
         currentWordRange: isFinished ? null : { start: current.start, end: current.start + current.word.length },
         currentWordDisplay,

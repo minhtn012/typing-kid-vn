@@ -4,9 +4,11 @@ import { FINGER_LABELS, FINGER_COLORS } from '../constants';
 
 interface HandsProps {
     activeFinger: number | null;
+    /** Ngón út giữ Shift (chữ hoa, ký hiệu); sáng cùng lúc với activeFinger. */
+    shiftFinger?: number | null;
 }
 
-const Hands: React.FC<HandsProps> = ({ activeFinger }) => {
+const Hands: React.FC<HandsProps> = ({ activeFinger, shiftFinger = null }) => {
     // Left hand: 1 (Pinky) -> 5 (Thumb)
     const leftHandFingers = [1, 2, 3, 4, 5];
     // Right hand: 6 (Thumb) -> 10 (Pinky)
@@ -16,7 +18,7 @@ const Hands: React.FC<HandsProps> = ({ activeFinger }) => {
         // Special case: Space key (mapped to 5) should highlight both thumbs (5 and 6)
         // or just highlight the one the user prefers? 
         // Let's highlight both to indicate "either thumb".
-        const isActive = activeFinger === finger || (activeFinger === 5 && finger === 6);
+        const isActive = activeFinger === finger || (activeFinger === 5 && finger === 6) || shiftFinger === finger;
         const color = FINGER_COLORS[finger];
 
         return (
@@ -80,23 +82,43 @@ const Hands: React.FC<HandsProps> = ({ activeFinger }) => {
             </div>
 
             {activeFinger ? (
-                <motion.div
-                    key={activeFinger}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    style={{
-                        padding: '12px 24px',
-                        borderRadius: '30px',
-                        background: FINGER_COLORS[activeFinger],
-                        color: 'white',
-                        fontWeight: 'bold',
-                        fontSize: '16px',
-                        boxShadow: `0 10px 20px -5px ${FINGER_COLORS[activeFinger]}`,
-                        textShadow: '0 1px 2px rgba(0,0,0,0.2)'
-                    }}
-                >
-                    {FINGER_LABELS[activeFinger]}
-                </motion.div>
+                <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', justifyContent: 'center' }}>
+                    {shiftFinger ? (
+                        <motion.div
+                            key={`shift-${shiftFinger}`}
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            style={{
+                                padding: '12px 24px',
+                                borderRadius: '30px',
+                                background: FINGER_COLORS[shiftFinger],
+                                color: 'white',
+                                fontWeight: 'bold',
+                                fontSize: '16px',
+                                textShadow: '0 1px 2px rgba(0,0,0,0.2)'
+                            }}
+                        >
+                            {FINGER_LABELS[shiftFinger]} giữ Shift
+                        </motion.div>
+                    ) : null}
+                    <motion.div
+                        key={activeFinger}
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        style={{
+                            padding: '12px 24px',
+                            borderRadius: '30px',
+                            background: FINGER_COLORS[activeFinger],
+                            color: 'white',
+                            fontWeight: 'bold',
+                            fontSize: '16px',
+                            boxShadow: `0 10px 20px -5px ${FINGER_COLORS[activeFinger]}`,
+                            textShadow: '0 1px 2px rgba(0,0,0,0.2)'
+                        }}
+                    >
+                        {FINGER_LABELS[activeFinger]}
+                    </motion.div>
+                </div>
             ) : (
                 <div style={{ height: '48px', visibility: 'hidden' }}>Placeholder</div>
             )}

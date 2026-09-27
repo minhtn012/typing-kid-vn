@@ -12,10 +12,12 @@ const ROWS = [
 
 interface KeyboardProps {
     targetKey: string;
+    /** Shift cần giữ cùng targetKey (chữ hoa, ký hiệu); null khi không cần. */
+    shiftSide?: 'left' | 'right' | null;
     pressedKey: string | null;
 }
 
-const Keyboard: React.FC<KeyboardProps> = ({ targetKey, pressedKey }) => {
+const Keyboard: React.FC<KeyboardProps> = ({ targetKey, shiftSide = null, pressedKey }) => {
     const normalizedTarget = targetKey.toLowerCase();
     const normalizedPressed = pressedKey?.toLowerCase();
 
@@ -25,8 +27,10 @@ const Keyboard: React.FC<KeyboardProps> = ({ targetKey, pressedKey }) => {
                 <div key={i} style={{ display: 'flex', justifyContent: 'center', gap: '8px', marginBottom: '8px' }}>
                     {row.map((key) => {
                         const lowKey = key.toLowerCase();
-                        const fingerId = FINGER_MAP[lowKey] || (key === 'Space' ? 5 : null);
-                        const isHighlighted = lowKey === normalizedTarget || (key === 'Space' && (normalizedTarget === ' ' || normalizedTarget === 'space'));
+                        // 'Shift ' (có dấu cách) là Shift phải: tra FINGER_MAP bằng 'shift-right'.
+                        const fingerId = FINGER_MAP[key === 'Shift ' ? 'shift-right' : lowKey] || (key === 'Space' ? 5 : null);
+                        const isShiftTarget = (key === 'Shift' && shiftSide === 'left') || (key === 'Shift ' && shiftSide === 'right');
+                        const isHighlighted = isShiftTarget || lowKey === normalizedTarget || (key === 'Space' && (normalizedTarget === ' ' || normalizedTarget === 'space'));
                         const isPressed = normalizedPressed === lowKey || (key === 'Space' && normalizedPressed === ' ');
 
                         let width = '48px';
