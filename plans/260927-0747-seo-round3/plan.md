@@ -34,4 +34,5 @@
 | 2 | Request Indexing 3 URL mới trong GSC UI; Rich Results Test 2 guide | user | chờ |
 | 3 | Off-page: sửa post đầu thread VOZ, đăng bảng gõ ở nhóm phụ huynh (link về `/bang-go-telex`, `/tap-go-10-ngon-cho-be`) | user | chờ (còn từ phase 05 đợt 2) |
 | 4 | Đo lại D+14 sau deploy (~11/10): `--inspect` 8 URL, `--top-pages -d 28` | coordinator | chờ |
-| 5 | Trang `/phan-mem-go-10-ngon-cho-tre-em` (phase 06A đợt 2) | agy | chỉ làm khi task 2 cho kết quả indexed |
+| 5 | Trang `/phan-mem-go-10-ngon-cho-tre-em` (phase 06A đợt 2) | — | hủy 27/09 theo quyết định của user |
+| 6 | Trang `/tap-go-ban-phim-lop-3`: bài SGK Tin học 3 (Kết nối tri thức Bài 5, Cánh diều A3 Bài 1–3, Chân trời sáng tạo Bài 5) → bài luyện; nhắm cụm "tập gõ bàn phím lớp 3", "em tập gõ hàng phím cơ sở" (ít đối thủ công cụ, SERP toàn trang giải bài tập) | coordinator | xong 27/09; user chọn làm dù non-goal "không thêm trang mới" |

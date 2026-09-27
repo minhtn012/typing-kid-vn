@@ -24,6 +24,7 @@ const ROUTES = [
     { path: '/bang-go-telex', files: ['src/pages/TelexTable.tsx'] },
     { path: '/bang-go-vni', files: ['src/pages/VniTable.tsx'] },
     { path: '/tap-go-10-ngon-cho-be', files: ['src/pages/KidsRoadmap.tsx'] },
+    { path: '/tap-go-ban-phim-lop-3', files: ['src/pages/Grade3Keyboard.tsx'] },
 ];
 
 const today = new Date().toISOString().slice(0, 10);

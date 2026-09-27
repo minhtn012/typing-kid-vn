@@ -72,6 +72,7 @@ const HomePage: React.FC<HomePageProps> = ({ onSelectMode, initialTabId }) => {
                     <Link to="/huong-dan-vni" className="tap-target" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '14px', fontWeight: '500', transition: 'color 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.color = 'var(--primary-color)'} onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-muted)'}>Cách gõ VNI</Link>
                     <Link to="/bi-mat-phim-f-j" className="tap-target" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '14px', fontWeight: '500', transition: 'color 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.color = 'var(--primary-color)'} onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-muted)'}>Phím F và J</Link>
                     <Link to="/tap-go-10-ngon-cho-be" className="tap-target" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '14px', fontWeight: '500', transition: 'color 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.color = 'var(--primary-color)'} onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-muted)'}>Tập gõ cho bé</Link>
+                    <Link to="/tap-go-ban-phim-lop-3" className="tap-target" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '14px', fontWeight: '500', transition: 'color 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.color = 'var(--primary-color)'} onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-muted)'}>Tin học lớp 3</Link>
                 </nav>
                 <h1 style={{ fontSize: '16px', fontWeight: '700', color: 'var(--primary-color)', margin: '0 0 12px', letterSpacing: '0.01em' }}>Luyện gõ 10 ngón tiếng Việt - Phần mềm gõ mười ngón miễn phí</h1>
                 <div style={{ fontSize: '48px', fontWeight: '800', letterSpacing: '-0.03em', background: 'linear-gradient(to right, #fff, #8b949e)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', marginBottom: '10px' }}>
@@ -285,6 +286,20 @@ const HomePage: React.FC<HomePageProps> = ({ onSelectMode, initialTabId }) => {
                             <div>
                                 <h3 style={{ fontSize: '16px', fontWeight: 'bold', color: 'var(--text-main)', marginBottom: '4px' }}>7. Tập gõ 10 ngón cho bé</h3>
                                 <p style={{ fontSize: '13px', color: 'var(--text-muted)' }}>Lộ trình 4 tuần tại nhà, mỗi ngày 10 phút, dành cho phụ huynh.</p>
+                            </div>
+                        </div>
+                        <ChevronRight size={20} color="var(--text-muted)" />
+                    </Link>
+
+                    {/* Part 8: Tập gõ bàn phím Tin học lớp 3 */}
+                    <Link to="/tap-go-ban-phim-lop-3" className="glass" style={{ padding: '20px 30px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', textDecoration: 'none', transition: 'transform 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.transform = 'translateX(10px)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'translateX(0)'}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+                            <div style={{ background: 'rgba(88, 166, 255, 0.1)', padding: '10px', borderRadius: '12px' }}>
+                                <BookOpen size={20} color="var(--primary-color)" />
+                            </div>
+                            <div>
+                                <h3 style={{ fontSize: '16px', fontWeight: 'bold', color: 'var(--text-main)', marginBottom: '4px' }}>8. Tập gõ bàn phím Tin học lớp 3</h3>
+                                <p style={{ fontSize: '13px', color: 'var(--text-muted)' }}>Bài SGK Kết nối tri thức, Cánh diều, Chân trời sáng tạo và bài luyện online tương ứng.</p>
                             </div>
                         </div>
                         <ChevronRight size={20} color="var(--text-muted)" />
